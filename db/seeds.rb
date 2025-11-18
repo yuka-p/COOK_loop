@@ -1,9 +1,9 @@
 # --- 初期ジャンル ---
-DEFAULT_GENRES = ["主菜", "副菜", "汁物", "主食"]
+DEFAULT_GENRES = [ "主菜", "副菜", "汁物", "主食" ]
 
 # --- マスターメニュー（全ユーザー共通） ---
 master_menus = [
-# 主菜
+  # 主菜
   { title: "鶏の唐揚げ", genre: "主菜" },
   { title: "豚の生姜焼き", genre: "主菜" },
   { title: "ハンバーグ", genre: "主菜" },
@@ -60,7 +60,7 @@ master_menus = [
   { title: "お好み焼き", genre: "主食" },
   { title: "チャーハン", genre: "主食" },
   { title: "カレーライス", genre: "主食" },
-  { title: "焼きそば", genre: "主食" },
+  { title: "焼きそば", genre: "主食" }
 ]
 
 master_menus.each do |menu|

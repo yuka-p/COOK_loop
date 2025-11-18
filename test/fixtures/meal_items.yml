@@ -3,13 +3,11 @@
 one:
   meal_plan: one
   my_menu: one
-  master_menu: one
   cooked: false
   cooked_at: 2025-11-17 13:22:24
 
 two:
   meal_plan: two
   my_menu: two
-  master_menu: two
   cooked: false
   cooked_at: 2025-11-17 13:22:24

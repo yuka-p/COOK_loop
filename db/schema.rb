@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_17_054112) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_18_052453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_17_054112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "master_menu_id"
+    t.bigint "genre_id"
+    t.index ["genre_id"], name: "index_my_menus_on_genre_id"
     t.index ["master_menu_id"], name: "index_my_menus_on_master_menu_id"
     t.index ["user_id"], name: "index_my_menus_on_user_id"
   end
@@ -61,6 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_17_054112) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["user_id", "name"], name: "index_user_genres_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_user_genres_on_user_id"
   end

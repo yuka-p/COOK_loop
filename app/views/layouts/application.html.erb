@@ -13,13 +13,68 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+  <body class="bg-base-200 min-h-screen">
+
+    <!-- Header -->
+    <header class="navbar bg-base-100 shadow-md px-4">
+      <div class="flex-none">
+        <div class="dropdown">
+          <label tabindex="0" class="btn btn-ghost btn-circle">
+            <!-- Hamburger Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                 class="inline-block w-6 h-6 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </label>
+
+          <ul tabindex="0"
+              class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+
+            <li>利用規約</li>
+            <li>設定</li>
+
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to "ログアウト",
+                            destroy_user_session_path,
+                            method: :delete,
+                            data: { confirm: "ログアウトしますか？" } %>
+              </li>
+            <% else %>
+              <li><%= link_to "ログイン", new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex-1">
+        <%= link_to "COOK loop", root_path, class: "btn btn-ghost normal-case text-xl" %>
+      </div>
+    </header>
+
+    <!-- Flash messages -->
+    <% if notice.present? %>
+      <div class="alert alert-success shadow-lg max-w-xl mx-auto mt-4">
+        <span><%= notice %></span>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div class="alert alert-error shadow-lg max-w-xl mx-auto mt-4">
+        <span><%= alert %></span>
+      </div>
+    <% end %>
+
+    <!-- Main content -->
+    <main class="p-4">
+      <%= yield %>
+    </main>
+
   </body>
 </html>

@@ -1,12 +1,42 @@
-<div class="container mt-5">
-  <h1>ホーム</h1>
+<div class="max-w-xl mx-auto mt-10">
+  <div class="text-center mb-8">
+    <h1 class="text-3xl font-bold">ホーム</h1>
+    <p class="text-lg mt-2">ようこそ！</p>
+  </div>
 
-  <p>ようこそ！</p>
+  <div class="grid gap-4">
 
-  <ul>
-    <li><%= link_to "マイメニュー一覧を見る", my_menus_path %></li>
-    <li><%= link_to "定番メニューから登録する", master_menus_path %></li>
-    <li><%= link_to "一週間献立を見る", "#" %></li>
-    <li><%= link_to "買い物リストを見る", "#" %></li>
-  </ul>
+    <%= link_to my_menus_path,
+      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
+      <div class="flex items-center gap-3">
+        <div class="badge badge-primary p-3 text-white">📘</div>
+        <span class="text-lg font-semibold">マイメニュー一覧を見る</span>
+      </div>
+    <% end %>
+
+    <%= link_to master_menus_path,
+      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
+      <div class="flex items-center gap-3">
+        <div class="badge badge-secondary p-3 text-white">🍳</div>
+        <span class="text-lg font-semibold">定番メニューから登録する</span>
+      </div>
+    <% end %>
+
+    <%= link_to "#",
+      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
+      <div class="flex items-center gap-3">
+        <div class="badge badge-accent p-3 text-white">📅</div>
+        <span class="text-lg font-semibold">一週間献立を見る</span>
+      </div>
+    <% end %>
+
+    <%= link_to "#",
+      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
+      <div class="flex items-center gap-3">
+        <div class="badge badge-info p-3 text-white">🛒</div>
+        <span class="text-lg font-semibold">買い物リストを見る</span>
+      </div>
+    <% end %>
+
+  </div>
 </div>

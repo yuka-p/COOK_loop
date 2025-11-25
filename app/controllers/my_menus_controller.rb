@@ -1,6 +1,6 @@
 class MyMenusController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_my_menu, only: [:show, :destroy]
+  before_action :set_my_menu, only: [ :show, :destroy ]
 
   def index
     @my_menus = current_user.my_menus.order(created_at: :desc)

@@ -15,6 +15,8 @@ class MyMenusControllerTest < ActionDispatch::IntegrationTest
     # マイメニューはユニークかつ15文字以内に
     unique_title = "テストメニュー#{SecureRandom.hex(2)}" # 最大15文字
     @my_menu = MyMenu.create!(title: unique_title, user: @user, genre: @genre)
+
+    sign_in @user
   end
 
   test "should get index" do

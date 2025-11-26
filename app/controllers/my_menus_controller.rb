@@ -44,8 +44,14 @@ class MyMenusController < ApplicationController
   end
 
   def my_menu_params
-    params.require(:my_menu).permit(:title, :genre_id, :master_menu_id)
+    params.require(:my_menu).permit(
+      :title,
+      :genre_id,
+      :master_menu_id,
+      :ingredients,
+      :note,
+      :reference_url,
+      :last_cooked_at
+    )
   end
-
-  # create, update, destroy も必要に応じて追加
 end

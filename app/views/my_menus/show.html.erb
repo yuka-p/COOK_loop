@@ -1,19 +1,58 @@
 <div class="max-w-2xl mx-auto mt-8">
 
-  <h1 class="text-3xl font-bold mb-4"><%= @my_menu.title %></h1>
+  <!-- ページタイトル -->
+  <h1 class="text-3xl font-bold mb-6"><%= @my_menu.title %></h1>
 
-  <!-- 材料（meal_items）があれば表示 -->
-  <% if @my_menu.meal_items.any? %>
-    <h2 class="text-xl font-semibold mb-2">材料</h2>
-    <ul class="list-disc ml-6 mb-6">
-      <% @my_menu.meal_items.each do |item| %>
-        <li><%= item.name %></li>
-      <% end %>
-    </ul>
+  <!-- ジャンル -->
+  <p class="mb-2">
+    <span class="font-semibold">ジャンル:</span>
+    <%= @my_menu.genre.name %>
+  </p>
+
+  <!-- 材料 -->
+  <% if @my_menu.ingredients.present? %>
+    <p class="mb-2">
+      <span class="font-semibold">材料:</span>
+      <%= simple_format(@my_menu.ingredients) %>
+    </p>
   <% end %>
 
+  <!-- 定番メニュー -->
+  <% if @my_menu.master_menu.present? %>
+    <p class="mb-2">
+      <span class="font-semibold">定番メニュー:</span>
+      <%= @my_menu.master_menu.title %> 
+      (<%= @my_menu.master_menu.genre_i18n %>)
+    </p>
+  <% end %>
+
+  <!-- 参考URL -->
+  <% if @my_menu.reference_url.present? %>
+    <p class="mb-2">
+      <span class="font-semibold">参考URL:</span>
+      <%= link_to @my_menu.reference_url, @my_menu.reference_url, target: "_blank", rel: "noopener" %>
+    </p>
+  <% end %>
+
+  <!-- メモ -->
+  <% if @my_menu.note.present? %>
+    <p class="mb-2">
+      <span class="font-semibold">メモ:</span>
+      <%= simple_format(@my_menu.note) %>
+    </p>
+  <% end %>
+
+  <!-- 最終調理日 -->
+  <% if @my_menu.last_cooked_at.present? %>
+    <p class="mb-2">
+      <span class="font-semibold">最終調理日:</span>
+      <%= @my_menu.last_cooked_at.strftime("%Y/%m/%d") %>
+    </p>
+  <% end %>
+
+  <!-- アクションボタン -->
   <div class="mt-6 flex gap-4">
     <%= link_to "編集", edit_my_menu_path(@my_menu), class: "btn btn-primary" %>
-    <%= link_to "一覧へ戻る", my_menus_path, class: "btn" %>
+    <%= link_to "一覧へ戻る", my_menus_path, class: "btn btn-outline" %>
   </div>
 </div>

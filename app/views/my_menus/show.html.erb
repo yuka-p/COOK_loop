@@ -30,7 +30,13 @@
   <% if @my_menu.reference_url.present? %>
     <p class="mb-2">
       <span class="font-semibold">参考URL:</span>
-      <%= link_to @my_menu.reference_url, @my_menu.reference_url, target: "_blank", rel: "noopener" %>
+      <%# URL が http または https で始まる場合のみリンクを作成 %>
+      <% url = @my_menu.reference_url %>
+      <% if url =~ /\Ahttps?:\/\// %>
+        <%= link_to url, url, target: "_blank", rel: "noopener" %>
+      <% else %>
+        <%= h(url) %>  <%# リンクではなく文字列として表示 %>
+      <% end %>
     </p>
   <% end %>
 

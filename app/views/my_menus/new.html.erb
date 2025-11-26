@@ -12,12 +12,11 @@
       <%= f.text_field :title, class: "input input-bordered w-full" %>
     </div>
 
-    <!-- ジャンル（UserGenre より表示） -->
+    <!-- ジャンル -->
     <div class="form-control">
       <label class="label">
         <span class="label-text font-semibold">ジャンル</span>
       </label>
-
       <%= f.collection_select :genre_id,
             @user_genres,
             :id,
@@ -26,12 +25,43 @@
             { class: "select select-bordered w-full" } %>
     </div>
 
-    <!-- マスターメニューから選ぶ（任意） -->
+    <!-- 材料 -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">材料</span>
+      </label>
+      <%= f.text_area :ingredients, class: "textarea textarea-bordered w-full", rows: 3 %>
+    </div>
+
+    <!-- 参考URL -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">参考URL</span>
+      </label>
+      <%= f.url_field :reference_url, class: "input input-bordered w-full" %>
+    </div>
+
+    <!-- メモ -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">メモ</span>
+      </label>
+      <%= f.text_area :note, class: "textarea textarea-bordered w-full", rows: 3 %>
+    </div>
+
+    <!-- 最終調理日 -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">最終調理日</span>
+      </label>
+      <%= f.date_field :last_cooked_at, class: "input input-bordered w-full" %>
+    </div>
+
+    <!-- 定番メニュー (master_menus) -->
     <div class="form-control">
       <label class="label">
         <span class="label-text font-semibold">定番メニュー（任意）</span>
       </label>
-
       <%= f.collection_select :master_menu_id,
             @master_menus,
             :id,
@@ -40,7 +70,7 @@
             { class: "select select-bordered w-full" } %>
     </div>
 
-    <!-- 送信ボタン -->
+    <!-- 送信 -->
     <div class="mt-6">
       <%= f.submit "登録する", class: "btn btn-primary w-full" %>
     </div>

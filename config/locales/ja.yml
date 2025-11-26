@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    models:
+      master_menu: マスターメニュー
+      my_menu: マイメニュー
+      user_genre: ジャンル
+
+    attributes:
+      master_menu:
+        title: タイトル
+        genre: ジャンル
+        genre:
+          main: 主菜
+          side: 副菜
+          soup: 汁物
+          staple: 主食
+
+      my_menu:
+        title: 料理名
+        ingredients: 材料
+        reference_url: 参考URL
+        note: メモ
+        last_cooked_at: 最後に作った日
+
+      user_genre:
+        name: ジャンル名

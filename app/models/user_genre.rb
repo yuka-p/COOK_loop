@@ -6,5 +6,4 @@ class UserGenre < ApplicationRecord
   validates :name, uniqueness: { scope: :user_id, message: "はすでに作成済みです" }
 
   acts_as_list scope: :user
-
 end

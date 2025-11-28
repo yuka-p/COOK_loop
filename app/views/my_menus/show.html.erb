@@ -30,12 +30,15 @@
   <% if @my_menu.reference_url.present? %>
     <p class="mb-2">
       <span class="font-semibold">参考URL:</span>
-      <%# URL が http または https で始まる場合のみリンクを作成 %>
-      <% url = @my_menu.reference_url %>
-      <% if url =~ /\Ahttps?:\/\// %>
-        <%= link_to url, url, target: "_blank", rel: "noopener" %>
-      <% else %>
-        <%= h(url) %>  <%# リンクではなく文字列として表示 %>
+      <% begin %>
+        <% uri = URI.parse(@my_menu.reference_url) %>
+        <% if uri.scheme.in?(%w[http https]) %>
+          <%= link_to "参考URLを開く", uri.to_s, target: "_blank", rel: "noopener" %>
+        <% else %>
+          <%= h(@my_menu.reference_url) %>
+        <% end %>
+      <% rescue URI::InvalidURIError %>
+        <%= h(@my_menu.reference_url) %>
       <% end %>
     </p>
   <% end %>

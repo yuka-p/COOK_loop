@@ -54,7 +54,9 @@ class MyMenusController < ApplicationController
     master_menus.each do |m|
       current_user.my_menus.create!(
         title: m.title,
-        genre: m.genre # 文字列 "main" などを enum に渡せる
+        genre: m.genre,       # enum 対応
+        ingredients: m.ingredients,
+        master_menu_id: m.id
       )
     end
 
@@ -70,7 +72,7 @@ class MyMenusController < ApplicationController
   def my_menu_params
     params.require(:my_menu).permit(
       :title,
-      :genre_id,
+      :genre,
       :master_menu_id,
       :ingredients,
       :note,

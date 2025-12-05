@@ -3,6 +3,8 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+import GenreFilterController from "./genre_filter_controller"
+application.register("genre-filter", GenreFilterController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

@@ -35,7 +35,9 @@
                 class: "btn #{params[:genre] == 'staple' ? 'btn-primary' : 'btn-outline'}" %>
   </div>
 
-  <%= form_with url: import_from_master_my_menus_path, method: :post, data: { controller: "modal" } do |f| %>
+  <%= form_with url: import_from_master_my_menus_path,
+              method: :post,
+              data: { controller: "modal", turbo_frame: "_top" } do |f| %>
 
     <!-- 現在の選択を hidden で維持 -->
     <% selected_menu_ids.each do |id| %>

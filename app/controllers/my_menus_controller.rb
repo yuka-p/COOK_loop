@@ -47,11 +47,7 @@ class MyMenusController < ApplicationController
   def import_from_master
     menu_ids = params[:menu_ids] || []
     if menu_ids.empty?
-      render turbo_stream: turbo_stream.replace(
-        "modal",
-        partial: "my_menus/modal_alert",
-        locals: { message: "1つ以上選択してください" }
-      )
+      redirect_to master_menus_path, alert: "1つ以上選択してください"
       return
     end
 

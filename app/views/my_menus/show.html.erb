@@ -1,17 +1,23 @@
 <div class="max-w-2xl mx-auto mt-8">
-  <!-- カード全体 -->
+
   <div class="card shadow-lg bg-base-100 p-6">
-    <!-- ページタイトル -->
     <h1 class="text-3xl font-bold mb-4 text-center"><%= @my_menu.title %></h1>
 
     <div class="space-y-3">
-      <!-- ジャンル -->
       <div class="flex items-center gap-2">
         <span class="font-semibold">ジャンル:</span>
         <span class="badge badge-primary"><%= I18n.t("enums.my_menu.genre.#{@my_menu.genre}") %></span>
       </div>
 
-      <!-- 材料 -->
+      <% if @my_menu.tags.any? %>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="font-semibold">タグ:</span>
+          <% @my_menu.tags.each do |tag| %>
+            <span class="badge badge-outline"><%= tag.name %></span>
+          <% end %>
+        </div>
+      <% end %>
+
       <% if @my_menu.ingredients.present? %>
         <div>
           <span class="font-semibold">材料:</span>
@@ -21,7 +27,6 @@
         </div>
       <% end %>
 
-      <!-- 参考URL -->
       <% if @my_menu.reference_url.present? %>
         <div>
           <span class="font-semibold">参考URL:</span>
@@ -40,7 +45,6 @@
         </div>
       <% end %>
 
-      <!-- メモ -->
       <% if @my_menu.note.present? %>
         <div>
           <span class="font-semibold">メモ:</span>
@@ -50,7 +54,6 @@
         </div>
       <% end %>
 
-      <!-- 最終調理日 -->
       <% if @my_menu.last_cooked_at.present? %>
         <div class="flex items-center gap-2">
           <span class="font-semibold">最終調理日:</span>
@@ -59,7 +62,6 @@
       <% end %>
     </div>
 
-    <!-- アクションボタン -->
     <div class="mt-6 flex justify-center gap-4">
       <%= link_to "編集", edit_my_menu_path(@my_menu), class: "btn btn-primary" %>
       <%= link_to "一覧へ戻る", my_menus_path, class: "btn btn-outline" %>

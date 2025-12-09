@@ -29,10 +29,10 @@ class MyMenu < ApplicationRecord
   # ▼ 並び替え
   scope :sorted, ->(sort) {
     case sort
-    when "last_cooked_desc"
-      order(last_cooked_at: :desc)
     when "created_desc"
       order(created_at: :desc)
+    when "last_cooked_desc"
+      order(last_cooked_at: :desc)
     when "title_asc"
       order(title: :asc)
     else

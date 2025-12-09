@@ -5,7 +5,7 @@ class MyMenusController < ApplicationController
   def index
     @my_menus = current_user.my_menus.order(created_at: :desc)
     @genre = params[:genre]
-    @sort = params[:sort]
+    @sort  = params[:sort] || "created_desc" 
     @tags = Tag.all
 
     @my_menus =

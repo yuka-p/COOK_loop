@@ -4,6 +4,7 @@ ja:
       master_menu: マスターメニュー
       my_menu: マイメニュー
 
+    attributes:
       my_menu:
         title: 料理名
         ingredients: 材料

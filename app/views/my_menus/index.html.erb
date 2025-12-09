@@ -10,6 +10,41 @@
     <% end %>
   </div>
 
+<div class="flex gap-4 mb-4">
+
+  <!-- ▼ ジャンル絞り込み -->
+  <%= form_with url: my_menus_path, method: :get, local: true do |f| %>
+    <div class="form-control">
+      <label class="label">ジャンル</label>
+      <%= f.select :genre,
+                   options_for_select(MyMenu.genre_options, @genre),
+                   include_blank: "すべて" %>
+
+    </div>
+
+    <!-- ▼ ソート -->
+    <div class="form-control">
+      <label class="label">並び替え</label>
+      <%= f.select :sort,
+                   options_for_select(
+                     [
+                       ["最終調理日（新しい順）", "last_cooked_desc"],
+                       ["登録日（新しい順）", "created_desc"],
+                       ["メニュー名（50音順）", "title_asc"],
+                     ],
+                     @sort
+                   )
+      %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.submit "絞り込み", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>
+
+
 <div class="grid gap-4">
   <% @my_menus.each do |menu| %>
     <div class="card bg-base-100 shadow p-6 rounded-xl flex flex-row items-center justify-between mx-auto">

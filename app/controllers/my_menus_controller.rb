@@ -4,6 +4,13 @@ class MyMenusController < ApplicationController
 
   def index
     @my_menus = current_user.my_menus.order(created_at: :desc)
+    @genre = params[:genre]
+    @sort = params[:sort]
+  
+    @my_menus =
+    current_user.my_menus
+                .by_genre(@genre)
+                .sorted(@sort)
   end
 
   def show

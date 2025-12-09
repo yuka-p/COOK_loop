@@ -15,7 +15,7 @@ class MyMenu < ApplicationRecord
 
   def self.genre_options
     distinct.pluck(:genre).map do |g|
-      [I18n.t("enums.my_menu.genre.#{g}"), g]
+      [ I18n.t("enums.my_menu.genre.#{g}"), g ]
     end
   end
 

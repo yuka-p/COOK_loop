@@ -6,11 +6,18 @@ class MyMenusController < ApplicationController
     @my_menus = current_user.my_menus.order(created_at: :desc)
     @genre = params[:genre]
     @sort = params[:sort]
+    @tags = Tag.all
 
     @my_menus =
     current_user.my_menus
+                .includes(:tags)
                 .by_genre(@genre)
                 .sorted(@sort)
+
+    if params[:tag_id].present?
+      @my_menus = @my_menus.joins(:my_menu_tags)
+                           .where(my_menu_tags: { tag_id: params[:tag_id] })
+    end
   end
 
   def show
@@ -95,6 +102,7 @@ class MyMenusController < ApplicationController
       :master_menu_id,
       :ingredients,
       :note,
+      :tag_names,
       :reference_url,
       :last_cooked_at
     )

@@ -3,6 +3,8 @@ class MyMenu < ApplicationRecord
   belongs_to :master_menu, optional: true
 
   has_many :meal_items, dependent: :destroy
+  has_many :my_menu_tags, dependent: :destroy
+  has_many :tags, through: :my_menu_tags
 
   validates :title, presence: true, length: { maximum: 15 }
   validates :genre, presence: true
@@ -37,4 +39,20 @@ class MyMenu < ApplicationRecord
       all
     end
   }
+
+  # 複数タグを文字列で受け取る
+  attr_accessor :tag_names
+
+  after_save :assign_tags_from_names
+
+  private
+
+  def assign_tags_from_names
+    return if tag_names.blank?
+
+    names = tag_names.split(/[,、\s]+/).map(&:strip).reject(&:blank?)
+
+    # find_or_create_by で重複を避けつつタグを紐付け
+    self.tags = names.map { |name| Tag.find_or_create_by(name:) }
+  end
 end

@@ -19,8 +19,11 @@
       <%= f.select :genre,
                    options_for_select(MyMenu.genre_options, @genre),
                    include_blank: "すべて" %>
-
     </div>
+
+    <% @tags.each do |tag| %>
+      <%= link_to tag.name, my_menus_path(tag_id: tag.id), class: "badge badge-outline" %>
+    <% end %>
 
     <!-- ▼ ソート -->
     <div class="form-control">

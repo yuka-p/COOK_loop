@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_01_044904) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_09_035440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_01_044904) do
     t.index ["user_id"], name: "index_meal_plans_on_user_id"
   end
 
+  create_table "my_menu_tags", force: :cascade do |t|
+    t.bigint "my_menu_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["my_menu_id"], name: "index_my_menu_tags_on_my_menu_id"
+    t.index ["tag_id"], name: "index_my_menu_tags_on_tag_id"
+  end
+
   create_table "my_menus", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
@@ -54,6 +63,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_01_044904) do
     t.bigint "master_menu_id"
     t.index ["master_menu_id"], name: "index_my_menus_on_master_menu_id"
     t.index ["user_id"], name: "index_my_menus_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,6 +88,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_01_044904) do
   add_foreign_key "meal_items", "meal_plans"
   add_foreign_key "meal_items", "my_menus"
   add_foreign_key "meal_plans", "users"
+  add_foreign_key "my_menu_tags", "my_menus"
+  add_foreign_key "my_menu_tags", "tags"
   add_foreign_key "my_menus", "master_menus"
   add_foreign_key "my_menus", "users"
 end

@@ -1,0 +1,18 @@
+<h1>献立を作成</h1>
+
+<%= form_with model: @meal_plan do |f| %>
+  <div>
+    <%= f.label :date, "日付" %>
+    <%= f.date_field :date %>
+  </div>
+
+  <h3>メニューを選択</h3>
+  <% @my_menus.each do |menu| %>
+    <div>
+      <%= check_box_tag "meal_plan[my_menu_ids][]", menu.id %>
+      <%= menu.title %>
+    </div>
+  <% end %>
+
+  <%= f.submit "登録" %>
+<% end %>

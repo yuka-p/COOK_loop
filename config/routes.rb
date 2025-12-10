@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "meal_plans/index"
+  get "meal_plans/new"
+  get "meal_plans/create"
+  get "meal_plans/show"
   get "master_menus/index"
   devise_for :users
   get "tops/index"
@@ -16,4 +20,5 @@ Rails.application.routes.draw do
   end
 
   resources :master_menus
+  resources :meal_plans
 end

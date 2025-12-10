@@ -1,2 +1,24 @@
-<h1>MealPlans#show</h1>
-<p>Find me in app/views/meal_plans/show.html.erb</p>
+<h2 class="text-xl font-bold mb-4">主菜</h2>
+<% @meal_plan.meal_items.main.each do |item| %>
+  <p><%= item.my_menu.title %></p>
+<% end %>
+
+<h2 class="text-xl font-bold mt-6 mb-4">副菜</h2>
+<% @meal_plan.meal_items.side.each do |item| %>
+  <p><%= item.my_menu.title %></p>
+<% end %>
+
+<h2 class="text-xl font-bold mt-6 mb-4">汁物</h2>
+<% @meal_plan.meal_items.side.each do |item| %>
+  <p><%= item.my_menu.title %></p>
+<% end %>
+
+<h2 class="text-xl font-bold mt-6 mb-4">主食</h2>
+<% @meal_plan.meal_items.side.each do |item| %>
+  <p><%= item.my_menu.title %></p>
+<% end %>
+
+<h2 class="text-xl font-bold mt-6 mb-4">その他</h2>
+<% @meal_plan.meal_items.side.each do |item| %>
+  <p><%= item.my_menu.title %></p>
+<% end %>

@@ -1,18 +1,50 @@
-<h1>献立を作成</h1>
+<div class="max-w-3xl mx-auto mt-8">
 
-<%= form_with model: @meal_plan do |f| %>
-  <div>
-    <%= f.label :date, "日付" %>
-    <%= f.date_field :date %>
+  <h1 class="text-3xl font-bold mb-4">献立作成</h1>
+
+  <!-- カウンター表示 -->
+  <div class="stats shadow mb-6">
+    <div class="stat">
+      <div class="stat-title">主菜</div>
+      <div class="stat-value" id="count-main">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">副菜</div>
+      <div class="stat-value" id="count-side">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">汁物</div>
+      <div class="stat-value" id="count-soup">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">主食</div>
+      <div class="stat-value" id="count-staple">0</div>
+    </div>
   </div>
 
-  <h3>メニューを選択</h3>
-  <% @my_menus.each do |menu| %>
-    <div>
-      <%= check_box_tag "meal_plan[my_menu_ids][]", menu.id %>
-      <%= menu.title %>
-    </div>
-  <% end %>
+  <%= form_with model: @meal_plan, url: meal_plans_path, method: :post do |f| %>
 
-  <%= f.submit "登録" %>
-<% end %>
+    <!-- メニュー一覧 -->
+    <div class="grid gap-4">
+      <% @my_menus.each do |menu| %>
+        <label class="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-base-200">
+          <%= check_box_tag "meal_items[][my_menu_id]", menu.id, false,
+                data: { genre: menu.genre } %>
+
+          <span><%= menu.title %></span>
+
+          <span class="badge badge-primary">
+            <%= I18n.t("enums.my_menu.genre.#{menu.genre}") %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+
+    <div class="mt-6 text-center">
+      <button type="button" class="btn btn-primary" onclick="window.confirmCreateMealPlan()">
+        登録内容を確認する
+      </button>
+    </div>
+
+  <% end %>
+</div>

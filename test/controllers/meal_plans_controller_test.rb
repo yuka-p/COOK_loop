@@ -21,7 +21,7 @@ class MealPlansControllerTest < ActionDispatch::IntegrationTest
     assert_difference("MealPlan.count") do
       post meal_plans_url, params: {
         meal_plan: {
-          my_menu_ids: [@menu.id]
+          my_menu_ids: [ @menu.id ]
         }
       }
     end
@@ -30,7 +30,7 @@ class MealPlansControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show meal_plan" do
-    meal_plan = @user.meal_plans.create!(my_menu_ids: [@menu.id])
+    meal_plan = @user.meal_plans.create!(my_menu_ids: [ @menu.id ])
 
     get meal_plan_url(meal_plan)
     assert_response :success

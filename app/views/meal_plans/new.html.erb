@@ -1,25 +1,19 @@
-<div class="max-w-3xl mx-auto mt-8">
+<div data-controller="meal-plans-new" class="max-w-3xl mx-auto mt-8">
 
   <h1 class="text-3xl font-bold mb-4">献立作成</h1>
 
+  <!-- ホームに戻るボタン -->
+  <%= link_to home_index_path, class: "btn btn-outline" do %>
+    ⬅ ホームに戻る
+  <% end %>
+
   <!-- カウンター表示 -->
-  <div class="stats shadow mb-6">
-    <div class="stat">
-      <div class="stat-title">主菜</div>
-      <div class="stat-value" id="count-main">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-title">副菜</div>
-      <div class="stat-value" id="count-side">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-title">汁物</div>
-      <div class="stat-value" id="count-soup">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-title">主食</div>
-      <div class="stat-value" id="count-staple">0</div>
-    </div>
+  <div class="flex gap-4 my-3">
+    主菜: <span id="count-main">0</span>
+    副菜: <span id="count-side">0</span>
+    汁物: <span id="count-soup">0</span>
+    主食: <span id="count-staple">0</span>
+    その他: <span id="count-other">0</span>
   </div>
 
   <%= form_with model: @meal_plan, url: meal_plans_path, method: :post do |f| %>
@@ -27,23 +21,37 @@
     <!-- メニュー一覧 -->
     <div class="grid gap-4">
       <% @my_menus.each do |menu| %>
-        <label class="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-base-200">
-          <%= check_box_tag "meal_items[][my_menu_id]", menu.id, false,
-                data: { genre: menu.genre } %>
+        <label class="flex gap-2 items-center">
+          <%= check_box_tag "meal_plan[my_menu_ids][]",
+                menu.id,
+                false,
+                class: "menu-checkbox",
+                data: {
+                  genre: menu.genre,
+                  genre_label: menu.genre_i18n,
+                  menu_title: menu.title
+                } %>
 
-          <span><%= menu.title %></span>
-
-          <span class="badge badge-primary">
-            <%= I18n.t("enums.my_menu.genre.#{menu.genre}") %>
-          </span>
+          <span><%= menu.title %>（<%= menu.genre_i18n %>）</span>
         </label>
       <% end %>
     </div>
 
     <div class="mt-6 text-center">
-      <button type="button" class="btn btn-primary" onclick="window.confirmCreateMealPlan()">
-        登録内容を確認する
-      </button>
+      <button id="openConfirmModal" class="btn btn-primary">確認</button>
+
+      <dialog id="confirmModal" class="modal">
+        <form method="dialog" class="modal-box">
+          <h3 class="font-bold text-lg">選択内容の確認</h3>
+
+          <ul id="modalContent" class="my-4"></ul>
+
+          <div class="modal-action">
+            <button id="closeModal" class="btn">閉じる</button>
+            <button type="submit" class="btn btn-primary">登録する</button>
+          </div>
+        </form>
+      </dialog>
     </div>
 
   <% end %>

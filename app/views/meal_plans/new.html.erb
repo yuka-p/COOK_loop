@@ -16,6 +16,18 @@
     その他: <span id="count-other">0</span>
   </div>
 
+  <!-- ジャンルフィルターボタン -->
+  <div id="genreFilters" class="flex gap-2 my-4 flex-wrap">
+    <% MyMenu.genres.keys.each do |genre| %>
+      <button
+        class="btn btn-outline genre-filter-button"
+        data-genre="<%= genre %>"
+        type="button">
+        <%= MyMenu.genres_i18n[genre] %>
+      </button>
+    <% end %>
+  </div>
+
   <%= form_with model: @meal_plan, url: meal_plans_path, method: :post do |f| %>
 
     <!-- メニュー一覧 -->

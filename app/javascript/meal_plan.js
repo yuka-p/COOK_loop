@@ -57,3 +57,55 @@ document.addEventListener("turbo:load", () => {
 
   closeBtn?.addEventListener("click", () => modal.close());
 });
+
+console.log("meal_plans/new.js LOADED!");
+
+document.addEventListener("turbo:load", () => {
+  const checkboxes = document.querySelectorAll(".menu-checkbox");
+  const menuLabels = document.querySelectorAll(".menu-checkbox").forEach(cb => cb.closest("label"));
+  const genreButtons = document.querySelectorAll(".genre-filter-button");
+
+  // フィルター状態（複数可）
+  let activeFilters = new Set();
+
+  // フィルタリング処理
+  function applyFilters() {
+    document.querySelectorAll(".menu-checkbox").forEach((cb) => {
+      const label = cb.closest("label");
+      const genre = cb.dataset.genre;
+
+      // フィルタ何も選ばれていない → 全表示
+      if (activeFilters.size === 0) {
+        label.style.display = "";
+        return;
+      }
+
+      // 該当ジャンルなら表示、それ以外は非表示
+      if (activeFilters.has(genre)) {
+        label.style.display = "";
+      } else {
+        label.style.display = "none";
+      }
+    });
+  }
+
+  // 各ジャンルボタンにイベント
+  genreButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const genre = btn.dataset.genre;
+
+      // 選択切り替え（ON/OFF）
+      if (activeFilters.has(genre)) {
+        activeFilters.delete(genre);
+        btn.classList.remove("btn-primary");
+        btn.classList.add("btn-outline");
+      } else {
+        activeFilters.add(genre);
+        btn.classList.add("btn-primary");
+        btn.classList.remove("btn-outline");
+      }
+
+      applyFilters();
+    });
+  });
+});

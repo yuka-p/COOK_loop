@@ -15,10 +15,8 @@ class MyMenu < ApplicationRecord
     I18n.t("enums.my_menu.genre.#{genre}")
   end
 
-  def self.genre_options
-    distinct.pluck(:genre).map do |g|
-      [ I18n.t("enums.my_menu.genre.#{g}"), g ]
-    end
+  def self.genres_i18n
+    genres.keys.index_with { |g| I18n.t("enums.my_menu.genre.#{g}") }
   end
 
   # ▼ ジャンル絞り込み

@@ -20,3 +20,9 @@ ja:
         side: 副菜
         soup: 汁物
         other: その他
+    master_menu:
+      genre:
+        staple: 主食
+        main: 主菜
+        side: 副菜
+        soup: 汁物

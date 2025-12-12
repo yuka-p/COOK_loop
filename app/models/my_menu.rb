@@ -19,6 +19,12 @@ class MyMenu < ApplicationRecord
     genres.keys.index_with { |g| I18n.t("enums.my_menu.genre.#{g}") }
   end
 
+  def self.genre_options
+    genres.keys.map do |g|
+      [I18n.t("activerecord.attributes.my_menu.genres.#{g}"), g]
+    end
+  end
+
   # ▼ ジャンル絞り込み
   scope :by_genre, ->(genre) {
     genre.present? ? where(genre: genre) : all

@@ -6,6 +6,10 @@ class MasterMenu < ApplicationRecord
   validates :genre, presence: true, inclusion: { in: genres.keys }
 
   def genre_i18n
-    I18n.t("enums.my_menu.genre.#{genre}")
+    I18n.t("enums.master_menu.genre.#{genre}")
+  end
+
+  def self.genres_i18n
+    genres.keys.index_with { |g| I18n.t("enums.master_menu.genre.#{g}") }
   end
 end

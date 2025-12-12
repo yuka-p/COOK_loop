@@ -12,49 +12,36 @@
     <% end %>
   </div>
 
-  <!-- ▼ジャンルフィルターボタン（元の仕様のまま） -->
-  <div class="flex gap-3 mb-6">
-    <%= link_to "全て",
-                master_menus_path(menu_ids: selected_menu_ids),
-                class: "btn #{params[:genre].blank? ? 'btn-primary' : 'btn-outline'}" %>
-
-    <%= link_to "主菜",
-                master_menus_path(genre: :main, menu_ids: selected_menu_ids),
-                class: "btn #{params[:genre] == 'main' ? 'btn-primary' : 'btn-outline'}" %>
-
-    <%= link_to "副菜",
-                master_menus_path(genre: :side, menu_ids: selected_menu_ids),
-                class: "btn #{params[:genre] == 'side' ? 'btn-primary' : 'btn-outline'}" %>
-
-    <%= link_to "汁物",
-                master_menus_path(genre: :soup, menu_ids: selected_menu_ids),
-                class: "btn #{params[:genre] == 'soup' ? 'btn-primary' : 'btn-outline'}" %>
-
-    <%= link_to "主食",
-                master_menus_path(genre: :staple, menu_ids: selected_menu_ids),
-                class: "btn #{params[:genre] == 'staple' ? 'btn-primary' : 'btn-outline'}" %>
+  <!-- ジャンルフィルターボタン -->
+  <div id="genreFilters" class="flex gap-2 my-4 flex-wrap">
+    <% MasterMenu.genres.keys.each do |genre| %>
+      <button
+        class="btn btn-outline genre-filter-button"
+        data-genre="<%= genre %>"
+        type="button">
+        <%= MasterMenu.genres_i18n[genre] %>
+      </button>
+    <% end %>
   </div>
 
   <%= form_with url: import_from_master_my_menus_path,
               method: :post,
               data: { controller: "modal", turbo_frame: "_top" } do |f| %>
 
-    <!-- 現在の選択を hidden で維持 -->
-    <% selected_menu_ids.each do |id| %>
-      <input type="hidden" name="menu_ids[]" value="<%= id %>">
-    <% end %>
-
     <div class="grid grid-cols-3 gap-4">
       <% @master_menus.each do |menu| %>
-        <div class="p-4 border rounded shadow">
+        <div class="p-4 border rounded shadow" data-menu-box>
           <label>
-            <input
-              type="checkbox"
-              name="menu_ids[]"
-              value="<%= menu.id %>"
-              class="mr-2"
-              <%= "checked" if selected_menu_ids.include?(menu.id.to_s) %>
-            >
+            <%= check_box_tag "menu_ids[]",
+                  menu.id,
+                  selected_menu_ids.include?(menu.id.to_s),
+                  class: "menu-checkbox mr-2",
+                  data: {
+                    genre: menu.genre,
+                    genre_label: menu.genre_i18n
+                  } %>
+
+
             <span class="font-semibold"><%= menu.title %></span>
           </label>
         </div>

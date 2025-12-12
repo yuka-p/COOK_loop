@@ -1,5 +1,4 @@
 <div data-controller="meal-plans-new" class="max-w-3xl mx-auto mt-8">
-
   <h1 class="text-3xl font-bold mb-4">献立作成</h1>
 
   <!-- ホームに戻るボタン -->
@@ -18,53 +17,38 @@
 
   <!-- ジャンルフィルターボタン -->
   <div id="genreFilters" class="flex gap-2 my-4 flex-wrap">
+    <button class="btn btn-primary genre-filter-button" data-genre="all" type="button">全部</button>
     <% MyMenu.genres.keys.each do |genre| %>
-      <button
-        class="btn btn-outline genre-filter-button"
-        data-genre="<%= genre %>"
-        type="button">
+      <button class="btn btn-outline genre-filter-button" data-genre="<%= genre %>" type="button">
         <%= MyMenu.genres_i18n[genre] %>
       </button>
     <% end %>
   </div>
 
   <%= form_with model: @meal_plan, url: meal_plans_path, method: :post do |f| %>
-
     <!-- メニュー一覧 -->
-    <div class="grid gap-4">
+    <div id="menuList" class="grid gap-4">
       <% @my_menus.each do |menu| %>
-        <label class="flex gap-2 items-center">
+        <label class="flex gap-2 items-center menu-item" data-genre="<%= menu.genre %>">
           <%= check_box_tag "meal_plan[my_menu_ids][]",
                 menu.id,
                 false,
                 class: "menu-checkbox",
                 data: {
                   genre: menu.genre,
-                  genre_label: menu.genre_i18n,
-                  menu_title: menu.title
+                  genreLabel: menu.genre_i18n,
+                  menuTitle: menu.title
                 } %>
-
           <span><%= menu.title %>（<%= menu.genre_i18n %>）</span>
         </label>
       <% end %>
     </div>
 
     <div class="mt-6 text-center">
-      <button id="openConfirmModal" class="btn btn-primary">確認</button>
-
-      <dialog id="confirmModal" class="modal">
-        <form method="dialog" class="modal-box">
-          <h3 class="font-bold text-lg">選択内容の確認</h3>
-
-          <ul id="modalContent" class="my-4"></ul>
-
-          <div class="modal-action">
-            <button id="closeModal" class="btn" formmethod="dialog">閉じる</button>
-            <button type="submit" class="btn btn-primary">登録する</button>
-          </div>
-        </form>
-      </dialog>
+      <button id="openConfirmModal" type="button" class="btn btn-primary">確認</button>
     </div>
-
   <% end %>
+
+  <!-- Turbo Frame for Modal -->
+  <%= turbo_frame_tag "modal" %>
 </div>

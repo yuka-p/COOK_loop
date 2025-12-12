@@ -1,0 +1,25 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <h2 class="text-xl font-bold mb-4">登録内容確認</h2>
+      <ul class="list-disc ml-6 mb-4">
+        <% @selected_menus.each do |menu| %>
+          <li><%= menu.title %>（<%= menu.genre_i18n %>）</li>
+        <% end %>
+      </ul>
+      <div class="text-right">
+        <%= form_with model: @meal_plan, url: meal_plans_path, method: :post, local: true, data: { turbo_frame: "_top" } do |f| %>
+          <% @selected_menus.each do |menu| %>
+            <%= hidden_field_tag "meal_plan[my_menu_ids][]", menu.id %>
+          <% end %>
+          <%= f.submit "登録する", class: "bg-green-500 text-white px-4 py-2 rounded mr-2" %>
+        <% end %>
+        <button type="button"
+                onclick="this.closest('.modal-overlay').remove()"
+                class="bg-gray-300 px-4 py-2 rounded">
+          キャンセル
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>

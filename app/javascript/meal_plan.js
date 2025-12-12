@@ -1,16 +1,7 @@
-console.log("meal_plans/new.js LOADED!");
-
 document.addEventListener("turbo:load", () => {
-  // ページ内に data-controller="meal-plans-new" が存在するか確認
-  if (!document.querySelector("[data-controller='meal-plans-new']")) return;
-
-  console.log("meal-plans-new controller FOUND!");
-
   const checkboxes = document.querySelectorAll(".menu-checkbox");
-  const modal = document.getElementById("confirmModal");
-  const openBtn = document.getElementById("openConfirmModal");
-  const closeBtn = document.getElementById("closeModal");
-  const modalContent = document.getElementById("modalContent");
+  const genreButtons = document.querySelectorAll(".genre-filter-button");
+  const menuItems = document.querySelectorAll(".menu-item");
 
   const counters = {
     main: document.getElementById("count-main"),
@@ -20,92 +11,77 @@ document.addEventListener("turbo:load", () => {
     other: document.getElementById("count-other"),
   };
 
-  // カウント更新
-  function updateCounts() {
+  // カウンター更新
+  function updateCounters() {
     const counts = { main: 0, side: 0, soup: 0, staple: 0, other: 0 };
-
-    checkboxes.forEach((cb) => {
+    checkboxes.forEach(cb => {
       if (cb.checked) {
-        const genre = cb.dataset.genre;
-        counts[genre] = (counts[genre] || 0) + 1;
+        counts[cb.dataset.genre] = (counts[cb.dataset.genre] || 0) + 1;
       }
     });
-
-    Object.keys(counters).forEach((g) => {
-      counters[g].textContent = counts[g] || 0;
+    Object.keys(counters).forEach(key => {
+      counters[key].textContent = counts[key] || 0;
     });
   }
+  checkboxes.forEach(cb => cb.addEventListener("change", updateCounters));
 
-  checkboxes.forEach((cb) => cb.addEventListener("change", updateCounts));
-
-  // モーダル表示
-  openBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    modalContent.innerHTML = "";
-
-    checkboxes.forEach((cb) => {
-      if (cb.checked) {
-        modalContent.insertAdjacentHTML(
-          "beforeend",
-          `<li>${cb.dataset.menuTitle}（${cb.dataset.genreLabel}）</li>`
-        );
-      }
-    });
-
-    modal.showModal();
-  });
-
-  closeBtn?.addEventListener("click", () => modal.close());
-});
-
-console.log("meal_plans/new.js LOADED!");
-
-document.addEventListener("turbo:load", () => {
-  const checkboxes = document.querySelectorAll(".menu-checkbox");
-  const menuLabels = document.querySelectorAll(".menu-checkbox").forEach(cb => cb.closest("label"));
-  const genreButtons = document.querySelectorAll(".genre-filter-button");
-
-  // フィルター状態（複数可）
-  let activeFilters = new Set();
-
-  // フィルタリング処理
-  function applyFilters() {
-    document.querySelectorAll(".menu-checkbox").forEach((cb) => {
-      const label = cb.closest("label");
-      const genre = cb.dataset.genre;
-
-      // フィルタ何も選ばれていない → 全表示
-      if (activeFilters.size === 0) {
-        label.style.display = "";
-        return;
-      }
-
-      // 該当ジャンルなら表示、それ以外は非表示
-      if (activeFilters.has(genre)) {
-        label.style.display = "";
-      } else {
-        label.style.display = "none";
-      }
-    });
-  }
-
-  // 各ジャンルボタンにイベント
-  genreButtons.forEach((btn) => {
+  // ジャンルフィルタ
+  genreButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const genre = btn.dataset.genre;
+      genreButtons.forEach(b => {
+        b.classList.remove("btn-primary");
+        b.classList.add("btn-outline");
+      });
+      btn.classList.remove("btn-outline");
+      btn.classList.add("btn-primary");
 
-      // 選択切り替え（ON/OFF）
-      if (activeFilters.has(genre)) {
-        activeFilters.delete(genre);
-        btn.classList.remove("btn-primary");
-        btn.classList.add("btn-outline");
-      } else {
-        activeFilters.add(genre);
-        btn.classList.add("btn-primary");
-        btn.classList.remove("btn-outline");
-      }
-
-      applyFilters();
+      menuItems.forEach(item => {
+        if (genre === "all" || item.dataset.genre === genre) {
+          item.style.display = "flex";
+        } else {
+          item.style.display = "none";
+        }
+      });
     });
+  });
+
+  // モーダル表示
+  const openModalBtn = document.getElementById("openConfirmModal");
+  openModalBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // 選択済みメニューを集める
+    const selectedMenus = [];
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        selectedMenus.push({
+          id: cb.value,
+          title: cb.dataset.menuTitle,
+          genre: cb.dataset.genreLabel
+        });
+      }
+    });
+
+    // Turbo Frameに描画
+    const turboFrame = document.querySelector("turbo-frame#modal");
+    let html = `
+      <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-lg w-96">
+          <h2 class="text-xl font-bold mb-4">登録内容確認</h2>
+          <ul class="list-disc ml-6 mb-4">
+            ${selectedMenus.map(m => `<li>${m.title}（${m.genre}）</li>`).join("")}
+          </ul>
+          <div class="text-right">
+            <form method="post" action="/meal_plans" data-turbo-frame="_top">
+              ${selectedMenus.map(m => `<input type="hidden" name="meal_plan[my_menu_ids][]" value="${m.id}">`).join("")}
+              <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mr-2">登録する</button>
+            </form>
+            <button type="button" onclick="this.closest('.modal-overlay').remove()" class="bg-gray-300 px-4 py-2 rounded">キャンセル</button>
+          </div>
+        </div>
+      </div>
+    `;
+    turboFrame.innerHTML = html;
   });
 });

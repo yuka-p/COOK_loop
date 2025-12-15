@@ -21,7 +21,7 @@ class MyMenu < ApplicationRecord
 
   def self.genre_options
     genres.keys.map do |g|
-      [I18n.t("activerecord.attributes.my_menu.genres.#{g}"), g]
+      [ I18n.t("activerecord.attributes.my_menu.genres.#{g}"), g ]
     end
   end
 

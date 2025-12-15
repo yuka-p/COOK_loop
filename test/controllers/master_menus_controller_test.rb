@@ -7,7 +7,7 @@ class MasterMenusControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get master_menus_index_url
+    get master_menus_url
     assert_response :success
   end
 end

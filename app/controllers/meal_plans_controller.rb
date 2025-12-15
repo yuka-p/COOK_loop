@@ -20,6 +20,7 @@ class MealPlansController < ApplicationController
 
   def create
     @meal_plan = current_user.meal_plans.new(meal_plan_params)
+    @meal_plan.date = Date.current
 
     if @meal_plan.save
       params[:meal_items]&.each do |item|

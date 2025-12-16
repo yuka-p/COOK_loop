@@ -1,21 +1,17 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @meal_plan = current_user.meal_plans
+    meal_plans = current_user.meal_plans
       .where.not(date: nil)
       .order(created_at: :desc)
-      .first
 
-    return unless @meal_plan
-
-    meal_items = @meal_plan.meal_items
-      .joins(:my_menu)
+    meal_items = MealItem
+      .joins(:meal_plan, :my_menu)
       .includes(:my_menu)
-      .where(
-        "my_menus.last_cooked_at IS NULL OR my_menus.last_cooked_at < ?",
-        @meal_plan.date
-      )
+      .where(meal_plan: meal_plans)
+      .where("my_menus.last_cooked_at IS NULL OR my_menus.last_cooked_at < meal_plans.date")
 
-    # 🔑 どの genre を使うか明示する
     @meal_items = meal_items.group_by { |item| item.my_menu.genre }
   end
 end

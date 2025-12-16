@@ -7,8 +7,7 @@
 
 
   <!-- ▼ 今日の献立（未調理分） -->
-  <% if @meal_plan && @meal_items.present? %>
-    <!-- 🔹 トグルボタン -->
+  <% if @meal_items.present? %>    <!-- 🔹 トグルボタン -->
     <div class="flex justify-end mb-4">
       <button
         type="button"
@@ -34,6 +33,7 @@
                                     class: "checkbox" %>
                   <span class="flex-1">
                     <%= meal_item.my_menu.title %>
+                    （<%= meal_item.meal_plan.date %> 作成分）
                   </span>
                 </li>
               <% end %>
@@ -43,15 +43,9 @@
 
         <!-- ボタン -->
         <div class="flex gap-3 mt-6">
-          <%= submit_tag "作成完了", class: "btn btn-primary" %>
-
-          <%= button_to "献立から削除",
-                        remove_from_plan_meal_items_path,
-                        method: :patch,
-                        form: { data: { turbo_confirm: "献立から削除しますか？" } },
-                        class: "btn btn-outline btn-error" %>
+          <%= submit_tag "作成完了", name: "commit_action", value: "mark_as_cooked", class: "btn btn-primary" %>
+          <%= submit_tag "献立から削除", name: "commit_action", value: "remove_from_plan", class: "btn btn-outline btn-error" %>
         </div>
-
       <% end %>
     </div>
   <% end %>

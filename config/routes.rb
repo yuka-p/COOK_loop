@@ -5,7 +5,12 @@ Rails.application.routes.draw do
 
   get "home", to: "home#index"
 
-  resources :meal_plans
+  resources :meal_plans do
+    collection do
+      post :confirm
+    end
+  end
+
   resources :master_menus
   resources :my_menus do
     collection do

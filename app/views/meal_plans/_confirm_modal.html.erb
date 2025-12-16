@@ -8,7 +8,10 @@
         <% end %>
       </ul>
       <div class="text-right">
-        <%= form_with model: @meal_plan, url: meal_plans_path, method: :post, local: true, data: { turbo_frame: "_top" } do |f| %>
+        <%= form_with model: @meal_plan,
+              url: meal_plans_path,
+              method: :post,
+              data: { turbo_frame: "_top" } do |f| %>
           <% @selected_menus.each do |menu| %>
             <%= hidden_field_tag "meal_plan[my_menu_ids][]", menu.id %>
           <% end %>

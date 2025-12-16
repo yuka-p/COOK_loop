@@ -25,27 +25,23 @@
     <% end %>
   </div>
 
-  <%= form_with model: @meal_plan, url: meal_plans_path, method: :post do |f| %>
+  <%= form_with url: confirm_meal_plans_path, method: :post, data: { turbo_frame: "modal" } do %>
     <!-- メニュー一覧 -->
     <div id="menuList" class="grid gap-4">
       <% @my_menus.each do |menu| %>
         <label class="flex gap-2 items-center menu-item" data-genre="<%= menu.genre %>">
-          <%= check_box_tag "meal_plan[my_menu_ids][]",
+          <%= check_box_tag "my_menu_ids[]",
                 menu.id,
                 false,
                 class: "menu-checkbox",
-                data: {
-                  genre: menu.genre,
-                  genreLabel: menu.genre_i18n,
-                  menuTitle: menu.title
-                } %>
+                data: { genre: menu.genre } %>
           <span><%= menu.title %>（<%= menu.genre_i18n %>）</span>
         </label>
       <% end %>
     </div>
 
     <div class="mt-6 text-center">
-      <button id="openConfirmModal" type="button" class="btn btn-primary">確認</button>
+      <%= submit_tag "確認", class: "btn btn-primary" %>
     </div>
   <% end %>
 

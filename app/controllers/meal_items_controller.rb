@@ -2,7 +2,14 @@ class MealItemsController < ApplicationController
   before_action :authenticate_user!
 
   def mark_as_cooked
-    meal_items = MealItem.where(id: params[:meal_item_ids])
+    ids = params[:meal_item_ids]
+
+    if ids.blank?
+      redirect_to home_path, alert: "メニューを選択してください"
+      return
+    end
+
+    meal_items = MealItem.where(id: ids)
 
     meal_items.each do |item|
       item.update!(cooked: true, cooked_at: Time.current)
@@ -13,11 +20,14 @@ class MealItemsController < ApplicationController
   end
 
   def remove_from_plan
-    meal_items = MealItem.where(id: params[:meal_item_ids])
+    ids = params[:meal_item_ids]
 
-    meal_items.each do |item|
-      item.meal_plan.update!(date: nil)
+    if ids.blank?
+      redirect_to home_path, alert: "メニューを選択してください"
+      return
     end
+
+    MealItem.where(id: ids).destroy_all
 
     redirect_to home_path, notice: "選択したメニューを献立から削除しました"
   end

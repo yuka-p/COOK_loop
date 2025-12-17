@@ -5,9 +5,10 @@
     <h1 class="text-3xl font-bold">ホーム</h1>
   </div>
 
-
   <!-- ▼ 今日の献立（未調理分） -->
-  <% if @meal_items.present? %>    <!-- 🔹 トグルボタン -->
+  <% if @meal_items.present? %>
+
+    <!-- トグルボタン -->
     <div class="flex justify-end mb-4">
       <button
         type="button"
@@ -17,13 +18,17 @@
         献立を非表示
       </button>
     </div>
+
     <div id="meal-plan-area" class="max-w-xl mx-auto mt-12">
+
       <%= form_with url: mark_as_cooked_meal_items_path, method: :patch do %>
+
         <% @meal_items.each do |genre, items| %>
           <div class="mb-6">
             <h3 class="font-semibold text-lg mb-2">
               <%= MyMenu.genres_i18n[genre] %>
             </h3>
+
             <ul class="space-y-2">
               <% items.each do |meal_item| %>
                 <li class="flex items-center gap-2 p-2 border rounded">
@@ -31,6 +36,7 @@
                                     meal_item.id,
                                     false,
                                     class: "checkbox" %>
+
                   <span class="flex-1">
                     <%= meal_item.my_menu.title %>
                     （<%= meal_item.meal_plan.date %> 作成分）
@@ -43,63 +49,57 @@
 
         <!-- ボタン -->
         <div class="flex gap-3 mt-6">
-          <%= submit_tag "作成完了", name: "commit_action", value: "mark_as_cooked", class: "btn btn-primary" %>
-          <%= submit_tag "献立から削除", name: "commit_action", value: "remove_from_plan", class: "btn btn-outline btn-error" %>
+          <%= button_tag "作成完了",
+                type: :submit,
+                name: "commit_action",
+                value: "mark_as_cooked",
+                class: "btn btn-primary" %>
+
+          <%= button_tag "献立から削除",
+                type: :submit,
+                name: "commit_action",
+                value: "remove_from_plan",
+                class: "btn btn-outline btn-error" %>
         </div>
+
       <% end %>
     </div>
+
   <% end %>
 
-
-  <!-- ▼ メニューリンク（ここでしっかり余白） -->
+  <!-- ▼ メニューリンク -->
   <div class="grid gap-4 mt-10">
 
-
-    <!-- マイメニュー -->
     <%= link_to my_menus_path,
-      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
-
+        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
       <div class="flex items-center gap-3">
         <div class="badge badge-primary p-3 text-white">📘</div>
         <span class="text-lg font-semibold">マイメニュー一覧を見る</span>
       </div>
-
     <% end %>
 
-
-    <!-- マスターメニュー -->
     <%= link_to master_menus_path,
-      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
-
+        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
       <div class="flex items-center gap-3">
         <div class="badge badge-secondary p-3 text-white">🍳</div>
         <span class="text-lg font-semibold">定番メニューから登録する</span>
       </div>
-
     <% end %>
 
-
-    <!-- 献立作成 -->
     <%= link_to new_meal_plan_path,
-      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
-
+        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
       <div class="flex items-center gap-3">
         <div class="badge badge-accent p-3 text-white">📅</div>
         <span class="text-lg font-semibold">献立を作成する</span>
       </div>
-
     <% end %>
 
-
-    <!-- 買い物リスト -->
     <%= link_to "#",
-      class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5 cursor-pointer" do %>
-
+        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
       <div class="flex items-center gap-3">
         <div class="badge badge-info p-3 text-white">🛒</div>
         <span class="text-lg font-semibold">買い物リストを見る</span>
       </div>
-
     <% end %>
 
   </div>

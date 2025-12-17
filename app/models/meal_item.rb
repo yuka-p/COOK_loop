@@ -3,4 +3,8 @@ class MealItem < ApplicationRecord
   belongs_to :my_menu
 
   enum :genre, { main: 1, side: 2, soup: 3, staple: 4, other: 5 }
+
+  def genre_i18n
+    I18n.t("enums.meal_item.genre.#{genre}")
+  end
 end

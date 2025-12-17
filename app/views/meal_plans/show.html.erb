@@ -1,31 +1,13 @@
 <div class="max-w-2xl mx-auto mt-8">
-  <!-- ホームに戻るボタン -->
-  <%= link_to home_path, class: "btn btn-outline" do %>
-      ⬅ ホームに戻る
-  <% end %>
-  
-  <h2 class="text-xl font-bold mb-4">主菜</h2>
-  <% @meal_plan.meal_items.main.each do |item| %>
-    <p><%= item.my_menu.title %></p>
-  <% end %>
+  <%= link_to "⬅ ホームに戻る", home_path, class: "btn btn-outline mb-6" %>
 
-  <h2 class="text-xl font-bold mt-6 mb-4">副菜</h2>
-  <% @meal_plan.meal_items.side.each do |item| %>
-    <p><%= item.my_menu.title %></p>
-  <% end %>
+  <% @meal_items_by_genre.each do |genre, items| %>
+    <h2 class="text-xl font-bold mt-6 mb-2">
+      <%= items.first.genre_i18n %>
+    </h2>
 
-  <h2 class="text-xl font-bold mt-6 mb-4">汁物</h2>
-  <% @meal_plan.meal_items.side.each do |item| %>
-    <p><%= item.my_menu.title %></p>
-  <% end %>
-
-  <h2 class="text-xl font-bold mt-6 mb-4">主食</h2>
-  <% @meal_plan.meal_items.side.each do |item| %>
-    <p><%= item.my_menu.title %></p>
-  <% end %>
-
-  <h2 class="text-xl font-bold mt-6 mb-4">その他</h2>
-  <% @meal_plan.meal_items.side.each do |item| %>
-    <p><%= item.my_menu.title %></p>
+    <% items.each do |item| %>
+      <p><%= item.my_menu.title %></p>
+    <% end %>
   <% end %>
 </div>

@@ -23,27 +23,29 @@ class MealPlansController < ApplicationController
 
   def show
     @meal_plan = current_user.meal_plans.find(params[:id])
-    @main_items   = @meal_plan.meal_items.where(genre: :main).includes(:my_menu)
-    @side_items   = @meal_plan.meal_items.where(genre: :side).includes(:my_menu)
-    @soup_items   = @meal_plan.meal_items.where(genre: :soup).includes(:my_menu)
-    @staple_items = @meal_plan.meal_items.where(genre: :staple).includes(:my_menu)
-    @other_items  = @meal_plan.meal_items.where(genre: :other).includes(:my_menu)
+    @meal_items_by_genre =
+      @meal_plan.meal_items.includes(:my_menu).group_by(&:genre)
   end
 
   def create
-    @meal_plan = current_user.meal_plans.new(meal_plan_params)
-    @meal_plan.date = Date.current
+    @meal_plan = current_user.meal_plans.create!(date: Date.current)
 
-    if @meal_plan.save
-      redirect_to @meal_plan, notice: "献立を作成しました"
-    else
-      render :new
+    params[:meal_plan][:my_menu_ids].each do |menu_id|
+      menu = current_user.my_menus.find(menu_id)
+
+      @meal_plan.meal_items.create!(
+        my_menu: menu,
+        genre: menu.genre   # ← ★これが全て
+      )
     end
+
+    redirect_to @meal_plan, notice: "献立を作成しました"
   end
+
 
   private
 
   def meal_plan_params
-    params.require(:meal_plan).permit(:date, my_menu_ids: [])
+    params.require(:meal_plan).permit(:date)
   end
 end

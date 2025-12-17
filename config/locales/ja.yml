@@ -26,3 +26,10 @@ ja:
         main: 主菜
         side: 副菜
         soup: 汁物
+    meal_item:
+      genre:
+        staple: 主食
+        main: 主菜
+        side: 副菜
+        soup: 汁物
+        other: その他

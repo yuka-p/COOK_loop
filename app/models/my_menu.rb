@@ -11,7 +11,7 @@ class MyMenu < ApplicationRecord
 
   enum :genre, { main: 1, side: 2, soup: 3, staple: 4, other: 5 }
 
- # ▼ 単体表示用（例：一覧、home画面）
+  # ▼ 単体表示用（例：一覧、home画面）
   def genre_i18n
     I18n.t("enums.my_menu.genre.#{genre}")
   end
@@ -23,7 +23,7 @@ class MyMenu < ApplicationRecord
 
   # ▼ select 用（[[主菜, main], ...]）
   def self.genre_options
-    genres_i18n.map { |key, label| [label, key] }
+    genres_i18n.map { |key, label| [ label, key ] }
   end
 
   # ▼ ジャンル絞り込み

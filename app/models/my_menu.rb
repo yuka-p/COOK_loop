@@ -11,23 +11,24 @@ class MyMenu < ApplicationRecord
 
   enum :genre, { main: 1, side: 2, soup: 3, staple: 4, other: 5 }
 
+ # ▼ 単体表示用（例：一覧、home画面）
   def genre_i18n
     I18n.t("enums.my_menu.genre.#{genre}")
   end
 
+  # ▼ 全ジャンルの日本語マップ（{"main"=>"主菜", ...}）
   def self.genres_i18n
     genres.keys.index_with { |g| I18n.t("enums.my_menu.genre.#{g}") }
   end
 
+  # ▼ select 用（[[主菜, main], ...]）
   def self.genre_options
-    genres.keys.map do |g|
-      [ I18n.t("activerecord.attributes.my_menu.genres.#{g}"), g ]
-    end
+    genres_i18n.map { |key, label| [label, key] }
   end
 
   # ▼ ジャンル絞り込み
   scope :by_genre, ->(genre) {
-    genre.present? ? where(genre: genre) : all
+    genres.key?(genre) ? where(genre: genre) : all
   }
 
   # ▼ 並び替え
@@ -47,7 +48,7 @@ class MyMenu < ApplicationRecord
   # 複数タグを文字列で受け取る
   attr_accessor :tag_names
 
-  after_save :assign_tags_from_names
+  after_commit :assign_tags_from_names, on: %i[create update]
 
   private
 

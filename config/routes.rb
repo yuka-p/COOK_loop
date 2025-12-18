@@ -18,10 +18,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :meal_items, only: [] do
+  resources :meal_items, only: [] do
     collection do
-      patch :mark_as_cooked
-      patch :remove_from_plan
+      patch :bulk_update
     end
   end
 end

@@ -21,7 +21,7 @@
 
     <div id="meal-plan-area" class="max-w-xl mx-auto mt-12">
 
-      <%= form_with url: mark_as_cooked_meal_items_path, method: :patch do %>
+      <%= form_with url: bulk_update_meal_items_path, method: :patch do %>
 
         <% @meal_items.each do |genre, items| %>
           <div class="mb-6">
@@ -60,8 +60,7 @@
                 name: "commit_action",
                 value: "remove_from_plan",
                 class: "btn btn-outline btn-error" %>
-        </div>
-
+                </div>
       <% end %>
     </div>
 

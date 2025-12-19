@@ -6,7 +6,10 @@ class MealPlansController < ApplicationController
 
   def new
     @meal_plan = MealPlan.new
-    @my_menus = current_user.my_menus.order(last_cooked_at: :desc)   # メニュー選択用
+    @my_menus = current_user.my_menus
+                             .includes(:tags)
+                             .order(last_cooked_at: :desc) # ← 既存そのまま
+    @tags = Tag.order(:name)   # ← ★これを追加
   end
 
   def confirm

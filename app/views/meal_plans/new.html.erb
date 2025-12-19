@@ -25,11 +25,37 @@
     <% end %>
   </div>
 
+  <div id="tagFilters" class="flex gap-2 flex-wrap my-3">
+    <% @tags.each do |tag| %>
+      <button
+        type="button"
+        class="btn btn-outline btn-sm tag-filter-button"
+        data-tag-id="<%= tag.id %>"
+      >
+        <%= tag.name %>
+      </button>
+    <% end %>
+  </div>
+
+  <select id="sortSelect" class="select select-bordered w-full max-w-xs">
+    <option value="">---</option>
+    <option value="created_desc">登録日（新しい順）</option>
+    <option value="last_cooked_desc">直近で作っていない順</option>
+    <option value="title_asc">50音順</option>
+  </select>
+
   <%= form_with url: confirm_meal_plans_path, method: :post, data: { turbo_frame: "modal" } do %>
     <!-- メニュー一覧 -->
     <div id="menuList" class="grid gap-4">
       <% @my_menus.each do |menu| %>
-        <label class="flex gap-2 items-center menu-item" data-genre="<%= menu.genre %>">
+        <label
+          class="flex gap-2 items-center menu-item"
+          data-genre="<%= menu.genre %>"
+          data-tags="<%= menu.tags.pluck(:id).join(',') %>"
+          data-created="<%= menu.created_at.to_i %>"
+          data-last-cooked="<%= menu.last_cooked_at ? menu.last_cooked_at.to_time.to_i : 0 %>"
+          data-title="<%= menu.title %>"
+        >
           <%= check_box_tag "my_menu_ids[]",
                 menu.id,
                 false,

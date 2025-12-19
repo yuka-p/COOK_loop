@@ -33,3 +33,9 @@ ja:
         side: 副菜
         soup: 汁物
         other: その他
+
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: "【CookLoop】パスワード再設定のご案内"
+

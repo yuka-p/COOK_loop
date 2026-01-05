@@ -1,4 +1,9 @@
 ja:
+  errors:
+    messages:
+      not_saved: "%{count}件のエラーにより保存できませんでした"
+      not_found: "見つかりませんでした"
+
   activerecord:
     models:
       master_menu: マスターメニュー

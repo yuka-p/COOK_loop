@@ -4,10 +4,29 @@ ja:
       signed_in: "ログインしました"
       signed_out: "ログアウトしました"
       already_signed_out: "すでにログアウトしています"
+
     registrations:
       signed_up: "ユーザー登録が完了しました"
       updated: "アカウント情報を更新しました"
       destroyed: "アカウントを削除しました"
+
     failure:
       invalid: "メールアドレスまたはパスワードが正しくありません"
       unauthenticated: "ログインしてください"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
+
+    passwords:
+      new:
+        forgot_your_password: "パスワードをお忘れですか？"
+        send_me_reset_password_instructions: "パスワード再設定メールを送信"
+      send_instructions: "パスワード再設定用のメールを送信しました。"
+      updated: "パスワードが変更されました。"
+      updated_not_active: "パスワードが変更されました。"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              not_found: "そのメールアドレスはまだ登録されていないようです。"

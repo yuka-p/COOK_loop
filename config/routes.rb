@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "terms",   to: "pages#terms"
+  get "privacy", to: "pages#privacy"
   devise_for :users, controllers: {
     passwords: "passwords"
   }

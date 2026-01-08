@@ -36,7 +36,8 @@
           <ul tabindex="0"
               class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 
-            <li>利用規約</li>
+            <li><%= link_to "利用規約", terms_path %></li>
+            <li>プライバシーポリシー</li>
             <li>設定</li>
 
             <% if user_signed_in? %>

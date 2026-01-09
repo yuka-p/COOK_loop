@@ -2,21 +2,42 @@
   <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white p-6 rounded shadow-lg w-96">
       <h2 class="text-xl font-bold mb-4">登録内容確認</h2>
-      <ul class="list-disc ml-6 mb-4">
-        <% @selected_menus.each do |menu| %>
-          <li><%= menu.title %>（<%= menu.genre_i18n %>）</li>
-        <% end %>
-      </ul>
-      <div class="text-right">
+
+      <% grouped_menus =
+           @selected_menus
+             .group_by(&:genre)
+             .sort_by { |genre, _| MyMenu.genres[genre] } %>
+
+      <% grouped_menus.each do |genre, menus| %>
+        <div class="mb-4">
+          <h3 class="text-sm font-semibold text-green-800 mb-2
+                     bg-green-100
+                     border-l-4 border-green-300
+                     px-3 py-1 rounded">
+            <%= menus.first.genre_i18n %>
+          </h3>
+          <ul class="list-disc ml-6">
+            <% menus.each do |menu| %>
+              <li><%= menu.title %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="text-right mt-4">
         <%= form_with model: @meal_plan,
               url: meal_plans_path,
               method: :post,
               data: { turbo_frame: "_top" } do |f| %>
+
           <% @selected_menus.each do |menu| %>
             <%= hidden_field_tag "meal_plan[my_menu_ids][]", menu.id %>
           <% end %>
-          <%= f.submit "登録する", class: "bg-green-500 text-white px-4 py-2 rounded mr-2" %>
+
+          <%= f.submit "登録する",
+                       class: "bg-green-500 text-white px-4 py-2 rounded mr-2" %>
         <% end %>
+
         <button type="button"
                 onclick="this.closest('.modal-overlay').remove()"
                 class="bg-gray-300 px-4 py-2 rounded">

@@ -1,76 +1,96 @@
-<div class="max-w-2xl mx-auto mt-8">
+<div class="max-w-3xl mx-auto mt-8 space-y-8">
 
-  <!-- ページタイトル -->
-  <div class="flex items-center justify-between mb-6">
+  <!-- ヘッダー -->
+  <div class="flex items-center justify-between">
     <h1 class="text-3xl font-bold">マイメニュー一覧</h1>
 
-    <!-- ホームに戻るボタン -->
-    <%= link_to home_path, class: "btn btn-outline" do %>
-      ⬅ ホームに戻る
+    <%= link_to home_path, class: "btn btn-outline btn-sm" do %>
+      ← ホーム
     <% end %>
   </div>
 
-<div class="flex gap-4 mb-4">
+  <!-- フィルターエリア -->
+  <div class="card bg-base-100 shadow p-4">
+    <%= form_with url: my_menus_path, method: :get, local: true do |f| %>
 
-  <!-- ▼ ジャンル絞り込み -->
-  <%= form_with url: my_menus_path, method: :get, local: true do |f| %>
-    <div class="form-control">
-      <label class="label">ジャンル</label>
-      <%= f.select :genre,
-                   options_for_select(MyMenu.genre_options, @genre),
-                   include_blank: "すべて" %>
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
 
-    <% @tags.each do |tag| %>
-      <%= link_to tag.name, my_menus_path(tag_id: tag.id), class: "badge badge-outline" %>
+        <div class="form-control">
+          <label class="label text-sm font-medium">ジャンル</label>
+          <%= f.select :genre,
+                options_for_select(MyMenu.genre_options, @genre),
+                { include_blank: "すべて" },
+                class: "select select-bordered" %>
+        </div>
+
+        <div class="form-control">
+          <label class="label text-sm font-medium">並び替え</label>
+          <%= f.select :sort,
+                options_for_select(
+                  [
+                    ["最終調理日（新しい順）", "last_cooked_desc"],
+                    ["登録日（新しい順）", "created_desc"],
+                    ["メニュー名（50音順）", "title_asc"],
+                  ],
+                  @sort
+                ),
+                {},
+                class: "select select-bordered" %>
+        </div>
+
+        <div>
+          <%= f.submit "更新", class: "btn btn-primary w-full" %>
+        </div>
+      </div>
+
+      <!-- タグ -->
+      <% if @tags.present? %>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <% @tags.each do |tag| %>
+            <%= link_to tag.name,
+                        my_menus_path(tag_id: tag.id),
+                        class: "badge badge-outline hover:badge-primary" %>
+          <% end %>
+        </div>
+      <% end %>
+
     <% end %>
-
-    <!-- ▼ ソート -->
-    <div class="form-control">
-      <label class="label">並び替え</label>
-      <%= f.select :sort,
-                   options_for_select(
-                     [
-                       ["最終調理日（新しい順）", "last_cooked_desc"],
-                       ["登録日（新しい順）", "created_desc"],
-                       ["メニュー名（50音順）", "title_asc"],
-                     ],
-                     @sort
-                   )
-      %>
-    </div>
-
-    <div class="mt-4">
-      <%= f.submit "絞り込み", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-
-</div>
-
-
-<div class="grid gap-4">
-  <% @my_menus.each do |menu| %>
-    <div class="card bg-base-100 shadow p-6 rounded-xl flex flex-row items-center justify-between mx-auto">
-  <%= link_to menu.title, my_menu_path(menu),
-      class: "text-lg font-semibold hover:underline mr-4" %>
-  
-  <div class="flex gap-2">
-    <%= link_to "✎", edit_my_menu_path(menu), class: "btn btn-primary btn-sm" %>
-    <%= button_to "×",
-        my_menu_path(menu),
-        method: :delete,
-        data: { confirm: "本当に削除しますか?" },
-        class: "btn btn-error btn-sm" %>
-  </div>
-</div>
-  <% end %>
-</div>
-
-  <div class="text-center mt-8">
-    <%= link_to "新規作成", new_my_menu_path, class: "btn btn-primary" %>
   </div>
 
-  <div class="text-center mt-8">
-    <%= link_to "定番メニューから選ぶ", master_menus_path(select: true), class: "btn btn-primary" %>
+  <!-- 一覧 -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @my_menus.each do |menu| %>
+      <div class="bg-base-100 border-5 rounded-xl px-4 py-3
+                <%= genre_border_class(menu) %>">
+
+      <div class="flex items-center justify-between gap-3">
+
+          <!-- タイトル -->
+          <%= link_to menu.title, my_menu_path(menu),
+              class: "text-sm font-medium truncate hover:underline flex-1" %>
+
+          <!-- ボタン -->
+          <div class="flex gap-1 shrink-0">
+            <%= link_to "✎", edit_my_menu_path(menu),
+                  class: "btn btn-ghost btn-xs" %>
+
+            <%= button_to "×",
+                  my_menu_path(menu),
+                  method: :delete,
+                  data: { confirm: "本当に削除しますか?" },
+                  class: "btn btn-ghost btn-xs text-error" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
+
+  <!-- 下部ボタン -->
+  <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+    <%= link_to "＋ 新規作成", new_my_menu_path, class: "btn btn-primary" %>
+    <%= link_to "定番メニューから選ぶ",
+          master_menus_path(select: true),
+          class: "btn btn-outline" %>
+  </div>
+
 </div>

@@ -60,26 +60,41 @@
   <!-- 一覧 -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <% @my_menus.each do |menu| %>
-      <div class="bg-base-100 border-5 rounded-xl px-4 py-3
-                <%= genre_border_class(menu) %>">
+      <div class="relative bg-base-100 border-12 rounded-xl px-2 py-1
+                  transition
+                  hover:shadow-md
+                  hover:-translate-y-[1px]
+                  <%= genre_border_class(menu) %>">
 
-      <div class="flex items-center justify-between gap-3">
+        <!-- カード全体クリック用の透明リンク -->
+        <%= link_to my_menu_path(menu),
+            class: "absolute inset-0 z-0" do %>
+        <% end %>
+
+        <!-- 中身は前面に出す -->
+        <div class="relative z-10 flex items-center justify-between gap-3">
 
           <!-- タイトル -->
-          <%= link_to menu.title, my_menu_path(menu),
-              class: "text-sm font-medium truncate hover:underline flex-1" %>
+          <p class="text-sm font-medium truncate flex-1">
+            <%= menu.title %>
+          </p>
 
           <!-- ボタン -->
           <div class="flex gap-1 shrink-0">
             <%= link_to "✎", edit_my_menu_path(menu),
-                  class: "btn btn-ghost btn-xs" %>
+                  class: "btn btn-ghost btn-xs
+                          hover:bg-base-200
+                          transition" %>
 
             <%= button_to "×",
                   my_menu_path(menu),
                   method: :delete,
                   data: { confirm: "本当に削除しますか?" },
-                  class: "btn btn-ghost btn-xs text-error" %>
+                  class: "btn btn-ghost btn-xs text-error
+                          hover:bg-error/10
+                          transition" %>
           </div>
+
         </div>
       </div>
     <% end %>

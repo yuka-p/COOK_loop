@@ -1,5 +1,5 @@
 class MasterMenu < ApplicationRecord
-  enum :genre, { main: 1, side: 2, soup: 3, staple: 4,other: 5 }
+  enum :genre, { main: 1, side: 2, soup: 3, staple: 4, other: 5 }
   has_many :my_menus
 
   validates :title, presence: true, length: { maximum: 15 }

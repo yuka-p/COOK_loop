@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto mt-10">
+<div class="max-w-xl mx-auto mt-6 px-4 sm:px-0">
 
   <!-- タイトル -->
   <div class="text-center mb-8">
@@ -19,23 +19,25 @@
       </button>
     </div>
 
-    <div id="meal-plan-area" class="max-w-xl mx-auto">
+    <div id="meal-plan-area" class="max-w-xl mx-auto px-4 sm:px-0">
 
       <div class="card bg-base-100 shadow-lg">
         <div class="card-body">
 
-          <%= form_with url: bulk_update_meal_items_path, method: :patch do %>
+          <% @meal_items
+               .sort_by { |genre, _| MyMenu.genres[genre] }
+               .each do |genre, items| %>
 
-            <% @meal_items.each do |genre, items| %>
-             <div class="mb-8">
+            <% next if items.blank? %>
+            <div class="mb-8">
 
                 <!-- ジャンル見出し -->
-                <h3 class="text-sm font-semibold mb-3
-                           border-l-4
-                           px-4 py-1.5 rounded-md tracking-wide
-                           <%= genre_heading_class(genre) %>">
-                  <%= MyMenu.genres_i18n[genre] %>
-                </h3>
+              <h3 class="text-sm font-semibold mb-3
+                        border-l-4
+                        px-4 py-1.5 rounded-md tracking-wide
+                        <%= genre_heading_class(genre) %>">
+                <%= MyMenu.genres_i18n[genre] %>
+              </h3>
 
               <!-- 献立リスト -->
                 <ul class="space-y-1">
@@ -75,7 +77,6 @@
                     class: "btn btn-outline btn-error" %>
             </div>
 
-          <% end %>
         </div>
       </div>
     </div>

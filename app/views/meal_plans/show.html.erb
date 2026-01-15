@@ -2,10 +2,10 @@
   <%= link_to "⬅ ホームに戻る", home_path, class: "btn btn-outline mb-6" %>
 
   <% @meal_items_by_genre.each do |genre, items| %>
-    <h2 class="text-sm font-semibold text-orange-800 mt-6 mb-2
-               bg-orange-100
-               border-l-4 border-orange-300
-               px-3 py-1 rounded">
+    <h2 class="text-sm font-semibold mt-6 mb-2
+               border-l-4
+               px-3 py-1 rounded
+               <%= genre_heading_class(genre) %>">
       <%= items.first.genre_i18n %>
     </h2>
 

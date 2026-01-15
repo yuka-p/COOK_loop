@@ -14,7 +14,7 @@
 
   <!-- ジャンルフィルターボタン -->
   <div id="genreFilters" class="flex gap-2 my-4 flex-wrap">
-    <% MasterMenu.genres.keys.each do |genre| %>
+    <% MasterMenu.genres.keys.reject { |g| g == "other" }.each do |genre| %>
       <button
         class="btn btn-outline genre-filter-button"
         data-genre="<%= genre %>"

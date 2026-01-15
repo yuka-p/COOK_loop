@@ -4,7 +4,7 @@ module MyMenusHelper
     when "staple" # 主食
       "border-[#fad9e2]"
     when "main"   # 主菜
-      "border-[#edd4bf]"
+      "border-[#ffcfa8]"
     when "side"   # 副菜
       "border-[#c9ded2]"
     when "soup"   # 汁物
@@ -17,15 +17,15 @@ module MyMenusHelper
 def genre_heading_class(genre)
     case genre
     when "staple"
-      "bg-[#fad9e2]/50 text-gray-700 border-[#fad9e2]"
+      "bg-[#fabdc3]/40 text-gray-700 border-[#fabdc3]"
     when "main"
-      "bg-[#edd4bf]/50 text-gray-700 border-[#edd4bf]"
+      "bg-[#ffab66]/40 text-gray-700 border-[#ffab66]"
     when "side"
-      "bg-[#c9ded2]/50 text-gray-700 border-[#c9ded2]"
+      "bg-[#8fd1a9]/40 text-gray-700 border-[#8fd1a9]"
     when "soup"
-      "bg-[#faf2c7]/50 text-gray-700 border-[#faf2c7]"
+      "bg-[#f5e68e]/40 text-gray-700 border-[#f5e68e]"
     else
-      "bg-[#C9DFEC]/50 text-gray-700 border-[#C9DFEC]"
+      "bg-[#96c2d9]/40 text-gray-700 border-[#96c2d9]"
     end
   end
 end

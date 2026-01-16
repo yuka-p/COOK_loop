@@ -28,4 +28,19 @@ def genre_heading_class(genre)
       "bg-[#96c2d9]/40 text-gray-700 border-[#96c2d9]"
     end
   end
+
+  def genre_button_class(genre)
+    case genre
+    when "staple"
+      "bg-[#fabdc3]/40 text-gray-700 border border-[#fabdc3] hover:bg-[#fabdc3]/60"
+    when "main"
+      "bg-[#ffab66]/40 text-gray-700 border border-[#ffab66] hover:bg-[#ffab66]/60"
+    when "side"
+      "bg-[#8fd1a9]/40 text-gray-700 border border-[#8fd1a9] hover:bg-[#8fd1a9]/60"
+    when "soup"
+      "bg-[#f5e68e]/40 text-gray-700 border border-[#f5e68e] hover:bg-[#f5e68e]/60"
+    else
+      "bg-[#96c2d9]/40 text-gray-700 border border-[#96c2d9] hover:bg-[#96c2d9]/60"
+    end
+  end
 end

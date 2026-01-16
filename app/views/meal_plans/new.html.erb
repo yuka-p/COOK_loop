@@ -6,35 +6,48 @@
     ⬅ ホームに戻る
   <% end %>
 
-  <!-- カウンター表示 -->
-  <div class="flex gap-4 my-3">
-    主菜: <span id="count-main">0</span>
-    副菜: <span id="count-side">0</span>
-    汁物: <span id="count-soup">0</span>
-    主食: <span id="count-staple">0</span>
-    その他: <span id="count-other">0</span>
-  </div>
-
   <!-- ジャンルフィルターボタン -->
   <div id="genreFilters" class="flex gap-2 my-4 flex-wrap">
-    <button class="btn btn-primary genre-filter-button" data-genre="all" type="button">全部</button>
-    <% MyMenu.genres.keys.each do |genre| %>
-      <button class="btn btn-outline genre-filter-button" data-genre="<%= genre %>" type="button">
-        <%= MyMenu.genres_i18n[genre] %>
-      </button>
-    <% end %>
-  </div>
+  <button
+    class="btn btn-sm btn-primary genre-filter-button"
+    data-genre="all"
+    type="button">
+    全部
+  </button>
 
-  <div id="tagFilters" class="flex gap-2 flex-wrap my-3">
-    <% @tags.each do |tag| %>
-      <button
-        type="button"
-        class="btn btn-outline btn-sm tag-filter-button"
-        data-tag-id="<%= tag.id %>"
-      >
-        <%= tag.name %>
-      </button>
-    <% end %>
+  <% MyMenu.genres.keys.each do |genre| %>
+    <button
+      class="btn btn-sm genre-filter-button <%= genre_button_class(genre) %>"
+      data-genre="<%= genre %>"
+      type="button">
+
+      <span class="genre-label">
+        <%= MyMenu.genres_i18n[genre] %>
+      </span>
+
+      <span
+        id="count-<%= genre %>"
+        class="ml-1 hidden text-xs font-bold">
+      </span>
+
+    </button>
+  <% end %>
+</div>
+
+
+  <div class="mt-4">
+    <p class="text-xs font-semibold text-gray-500 mb-1">タグ</p>
+
+    <div id="tagFilters" class="flex gap-2 flex-wrap">
+      <% @tags.each do |tag| %>
+        <button
+          type="button"
+          class="btn btn-xs btn-outline text-gray-500 hover:bg-base-200 tag-filter-button"
+          data-tag-id="<%= tag.id %>">
+          #<%= tag.name %>
+        </button>
+      <% end %>
+    </div>
   </div>
 
   <select id="sortSelect" class="select select-bordered w-full max-w-xs">

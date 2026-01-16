@@ -22,11 +22,24 @@ document.addEventListener("turbo:load", () => {
 
   function updateCounters() {
     const counts = { main: 0, side: 0, soup: 0, staple: 0, other: 0 };
+
     checkboxes.forEach(cb => {
       if (cb.checked) counts[cb.dataset.genre]++;
     });
+
     Object.keys(counters).forEach(k => {
-      counters[k].textContent = counts[k];
+      const el = counters[k];
+      const count = counts[k];
+
+      if (!el) return;
+
+      if (count > 0) {
+        el.textContent = count;
+        el.classList.remove("hidden");
+      } else {
+        el.textContent = "";
+        el.classList.add("hidden");
+      }
     });
   }
 

@@ -1,2 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+body {
+  font-family: 'Kiwi Maru', serif;
+
+  background-image: url("background.png"); /* ←画像名に合わせて変更 */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+
+  /* PCでは全体を収める */
+  background-size: contain;
+
+  min-height: 100vh;
+}
+
+/* スマホ用 */
+@media (max-width: 768px) {
+  body {
+    /* 中央を切り取ったように表示 */
+    background-size: cover;
+  }
+}

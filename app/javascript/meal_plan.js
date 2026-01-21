@@ -8,7 +8,7 @@ document.addEventListener("turbo:load", () => {
   const menuItems = Array.from(root.querySelectorAll(".menu-item"));
   const sortSelect = document.getElementById("sortSelect");
 
-  let activeGenre = "all";
+  let activeGenre = "main";
   const activeTags = new Set();
 
   /* ===== カウンター ===== */
@@ -24,22 +24,17 @@ document.addEventListener("turbo:load", () => {
     const counts = { main: 0, side: 0, soup: 0, staple: 0, other: 0 };
 
     checkboxes.forEach(cb => {
-      if (cb.checked) counts[cb.dataset.genre]++;
+      if (!cb.checked) return;
+
+      const genre = cb.closest(".menu-item")?.dataset.genre;
+      if (genre) counts[genre]++;
     });
 
-    Object.keys(counters).forEach(k => {
-      const el = counters[k];
-      const count = counts[k];
-
+    Object.entries(counters).forEach(([key, el]) => {
       if (!el) return;
-
-      if (count > 0) {
-        el.textContent = count;
-        el.classList.remove("hidden");
-      } else {
-        el.textContent = "";
-        el.classList.add("hidden");
-      }
+      const count = counts[key];
+      el.textContent = count || "";
+      el.classList.toggle("hidden", count === 0);
     });
   }
 
@@ -62,13 +57,13 @@ document.addEventListener("turbo:load", () => {
     });
   });
 
-  /* ===== タグ（重ねがけ） ===== */
+  /* ===== タグ ===== */
   tagButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const tagId = btn.dataset.tagId;
 
-      btn.classList.toggle("btn-primary");
-      btn.classList.toggle("btn-outline");
+      btn.classList.toggle("badge-primary");
+      btn.classList.toggle("badge-outline");
 
       activeTags.has(tagId)
         ? activeTags.delete(tagId)
@@ -78,10 +73,12 @@ document.addEventListener("turbo:load", () => {
     });
   });
 
-  /* ===== 並び替え（MyMenu準拠） ===== */
-  sortSelect?.addEventListener("change", () => {
-    const value = sortSelect.value;
+  /* ===== 並び替え ===== */
+  function sortItems() {
+    if (!sortSelect) return;
+
     const list = menuItems[0]?.parentNode;
+    const value = sortSelect.value;
 
     const sorted = [...menuItems].sort((a, b) => {
       switch (value) {
@@ -97,9 +94,11 @@ document.addEventListener("turbo:load", () => {
     });
 
     sorted.forEach(el => list.appendChild(el));
-  });
+  }
 
-  /* ===== フィルター適用 ===== */
+  sortSelect?.addEventListener("change", sortItems);
+
+  /* ===== フィルター ===== */
   function applyFilters() {
     menuItems.forEach(item => {
       const genreOk =
@@ -113,4 +112,20 @@ document.addEventListener("turbo:load", () => {
       item.style.display = genreOk && tagsOk ? "flex" : "none";
     });
   }
+
+  /* ===== 初期状態 ===== */
+
+  // ジャンルボタン初期反映
+  genreButtons.forEach(btn => {
+    btn.classList.toggle("btn-primary", btn.dataset.genre === "main");
+    btn.classList.toggle("btn-outline", btn.dataset.genre !== "main");
+  });
+
+  // 並び順 初期設定
+  if (sortSelect) {
+    sortSelect.value = "last_cooked_desc";
+    sortItems();
+  }
+
+  applyFilters();
 });

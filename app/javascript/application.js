@@ -2,6 +2,7 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "./master_menus"
 import "./meal_plan"
+import "./my_menus"
 
 document.addEventListener("turbo:load", () => {
   const button = document.getElementById("toggle-meal-plan");

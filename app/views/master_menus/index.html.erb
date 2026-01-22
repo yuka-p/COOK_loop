@@ -1,4 +1,4 @@
-<div class="max-w-2xl mx-auto mt-8">
+<div class="max-w-3xl mx-auto mt-8">
 
   <%# --- 選択中 menu_ids を取得して配列化 --- %>
   <% selected_menu_ids = Array(params[:menu_ids]) %>
@@ -9,7 +9,7 @@
   </div>
 
   <!-- フィルターエリア -->
-  <div class="card bg-base-100 shadow p-4 inline-block">
+  <div class="card bg-base-100 shadow p-4 inline-block  max-w-2xl mx-auto">
     <div id="genreFilters" class="flex gap-2 flex-wrap">
     <!-- 全部ボタン（デフォルトでアクティブ） -->
     <button
@@ -39,9 +39,11 @@
     <div class="bg-[#faf0e6] p-8 mt-6 rounded-2xl space-y-6">
   <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
     <% @master_menus.each do |menu| %>
-  <label class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
-              shadow-sm transition hover:shadow-md hover:bg-base-200
-              peer-checked:bg-blue-50 peer-checked:border-blue-400">
+  <label
+  class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
+         shadow-sm transition hover:shadow-md hover:bg-base-200
+         peer-checked:bg-blue-50 peer-checked:border-blue-400"
+  data-genre="<%= menu.genre %>">
 
     <input type="checkbox"
            name="menu_ids[]"

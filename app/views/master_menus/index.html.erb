@@ -5,7 +5,7 @@
 
   <!-- ページタイトル -->
   <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-bold">マスターメニュー一覧</h1>
+    <h1 class="text-3xl font-bold">定番メニュー一覧</h1>
   </div>
 
   <!-- フィルターエリア -->
@@ -39,16 +39,17 @@
     <div class="bg-[#faf0e6] p-8 mt-6 rounded-2xl space-y-6">
   <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
     <% @master_menus.each do |menu| %>
-      <button
-        type="button"
-         class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
-         shadow-sm transition hover:shadow-md
-         hover:bg-base-200"
-        data-id="<%= menu.id %>"
-        data-genre="<%= menu.genre %>">
+  <label class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
+              shadow-sm transition hover:shadow-md hover:bg-base-200
+              peer-checked:bg-blue-50 peer-checked:border-blue-400">
 
-        <span class="font-semibold"><%= menu.title %></span>
-      </button>
+    <input type="checkbox"
+           name="menu_ids[]"
+           value="<%= menu.id %>"
+           class="hidden peer" />
+
+         <span class="font-semibold peer-checked:text-blue-600"><%= menu.title %></span>
+      </label>
     <% end %>
   </div>
 </div>

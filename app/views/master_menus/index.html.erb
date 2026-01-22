@@ -6,53 +6,64 @@
   <!-- ページタイトル -->
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-3xl font-bold">マスターメニュー一覧</h1>
-
-    <%= link_to home_path, class: "btn btn-outline" do %>
-      ⬅ ホームに戻る
-    <% end %>
   </div>
 
-  <!-- ジャンルフィルターボタン -->
-  <div id="genreFilters" class="flex gap-2 my-4 flex-wrap">
-    <% MasterMenu.genres.keys.reject { |g| g == "other" }.each do |genre| %>
+  <!-- フィルターエリア -->
+  <div class="card bg-base-100 shadow p-4 inline-block">
+    <div id="genreFilters" class="flex gap-2 flex-wrap">
+    <!-- 全部ボタン（デフォルトでアクティブ） -->
+    <button
+      class="btn btn-primary genre-filter-button"
+      data-genre="all"
+      type="button">
+      全部
+    </button>
+    <% ordered_genres = %w[main side soup staple] %>
+
+    <% ordered_genres.each do |genre| %>
       <button
-        class="btn btn-outline genre-filter-button"
+        class="btn genre-filter-button <%= genre_button_class(genre) %>"
         data-genre="<%= genre %>"
         type="button">
         <%= MasterMenu.genres_i18n[genre] %>
       </button>
     <% end %>
+
   </div>
+</div>
 
   <%= form_with url: import_from_master_my_menus_path,
               method: :post,
               data: { controller: "modal", turbo_frame: "_top" } do |f| %>
 
-    <div class="grid grid-cols-3 gap-4">
-      <% @master_menus.each do |menu| %>
-        <div class="p-4 border rounded shadow" data-menu-box>
-          <label>
-            <%= check_box_tag "menu_ids[]",
-                  menu.id,
-                  selected_menu_ids.include?(menu.id.to_s),
-                  class: "menu-checkbox mr-2",
-                  data: {
-                    genre: menu.genre,
-                    genre_label: menu.genre_i18n
-                  } %>
+    <div class="bg-[#faf0e6] p-8 mt-6 rounded-2xl space-y-6">
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+    <% @master_menus.each do |menu| %>
+      <button
+        type="button"
+         class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
+         shadow-sm transition hover:shadow-md
+         hover:bg-base-200"
+        data-id="<%= menu.id %>"
+        data-genre="<%= menu.genre %>">
 
-
-            <span class="font-semibold"><%= menu.title %></span>
-          </label>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="mt-4">
-      <%= f.submit "登録内容を確認", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
-    </div>
-
-  <% end %>
+        <span class="font-semibold"><%= menu.title %></span>
+      </button>
+    <% end %>
+  </div>
 </div>
 
-<%= turbo_frame_tag "modal" %>
+
+      <div class="pt-6 flex justify-center gap-4">
+     <%= f.submit "登録内容を確認", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+
+    <%= link_to home_path,
+        class: "btn bg-white text-base-content border border-base-300 hover:bg-base-200" do %>
+          ← ホーム
+    <% end %>
+  </div>
+  <% end %>
+
+  <%= turbo_frame_tag "modal" %>
+</div>
+

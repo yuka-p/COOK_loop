@@ -1,50 +1,51 @@
 document.addEventListener("turbo:load", () => {
-  const checkboxes = document.querySelectorAll(".menu-checkbox");
+  const cards = document.querySelectorAll(".menu-card");
   const genreButtons = document.querySelectorAll(".genre-filter-button");
 
-  // フィルター状態（複数可）
-  let activeFilters = new Set();
+  let activeGenre = "all";
 
-  // フィルタリング処理
+  // ===== カードの選択トグル =====
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("ring-2");
+      card.classList.toggle("ring-primary");
+      card.classList.toggle("bg-primary/20");
+    });
+  });
+
+  // ===== フィルタ処理 =====
   function applyFilters() {
-    checkboxes.forEach((cb) => {
-      const outerBox = cb.closest(".p-4.border.rounded.shadow"); // ← ここが重要
-      const genre = cb.dataset.genre;
+    cards.forEach((card) => {
+      const genre = card.dataset.genre;
 
-      if (!outerBox) return;
-
-      // フィルタ何も選ばれていない → 全表示
-      if (activeFilters.size === 0) {
-        outerBox.style.display = ""; // ← 枠ごと表示
-        return;
-      }
-
-      // 該当ジャンルなら表示、それ以外は非表示
-      if (activeFilters.has(genre)) {
-        outerBox.style.display = "";
+      if (activeGenre === "all" || genre === activeGenre) {
+        card.style.display = "";
       } else {
-        outerBox.style.display = "none"; // ← 枠ごと消える！
+        card.style.display = "none";
       }
     });
   }
 
-  // ジャンルボタンのクリック処理
+  // ===== ジャンルボタン =====
   genreButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const genre = btn.dataset.genre;
 
-      // 選択切り替え
-      if (activeFilters.has(genre)) {
-        activeFilters.delete(genre);
-        btn.classList.remove("btn-primary");
-        btn.classList.add("btn-outline");
-      } else {
-        activeFilters.add(genre);
-        btn.classList.add("btn-primary");
-        btn.classList.remove("btn-outline");
-      }
+      // ボタンの見た目リセット
+      genreButtons.forEach((b) => {
+        b.classList.remove("btn-primary");
+        b.classList.add("btn-outline");
+      });
 
+      // 押されたボタンだけアクティブ
+      btn.classList.add("btn-primary");
+      btn.classList.remove("btn-outline");
+
+      activeGenre = genre;
       applyFilters();
     });
   });
+
+  // 初期表示
+  applyFilters();
 });

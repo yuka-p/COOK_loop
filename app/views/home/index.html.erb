@@ -14,7 +14,7 @@
     </div>
 
     <div id="meal-plan-area" class="max-w-xl mx-auto px-4 sm:px-0">
-
+      <%= form_with url: bulk_update_meal_items_path, method: :patch, local: true do %>
       <div class="card bg-base-100 shadow-lg">
         <div class="card-body">
 
@@ -73,6 +73,7 @@
 
         </div>
       </div>
+      <% end %>
     </div>
 
   <% end %>

@@ -10,20 +10,23 @@ class MealItemsController < ApplicationController
       return
     end
 
-    meal_items = MealItem.where(id: ids)
+    meal_items = MealItem.includes(:my_menu).where(id: ids)
 
     case action
     when "mark_as_cooked"
-      meal_items.each do |item|
-        item.update!(cooked: true, cooked_at: Time.current)
-        # ✅ 作成完了のときだけ最終調理日を更新
-        item.my_menu.update!(last_cooked_at: today)
+      ActiveRecord::Base.transaction do
+        now = Time.current
+        today = Date.current
+
+        meal_items.update_all(cooked: true, cooked_at: now)
+
+        MyMenu.where(id: meal_items.pluck(:my_menu_id))
+              .update_all(last_cooked_at: Date.current)
       end
 
       redirect_to home_path, notice: "選択したメニューを作成完了にしました"
 
     when "remove_from_plan"
-      # ✅ 削除は献立から外すだけ（調理日は触らない）
       meal_items.destroy_all
 
       redirect_to home_path, notice: "選択したメニューを献立から削除しました"

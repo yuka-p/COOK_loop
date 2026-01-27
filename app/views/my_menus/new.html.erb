@@ -1,8 +1,9 @@
 <div class="max-w-xl mx-auto mt-10">
+  <div class="bg-white rounded-2xl shadow-md p-6 sm:p-8">
 
-  <h1 class="text-3xl font-bold mb-6">マイメニューを追加</h1>
+    <h1 class="text-3xl font-bold mb-6">マイメニューを追加</h1>
 
-  <%= form_with model: @my_menu, url: my_menus_path, class: "space-y-6" do |f| %>
+    <%= form_with model: @my_menu, url: my_menus_path, class: "space-y-6" do |f| %>
 
     <!-- 料理名 -->
     <div class="form-control">
@@ -68,14 +69,16 @@
     </div>
 
     <!-- 送信 -->
-    <div class="mt-6">
-      <%= f.submit "登録する", class: "btn btn-primary w-full" %>
+    <!-- 送信 -->
+    <div class="mt-6 flex justify-center">
+      <%= f.submit "登録する", class: "btn btn-primary px-8" %>
     </div>
-
   <% end %>
+  </div>
 
-  <!-- 戻るボタン -->
-  <div class="mt-4 text-center">
-    <%= link_to "戻る", my_menus_path, class: "btn btn-outline" %>
+  <div class="max-w-xl mx-auto mt-6 px-4">
+    <div class="flex justify-center">
+      <%= link_to "戻る", my_menus_path, class: "btn bg-white border border-base-300 hover:bg-base-200" %>
+    </div>
   </div>
 </div>

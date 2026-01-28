@@ -43,7 +43,7 @@
                       <%= check_box_tag "meal_item_ids[]",
                                         meal_item.id,
                                         false,
-                                        class: "checkbox checkbox-primary checkbox-sm" %>
+                                        class: "checkbox" %>
 
                       <div class="flex-1 text-sm">
                         <p class="font-medium">
@@ -62,7 +62,7 @@
                     type: :submit,
                     name: "commit_action",
                     value: "mark_as_cooked",
-                    class: "btn btn-primary" %>
+                    class: "btn bg-[#907abf] text-white border-none hover:bg-[#907abf]" %>
 
               <%= button_tag "献立から削除",
                     type: :submit,

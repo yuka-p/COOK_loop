@@ -9,68 +9,77 @@
   </div>
 
   <!-- フィルターエリア -->
-  <div class="card bg-base-100 shadow p-4 inline-block  max-w-2xl mx-auto">
+  <div class="card bg-base-100 shadow p-4 inline-block max-w-2xl mx-auto">
     <div id="genreFilters" class="flex gap-2 flex-wrap">
-    <!-- 全部ボタン（デフォルトでアクティブ） -->
-    <button
-      class="btn genre-filter-button
-             bg-[#bebbf7]/40
-             text-gray-700
-             border border-[#bebbf7]
-             hover:bg-[#bebbf7]/60"
-      data-genre="all"
-      type="button">
-      全部
-    </button>
-    <% ordered_genres = %w[main side soup staple] %>
 
-    <% ordered_genres.each do |genre| %>
+      <!-- 全部ボタン -->
       <button
-        class="btn genre-filter-button <%= genre_button_class(genre) %>"
-        data-genre="<%= genre %>"
+        class="btn genre-filter-button
+               bg-[#bebbf7]/40
+               text-gray-700
+               border border-[#bebbf7]
+               hover:bg-[#bebbf7]/60"
+        data-genre="all"
         type="button">
-        <%= MasterMenu.genres_i18n[genre] %>
+        全部
       </button>
-    <% end %>
 
+      <% ordered_genres = %w[main side soup staple] %>
+
+      <% ordered_genres.each do |genre| %>
+        <button
+          class="btn genre-filter-button <%= genre_button_class(genre) %>"
+          data-genre="<%= genre %>"
+          type="button">
+          <%= MasterMenu.genres_i18n[genre] %>
+        </button>
+      <% end %>
+
+    </div>
   </div>
-</div>
 
   <%= form_with url: import_from_master_my_menus_path,
-              method: :post,
-              data: { controller: "modal", turbo_frame: "_top" } do |f| %>
+                method: :post,
+                data: { controller: "modal", turbo_frame: "_top" } do |f| %>
 
     <div class="bg-[#faf0e6] p-8 mt-6 rounded-2xl space-y-6">
-  <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-    <% @master_menus.each do |menu| %>
-  <label
-  class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
-         shadow-sm transition hover:shadow-md hover:bg-base-200
-         peer-checked:bg-blue-50 peer-checked:border-blue-400"
-  data-genre="<%= menu.genre %>">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
 
-    <input type="checkbox"
-           name="menu_ids[]"
-           value="<%= menu.id %>"
-           class="hidden peer" />
+        <% @master_menus.each do |menu| %>
+          <label
+            class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
+                   shadow-sm transition hover:shadow-md hover:bg-base-200
+                   peer-checked:bg-blue-50 peer-checked:border-blue-400"
+            data-genre="<%= menu.genre %>">
 
-         <span class="font-semibold peer-checked:text-blue-600"><%= menu.title %></span>
-      </label>
-    <% end %>
-  </div>
-</div>
+            <input
+              type="checkbox"
+              name="menu_ids[]"
+              value="<%= menu.id %>"
+              class="hidden peer" />
 
+            <span class="font-semibold peer-checked:text-blue-600">
+              <%= menu.title %>
+            </span>
 
-      <div class="pt-6 flex justify-center gap-4">
-     <%= f.submit "登録内容を確認", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+          </label>
+        <% end %>
 
-    <%= link_to home_path,
-        class: "btn bg-white text-base-content border border-base-300 hover:bg-base-200" do %>
-          ← ホーム
-    <% end %>
-  </div>
+      </div>
+    </div>
+
+    <div class="pt-6 flex justify-center gap-4">
+      <%= f.submit "登録内容を確認",
+            class: "btn bg-[#8469bf] text-white border-none hover:bg-[#8469bf]" %>
+
+      <%= link_to home_path,
+            class: "btn bg-white text-base-content border border-base-300 hover:bg-base-200" do %>
+        ← ホーム
+      <% end %>
+    </div>
+
   <% end %>
 
   <%= turbo_frame_tag "modal" %>
-</div>
 
+</div>

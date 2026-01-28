@@ -23,11 +23,25 @@
   <body class="min-h-screen">
 
     <!-- Header -->
-    <header class="navbar bg-base-100 shadow-md px-4">
-      <div class="flex-none">
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost btn-circle">
-            <!-- Hamburger Icon -->
+    <header class="bg-[#FF9706] shadow-md">
+      <div class="flex items-center justify-between px-4 h-16">
+      <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+        <!-- ロゴ（左・ホームリンク付き） -->
+        <div>
+          <%= link_to root_path, class: "flex items-center gap-2" do %>
+            <%= image_tag "icon.png", alt: "COOK loop", class: "h-10 w-10 object-contain" %>
+
+            <span class="text-white text-3xl tracking-widest"
+                  style="font-family: 'Poiret One', sans-serif;">
+              COOK loop
+            </span>
+          <% end %>
+        </div>
+
+        <!-- ハンバーガーメニュー（右） -->
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-white/20">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  class="inline-block w-6 h-6 stroke-current">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,10 +69,7 @@
             <% end %>
           </ul>
         </div>
-      </div>
 
-      <div class="flex-1">
-        <%= link_to "COOK loop", root_path, class: "btn btn-ghost normal-case text-xl" %>
       </div>
     </header>
 
@@ -79,6 +90,18 @@
     <main class="p-4">
       <%= yield %>
     </main>
+    <footer class="mt-16 border-t border-base-200 bg-base-100">
+      <div class="max-w-5xl mx-auto px-4 py-6 text-center text-sm text-gray-500 space-y-2">
 
+        <div class="flex justify-center gap-6">
+          <%= link_to "利用規約", terms_path, class: "hover:underline" %>
+          <%= link_to "プライバシーポリシー", privacy_path, class: "hover:underline" %>
+        </div>
+
+        <div>
+          © 2026 COOK loop
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

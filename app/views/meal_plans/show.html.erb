@@ -1,6 +1,5 @@
 <div class="max-w-2xl mx-auto mt-8">
-  <%= link_to "⬅ ホームに戻る", home_path, class: "btn btn-outline mb-6" %>
-
+  <div class="bg-base-100 rounded-3xl shadow-xl p-6 sm:p-8">
   <% @meal_items_by_genre.each do |genre, items| %>
     <h2 class="text-sm font-semibold mt-6 mb-2
                border-l-4
@@ -15,4 +14,11 @@
       </p>
     <% end %>
   <% end %>
+  </div>
+
+  <div class="flex justify-center mt-8">
+    <%= link_to home_path, class: "btn bg-white text-base-content border border-base-300 hover:bg-base-200 px-6" do %>
+      ← ホーム
+    <% end %>
+  </div>
 </div>

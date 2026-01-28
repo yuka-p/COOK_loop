@@ -1,70 +1,84 @@
-<div class="max-w-2xl mx-auto mt-8">
+<div class="max-w-2xl mx-auto mt-10 px-4">
+  <div class="bg-base-100 rounded-3xl shadow-xl p-6 sm:p-8">
 
-  <div class="card shadow-lg bg-base-100 p-6">
-    <h1 class="text-3xl font-bold mb-4 text-center"><%= @my_menu.title %></h1>
+    <!-- タイトル -->
+    <div class="mb-8">
+      <div class="flex items-center gap-4 justify-center flex-wrap">
+        <span class="badge badge-primary badge-outline">
+          <%= I18n.t("enums.my_menu.genre.#{@my_menu.genre}") %>
+        </span>
 
-    <div class="space-y-3">
-      <div class="flex items-center gap-2">
-        <span class="font-semibold">ジャンル:</span>
-        <span class="badge badge-primary"><%= I18n.t("enums.my_menu.genre.#{@my_menu.genre}") %></span>
+        <h1 class="text-3xl font-bold tracking-wide">
+          <%= @my_menu.title %>
+        </h1>
       </div>
 
+      <% if @my_menu.last_cooked_at.present? %>
+        <p class="text-xs text-gray-500 text-center mt-2">
+          最終調理日：<%= @my_menu.last_cooked_at.strftime("%Y/%m/%d") %>
+        </p>
+      <% end %>
+    </div>
+
+    <!-- 本文 -->
+    <div class="space-y-6 text-sm">
+
       <% if @my_menu.tags.any? %>
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="font-semibold">タグ:</span>
-          <% @my_menu.tags.each do |tag| %>
-            <span class="badge badge-outline"><%= tag.name %></span>
-          <% end %>
+        <div class="flex gap-4 items-start">
+          <p class="font-semibold whitespace-nowrap pt-1">タグ</p>
+          <div class="flex flex-wrap gap-2">
+            <% @my_menu.tags.each do |tag| %>
+              <span class="badge badge-outline"><%= tag.name %></span>
+            <% end %>
+          </div>
         </div>
       <% end %>
 
       <% if @my_menu.ingredients.present? %>
         <div>
-          <span class="font-semibold">材料:</span>
-          <div class="mt-1 p-3 bg-base-200 rounded-md whitespace-pre-line text-sm">
+          <p class="font-semibold mb-2">材料</p>
+          <div class="bg-base-200 rounded-xl p-4 leading-relaxed whitespace-pre-line">
             <%= simple_format(@my_menu.ingredients) %>
           </div>
         </div>
       <% end %>
 
       <% if @my_menu.reference_url.present? %>
-        <div>
-          <span class="font-semibold">参考URL:</span>
-          <div class="mt-1">
-            <% begin %>
-              <% uri = URI.parse(@my_menu.reference_url) %>
-              <% if uri.scheme.in?(%w[http https]) %>
-                <%= link_to "リンクを開く", uri.to_s, target: "_blank", rel: "noopener", class: "btn btn-sm btn-outline btn-info" %>
-              <% else %>
-                <span class="text-sm text-gray-600"><%= h(@my_menu.reference_url) %></span>
-              <% end %>
-            <% rescue URI::InvalidURIError %>
-              <span class="text-sm text-gray-600"><%= h(@my_menu.reference_url) %></span>
+        <div class="flex gap-4 items-center">
+          <p class="font-semibold whitespace-nowrap">参考URL</p>
+
+          <% begin %>
+            <% uri = URI.parse(@my_menu.reference_url) %>
+            <% if uri.scheme.in?(%w[http https]) %>
+              <%= link_to "リンクを開く",
+                    uri.to_s,
+                    target: "_blank",
+                    rel: "noopener",
+                    class: "btn btn-sm btn-outline btn-info" %>
+            <% else %>
+              <span class="text-gray-500 break-all"><%= h(@my_menu.reference_url) %></span>
             <% end %>
-          </div>
+          <% rescue URI::InvalidURIError %>
+            <span class="text-gray-500 break-all"><%= h(@my_menu.reference_url) %></span>
+          <% end %>
         </div>
       <% end %>
 
       <% if @my_menu.note.present? %>
         <div>
-          <span class="font-semibold">メモ:</span>
-          <div class="mt-1 p-3 bg-base-200 rounded-md whitespace-pre-line text-sm">
+          <p class="font-semibold mb-2">メモ</p>
+          <div class="bg-base-200 rounded-xl p-4 leading-relaxed whitespace-pre-line">
             <%= simple_format(@my_menu.note) %>
           </div>
         </div>
       <% end %>
 
-      <% if @my_menu.last_cooked_at.present? %>
-        <div class="flex items-center gap-2">
-          <span class="font-semibold">最終調理日:</span>
-          <span class="text-sm text-gray-700"><%= @my_menu.last_cooked_at.strftime("%Y/%m/%d") %></span>
-        </div>
-      <% end %>
     </div>
 
-    <div class="mt-6 flex justify-center gap-4">
-      <%= link_to "編集", edit_my_menu_path(@my_menu), class: "btn btn-primary" %>
-      <%= link_to "一覧へ戻る", my_menus_path, class: "btn btn-outline" %>
+    <!-- ボタン -->
+    <div class="mt-10 flex justify-center gap-4">
+      <%= link_to "編集", edit_my_menu_path(@my_menu), class: "btn btn-primary px-8" %>
+      <%= link_to "一覧へ戻る", my_menus_path, class: "btn btn-outline px-8" %>
     </div>
   </div>
 </div>

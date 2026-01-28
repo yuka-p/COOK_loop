@@ -45,10 +45,17 @@
         <%= f.date_field :last_cooked_at, class: "input input-bordered " %>
       </div>
 
-      <div class="mt-6 flex justify-center">
-        <%= f.submit "更新する", class: "btn btn-primary px-8" %>
+      <div class="mt-6 flex justify-center gap-6">
+        <%= f.submit "更新する",
+              class: "btn bg-[#8469bf] text-white border-none hover:bg-[#8469bf]" %>
+        <%= link_to "削除",
+                my_menu_path(@my_menu),
+                data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "本当に削除しますか？"
+                },
+                class: "btn btn-outline btn-error" %>
       </div>
-
     <% end %>
   </div>
 

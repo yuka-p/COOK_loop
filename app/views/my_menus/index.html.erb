@@ -113,12 +113,6 @@
   <div class="flex gap-0.5 shrink-0 ml-auto">
     <%= link_to "✎", edit_my_menu_path(menu),
           class: "btn btn-ghost btn-xs hover:bg-base-200 transition" %>
-
-    <%= button_to "×",
-          my_menu_path(menu),
-          method: :delete,
-          data: { confirm: "本当に削除しますか?" },
-          class: "btn btn-ghost btn-xs text-error hover:bg-error/10 transition" %>
   </div>
 </div>
 

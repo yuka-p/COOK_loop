@@ -24,13 +24,16 @@
       </div>
 
       <div class="form-control mt-6">
-        <%= f.submit "登録する", class: "btn btn-primary w-full" %>
+        <%= f.submit "登録する",
+            class: "btn w-full bg-[#6b5a90] text-white hover:bg-[#5a4a7a] border-none" %>
       </div>
     <% end %>
 
     <p class="mt-4 text-center text-sm">
       すでにアカウントをお持ちですか？ 
-      <%= link_to "ログイン", new_user_session_path, class: "link link-primary" %>
+      <%= link_to "ログイン",
+          new_user_session_path,
+          class: "text-[#6b5a90] hover:underline" %>
     </p>
   </div>
 </div>

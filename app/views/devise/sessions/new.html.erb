@@ -15,21 +15,27 @@
 
       <div class="form-control mb-4">
         <label class="cursor-pointer label">
-          <%= f.check_box :remember_me, class: "checkbox checkbox-primary mr-2" %>
+          <%= f.check_box :remember_me,
+              class: "checkbox border-[#6b5a90] checked:bg-[#6b5a90] checked:border-[#6b5a90]" %>
           <span class="label-text">ログイン状態を保持</span>
         </label>
       </div>
 
-      <%= link_to "パスワードを忘れましたか？", new_user_password_path %>
+      <%= link_to "パスワードを忘れましたか？",
+          new_user_password_path,
+          class: "text-[#6b5a90] hover:underline" %>
 
       <div class="form-control mt-6">
-        <%= f.submit "ログイン", class: "btn btn-primary w-full" %>
+        <%= f.submit "ログイン",
+            class: "btn w-full bg-[#6b5a90] text-white hover:bg-[#5a4a7a] border-none" %>
       </div>
     <% end %>
 
     <p class="mt-4 text-center text-sm">
       まだアカウントをお持ちでないですか？ 
-      <%= link_to "新規登録", new_user_registration_path, class: "link link-primary" %>
+      <%= link_to "新規登録",
+          new_user_registration_path,
+          class: "text-[#6b5a90] hover:underline" %>
     </p>
   </div>
 </div>

@@ -75,14 +75,14 @@
 
     <!-- Flash messages -->
     <% if notice.present? %>
-      <div class="alert alert-success shadow-lg max-w-xl mx-auto mt-4">
-        <span><%= notice %></span>
+      <div class="bg-[#5a906a] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
+        <%= notice %>
       </div>
     <% end %>
 
     <% if alert.present? %>
-      <div class="alert alert-error shadow-lg max-w-xl mx-auto mt-4">
-        <span><%= alert %></span>
+      <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
+        <%= alert %>
       </div>
     <% end %>
 
@@ -90,7 +90,7 @@
     <main class="p-4">
       <%= yield %>
     </main>
-    <footer class="mt-16 border-t border-base-200 bg-base-100">
+    <footer class="mt-16 border-t border-base-200 bg-transparent">
       <div class="max-w-5xl mx-auto px-4 py-6 text-center text-sm text-gray-500 space-y-2">
 
         <div class="flex justify-center gap-6">

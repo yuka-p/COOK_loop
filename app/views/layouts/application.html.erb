@@ -52,6 +52,7 @@
           <ul tabindex="0"
               class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 
+            <li><%= link_to "使い方", how_to_path %></li>
             <li><%= link_to "利用規約", terms_path %></li>
             <li><%= link_to "プライバシーポリシー", privacy_path %></li>
             <li>設定</li>
@@ -91,7 +92,7 @@
       <%= yield %>
     </main>
     <footer class="mt-16 border-t border-base-200 bg-[#90755a]">
-      <div class="max-w-5xl mx-auto px-4 py-6 text-center text-sm text-gray-500 space-y-2">
+      <div class="max-w-5xl mx-auto px-4 py-6 text-center text-sm text-white space-y-2">
 
         <div class="flex justify-center gap-6">
           <%= link_to "利用規約", terms_path, class: "hover:underline" %>

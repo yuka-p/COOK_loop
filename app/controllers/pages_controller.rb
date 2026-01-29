@@ -4,4 +4,7 @@ class PagesController < ApplicationController
 
   def privacy
   end
+
+  def how_to
+  end
 end

@@ -1,89 +1,132 @@
-<div class="max-w-4xl mx-auto px-4 py-10 space-y-10">
+<div class="max-w-4xl mx-auto px-6 py-20 space-y-20">
 
-  <!-- タイトル -->
-  <div class="text-center space-y-4">
-    <h1 class="text-3xl font-bold">このアプリの使い方</h1>
-    <p class="text-gray-600 leading-relaxed">
-      毎日の献立を考えるのって、思っている以上にエネルギーがいりますよね。<br>
-      このアプリは、「少しでも考える負担を減らす」ために作りました。<br>
-      きちんと使おうとしなくて大丈夫です。あなたのペースで使ってください。
-    </p>
-  </div>
+  <div class="bg-[#faf0e6] p-5 rounded-3xl space-y-20">
+    <h1 class="text-4xl font-bold text-center tracking-wide">
+      About
+    </h1>
 
-  <!-- カード共通スタイル -->
-  <div class="grid gap-6">
 
-    <!-- マイメニュー登録 -->
-    <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-4">
-      <h2 class="text-xl font-semibold">🍳 マイメニューの登録方法</h2>
+    <!-- タイトル＋busy（横並び） -->
+    <div class="grid gap-2 md:grid-cols-2 items-center">
+        <%= image_tag "busy.jpg",
+          class: "w-64 mx-auto drop-shadow-sm",
+          alt: "忙しい毎日" %>
 
-      <p>マイメニューは、2つの方法で登録できます。</p>
+      <div class="space-y-2 text-left md:-ml-12">
+        <p class="text-gray-600 leading-relaxed">
+          忙しい日々のなかで、毎日献立を考えるのは意外と大変。<br>
+          でも家族のため、健康のために、<br class="hidden sm:block">
+          できるだけ無理なく手作りを続けたい。
+        </p>
 
-      <div class="space-y-4 pl-2">
-        <div>
-          <h3 class="font-medium">① 定番メニューから登録する</h3>
-          <p class="text-gray-600 leading-relaxed">
-            定番メニュー一覧から、登録したいメニューをまとめて選んで一括登録できます。<br>
-            登録後は、あとから個別に編集して、タグやメモを追加することも可能です。<br>
-            まずは気軽に登録して、少しずつ自分用に整えていく使い方がおすすめです。
-          </p>
-        </div>
-
-        <div>
-          <h3 class="font-medium">② 手入力で登録する</h3>
-          <p class="text-gray-600 leading-relaxed">
-            定番メニューにない料理は、手入力で自由に登録できます。<br>
-            料理名・ジャンル・メモなどを入力して、自分だけのメニュー帳を作れます。
-          </p>
-        </div>
+        <p class="text-gray-600 leading-relaxed">
+          普段からよく作っているメニューを効率よく回すことで、<br class="hidden sm:block">
+          献立と調理の負担を軽くするためのアプリです。
+        </p>
       </div>
     </div>
 
-    <!-- 献立作成 -->
-    <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-3">
-      <h2 class="text-xl font-semibold">📅 献立の作成について</h2>
+    <!-- マイメニュー登録（文章 → 画像） -->
+    <div class="px-4 md:px-8">
+    <div class="bg-white rounded-3xl shadow-sm p-10
+            max-w-3xl mx-auto
+            grid gap-5 md:grid-cols-2 items-center">
 
-      <p class="text-gray-600 leading-relaxed">
-        献立作成では、あなたが最近作っていないメニューを優先的に提案します。<br>
-        「また同じメニューになってしまう…」という悩みを減らすことを目的にしています。
-      </p>
+      <div class="space-y-3 md:ml-12">
+        <h2 class="text-2xl font-semibold">🍳 マイメニュー登録</h2>
 
-      <p class="text-gray-600 leading-relaxed">
-        提案された献立を見ながら、<br>
-        「今日はこれにしようかな」と考えるヒントとして使ってください。
-      </p>
+        <div class="space-y-4">
+          <div>
+            <h3 class="font-medium">・定番メニューから選択</h3>
+            <p class="text-gray-600 leading-relaxed">
+              　作りたいメニューをまとめて選び、<br>
+              　一括で登録。<br>
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-medium">・手入力で登録</h3>
+            <p class="text-gray-600 leading-relaxed">
+              　定番にない料理も、自由に登録。<br>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <%= image_tag "smartphone.jpg",
+          class: "w-56 mx-auto",
+          alt: "スマホ操作" %>
+
+      </div>
     </div>
 
-    <!-- チェック機能 -->
-    <div class="bg-white rounded-2xl shadow-sm border p-6 space-y-3">
-      <h2 class="text-xl font-semibold">✅ 作成した献立とチェック機能</h2>
+    <!-- 献立作成（画像 → 文章） -->
+<div class="px-4 md:px-8">
+    <div class="bg-white rounded-3xl shadow-sm p-10
+            max-w-3xl mx-auto
+            grid gap-5 md:grid-cols-2 items-center">
 
-      <p class="text-gray-600 leading-relaxed">
-        作成した献立の内容は、ホーム画面に常に表示されます。
-      </p>
+  <!-- 画像（左） -->
+  <%= image_tag "cooking.jpg",
+      class: "w-56 mx-auto",
+      alt: "料理" %>
 
-      <p class="text-gray-600 leading-relaxed">
-        実際に料理を作ったら、チェックをつけて「作成完了」にしてください。<br>
-        チェックをつけることで最終調理日が更新され、次回以降の献立提案に反映されます。
-      </p>
+  <!-- 文章（右） -->
+  <div class="space-y-3">
+    <h2 class="text-2xl font-semibold">📅 献立の作成</h2>
 
-      <p class="text-gray-600 leading-relaxed">
-        使えば使うほど、あなたの生活に合った提案になっていきます。
-      </p>
+    <p class="text-gray-600 leading-relaxed">
+      最近作っていないメニューを優先して表示。
+    </p>
+
+    <p class="text-gray-600 leading-relaxed">
+      献立にいれたいメニューを選びます。<br>
+      
+    </p>
+  </div>
+  </div>
+
+</div>
+
+
+    <!-- チェック機能（文章 → 画像） -->
+     <div class="px-4 md:px-8">
+    <div class="bg-white rounded-3xl shadow-sm p-10
+            max-w-3xl mx-auto
+            grid gap-5 md:grid-cols-2 items-center">
+      <div class="space-y-3 md:ml-12">
+        <h2 class="text-2xl font-semibold">✅ 献立チェック機能</h2>
+
+        <p class="text-gray-600 leading-relaxed">
+          作成した献立は、ホーム画面に常に表示されます。
+        </p>
+
+        <p class="text-gray-600 leading-relaxed">
+          作ったらチェックし、次回の提案に反映。
+        </p>
+      </div>
+
+      <%= image_tag "family.png",
+          class: "w-56 mx-auto",
+          alt: "家族の食卓" %>
     </div>
+      </div>
 
     <!-- さいごに -->
-    <div class="bg-[#faf0e6] rounded-2xl p-6 space-y-3 border">
-      <h2 class="text-xl font-semibold">🌿 さいごに</h2>
+    <div class="bg-[#faf0e6] rounded-3xl p-12 text-center space-y-6">
+      <h2 class="text-2xl font-semibold">🌿 さいごに</h2>
 
       <p class="text-gray-700 leading-relaxed">
         毎日のごはん作りは、それだけで十分がんばっています。
       </p>
 
       <p class="text-gray-700 leading-relaxed">
-        このアプリが、「ちょっと楽になった」と感じる助けになれば嬉しいです。<br>
-        完璧に使わなくても大丈夫です。あなたのペースで、必要なときに使ってくださいね。
+        このアプリが、<br class="hidden sm:block">
+        少しでも気持ちを軽くできますように。
       </p>
+
+      <%= link_to "使ってみる", new_user_session_path,
+          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#6b5a90] text-white hover:opacity-90 transition" %>
     </div>
 
   </div>

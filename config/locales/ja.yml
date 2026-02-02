@@ -3,6 +3,10 @@ ja:
     messages:
       not_saved: "%{count}件のエラーにより保存できませんでした"
       not_found: "見つかりませんでした"
+      blank: "を入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+      confirmation: "が一致しません"
+      taken: "はすでに使用されています"
 
   activerecord:
     models:
@@ -16,6 +20,11 @@ ja:
         reference_url: 参考URL
         note: メモ
         last_cooked_at: 最後に作った日
+      user:
+        user_name: ユーザーネーム
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
 
   enums:
     my_menu:

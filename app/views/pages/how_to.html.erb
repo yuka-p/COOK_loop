@@ -112,21 +112,13 @@
     </div>
       </div>
 
-    <!-- さいごに -->
+
     <div class="bg-[#faf0e6] rounded-3xl p-12 text-center space-y-6">
-      <h2 class="text-2xl font-semibold">🌿 さいごに</h2>
-
-      <p class="text-gray-700 leading-relaxed">
-        毎日のごはん作りは、それだけで十分がんばっています。
-      </p>
-
-      <p class="text-gray-700 leading-relaxed">
-        このアプリが、<br class="hidden sm:block">
-        少しでも気持ちを軽くできますように。
-      </p>
-
-      <%= link_to "使ってみる", new_user_session_path,
-          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#6b5a90] text-white hover:opacity-90 transition" %>
+      <%= link_to(
+          user_signed_in? ? "ホームへ" : "使ってみる",
+          user_signed_in? ? root_path : new_user_session_path,
+          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#6b5a90] text-white hover:opacity-90 transition"
+      ) %>
     </div>
 
   </div>

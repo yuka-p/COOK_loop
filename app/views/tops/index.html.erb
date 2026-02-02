@@ -1,9 +1,44 @@
-<div class="min-h-screen flex flex-col justify-center items-center ">
-  <h1 class="text-5xl font-bold mb-6">COOK LOOP</h1>
-  <p class="text-lg text-gray-600 mb-10">毎日の献立作りをもっと簡単に、楽しく。</p>
+<div class="min-h-screen flex items-center justify-center px-6">
 
-  <div class="flex flex-col sm:flex-row gap-4">
-    <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary btn-lg" %>
-    <%= link_to '新規登録', new_user_registration_path, class: "btn btn-secondary btn-lg" %>
+  <!-- 中央カード -->
+  <div class="relative z-10 w-full max-w-md mx-auto
+              bg-[#faf0e6]/95 rounded-3xl shadow-lg
+              px-10 py-16 text-center">
+
+    <!-- ロゴ（アイコン＋文字 横並び） -->
+    <div class="flex items-center justify-center gap-3 my-15 mb-12">
+      <%= image_tag "icon.png",
+          alt: "COOK LOOP",
+          class: "h-12 w-12 object-contain opacity-90" %>
+
+      <h1
+        class="text-4xl tracking-wide text-gray-800"
+        style="font-family: 'Limelight', cursive;">
+        COOK LOOP
+      </h1>
+    </div>
+
+    <!-- キャッチコピー -->
+    <div class="my-15 mb-14">
+      <p class="text-medium text-gray-700 leading-relaxed">
+        毎日のごはんを、ちょっと楽に。
+      </p>
+    </div>
+
+    <!-- ボタン -->
+    <div class="flex flex-col gap-6">
+      <%= link_to "Log in",
+          new_user_session_path,
+          class: "btn w-full bg-[#6b5a90] text-white hover:bg-[#5a4a7a] border-none" %>
+
+      <%= link_to "はじめての方はこちら",
+          new_user_registration_path,
+          class: "text-sm text-[#6b5a90] hover:underline" %>
+
+      <%= link_to "使い方",
+          how_to_path,
+          class: "text-xs text-gray-500 hover:underline mt-4" %>
+    </div>
+
   </div>
 </div>

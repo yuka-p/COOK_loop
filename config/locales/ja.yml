@@ -18,6 +18,7 @@ ja:
         title: 料理名
         ingredients: 材料
         reference_url: 参考URL
+        genre: ジャンル
         note: メモ
         last_cooked_at: 最後に作った日
       user:

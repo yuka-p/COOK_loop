@@ -29,13 +29,11 @@ class MyMenusController < ApplicationController
   end
 
   def create
-    @my_menu = current_user.my_menus.new(my_menu_params)
+    @my_menu = current_user.my_menus.build(my_menu_params)
 
     if @my_menu.save
       redirect_to my_menus_path, notice: "メニューを登録しました"
     else
-      @user_genres = current_user.user_genres.order(:position)
-      @master_menus = MasterMenu.all
       render :new, status: :unprocessable_entity
     end
   end

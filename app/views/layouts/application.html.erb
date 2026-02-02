@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
@@ -22,58 +23,56 @@
 
   <body class="min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-[#ad9d8a] shadow-md">
-      <div class="flex items-center justify-between px-4 h-16">
+    <% if user_signed_in? %>
+      <!-- Header -->
+      <header class="bg-[#ad9d8a] shadow-md">
+        <div class="flex items-center justify-between px-4 h-16">
 
-        <link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
+          <div>
+            <%= link_to root_path, class: "flex items-center gap-2" do %>
+              <%= image_tag "icon.png", alt: "COOK loop", class: "h-10 w-10 object-contain" %>
 
-        <div>
-          <%= link_to root_path, class: "flex items-center gap-2" do %>
-            <%= image_tag "icon.png", alt: "COOK loop", class: "h-10 w-10 object-contain" %>
-
-            <span
-              class="text-white text-3xl tracking-normal"
-              style="font-family: 'Limelight', cursive;">
-              COOK loop
-            </span>
-          <% end %>
-        </div>
-
-        <!-- ハンバーガーメニュー（右） -->
-        <div class="dropdown dropdown-end">
-          <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-white/20">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 class="inline-block w-6 h-6 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-          </label>
-
-          <ul tabindex="0"
-              class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-
-            <li><%= link_to "使い方", how_to_path %></li>
-            <li><%= link_to "利用規約", terms_path %></li>
-            <li><%= link_to "プライバシーポリシー", privacy_path %></li>
-            <li>設定</li>
-
-            <% if user_signed_in? %>
-              <li>
-                <%= button_to "ログアウト",
-                  destroy_user_session_path,
-                  method: :delete,
-                  data: { confirm: "ログアウトしますか？" },
-                  class: "logout-button" %>
-              </li>
-            <% else %>
-              <li><%= link_to "ログイン", new_user_session_path %></li>
+              <span
+                class="text-white text-3xl tracking-normal"
+                style="font-family: 'Limelight', cursive;">
+                COOK loop
+              </span>
             <% end %>
-          </ul>
-        </div>
+          </div>
 
-      </div>
-    </header>
+          <!-- ハンバーガーメニュー（右） -->
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-white/20">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                   class="inline-block w-6 h-6 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </label>
+
+            <ul tabindex="0"
+                class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+
+              <li><%= link_to "使い方", how_to_path %></li>
+              <li><%= link_to "設定（工事中）", home_path %></li>
+
+              <% if user_signed_in? %>
+                <li>
+                  <%= button_to "ログアウト",
+                    destroy_user_session_path,
+                    method: :delete,
+                    data: { confirm: "ログアウトしますか？" },
+                    class: "logout-button" %>
+                </li>
+              <% else %>
+                <li><%= link_to "ログイン", new_user_session_path %></li>
+              <% end %>
+            </ul>
+          </div>
+
+        </div>
+      </header>
+    <% end %>
 
     <!-- Flash messages -->
     <% if notice.present? %>

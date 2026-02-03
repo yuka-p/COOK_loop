@@ -2,6 +2,8 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @my_menus = current_user.my_menus
+
     meal_plans = current_user.meal_plans
       .where.not(date: nil)
       .order(created_at: :desc)

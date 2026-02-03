@@ -1,22 +1,38 @@
-<div class="max-w-xl mx-auto mt-6 px-4 sm:px-0">
-  <!-- ▼ 今日の献立（未調理分） -->
-  <% if @meal_items.present? %>
+<div class="max-w-md mx-auto mt-6 px-3 sm:px-0">
+
+  <% if @my_menus.blank? %>
+
+  <!-- マイメニューがない場合 -->
+  <div class="text-center mt-10 space-y-4">
+    <p class="text-sm text-base-content/70">
+      まずは下の『マイメニュー』ボタンより、
+      よく作る料理を登録してみましょう 🍳
+    </p>
+  </div>
+
+<% elsif @meal_items.blank? %>
+
+  <!-- 献立がない場合 -->
+  <div class="text-center mt-10 space-y-4">
+    <p class="text-sm text-base-content/70">
+      今日はどんな献立にしますか？ 📅
+    </p>
+  </div>
+
+<% else %>
 
   <!-- トグルボタン -->
-    <div class="flex justify-end mb-6">
-      <button
-        type="button"
-        id="toggle-meal-plan"
-        class="btn btn-sm btn-outline"
-      >
+    <div class="flex justify-between mb-6 max-w-md mx-auto">
+      <button type="button" id="toggle-meal-plan"
+              class="btn btn-sm btn-outline">
       献立を非表示
       </button>
     </div>
 
-    <div id="meal-plan-area" class="max-w-xl mx-auto px-4 sm:px-0">
+    <div id="meal-plan-area" class="w-full">
       <%= form_with url: bulk_update_meal_items_path, method: :patch, local: true do %>
-      <div class="card bg-base-100 shadow-lg">
-        <div class="card-body">
+      <div class="card bg-base-100 shadow-md rounded-2xl">
+        <div class="card-body px-3 py-4 sm:px-5 sm:py-6">
 
           <% @meal_items
                .sort_by { |genre, _| MyMenu.genres[genre] }
@@ -36,10 +52,8 @@
               <!-- 献立リスト -->
                 <ul class="space-y-1">
                   <% items.each do |meal_item| %>
-                    <li
-                      class="flex items-center gap-3 px-3 py-2 rounded-lg
-                             hover:bg-base-200 transition"
-                    >
+                    <li class="flex items-center gap-3 px-3 py-2 rounded-lg
+                               hover:bg-base-200 transition">
                       <%= check_box_tag "meal_item_ids[]",
                                         meal_item.id,
                                         false,
@@ -59,12 +73,35 @@
           <!-- ボタン -->
             <div class="flex justify-end gap-3 mt-6">
               <%= button_tag "作成完了",
-                    type: :submit,
-                    name: "commit_action",
-                    value: "mark_as_cooked",
-                    class: "btn font-normal bg-[#907abf] text-white border-none hover:bg-[#907abf]" %>
+                type: :submit,
+                name: "commit_action",
+                value: "mark_as_cooked",
+                class: "
+                  group relative overflow-hidden
+                  btn font-normal
+                  bg-[#907abf] text-white border-none
+                  shadow-md
+                  transition-all duration-200
+                  hover:-translate-y-1
+                  hover:shadow-lg
+                  active:scale-[0.96]
+                " %>
 
-              <%= button_tag "献立から削除",
+                <!-- ripple -->
+                <span class="ripple"></span>
+
+                <!-- キラッと光 -->
+                <span class="
+                  pointer-events-none
+                  absolute inset-0
+                  -translate-x-full
+                  bg-gradient-to-r
+                  from-transparent via-white/30 to-transparent
+                  transition-transform duration-500
+                  group-hover:translate-x-full
+                "></span>
+
+              <%= button_tag "リストから削除",
                     type: :submit,
                     name: "commit_action",
                     value: "remove_from_plan",
@@ -79,39 +116,60 @@
   <% end %>
 
   <!-- ▼ メニューリンク -->
-  <div class="grid gap-4 mt-10">
+  <div class="flex justify-center gap-8 mt-10 relative">
 
     <%= link_to my_menus_path,
-        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
-      <div class="flex items-center gap-3">
-        <div class="badge badge-primary p-3 text-white">📘</div>
-        <span class="text-lg font-semibold">マイメニュー一覧を見る</span>
-      </div>
+      class: "
+        group relative overflow-hidden
+        w-40 h-40 sm:w-44 sm:h-44
+        rounded-full
+        bg-base-100
+        shadow-md
+        hover:shadow-lg
+        transition
+        flex flex-col items-center justify-center
+        gap-2
+        hover:-translate-y-1
+      " do %>
+
+      <!-- ripple用 -->
+      <span class="ripple"></span>
+
+      <!-- 画像 -->
+      <%= image_tag "my_menu.png",
+        class: "w-20 h-20 object-contain transition group-hover:scale-110" %>
+
+      <!-- テキスト -->
+      <span class="text-sm font-semibold tracking-wide">
+        マイメニュー
+      </span>
+
     <% end %>
 
-    <%= link_to master_menus_path,
-        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
-      <div class="flex items-center gap-3">
-        <div class="badge badge-secondary p-3 text-white">🍳</div>
-        <span class="text-lg font-semibold">定番メニューから登録する</span>
-      </div>
-    <% end %>
 
     <%= link_to new_meal_plan_path,
-        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
-      <div class="flex items-center gap-3">
-        <div class="badge badge-accent p-3 text-white">📅</div>
-        <span class="text-lg font-semibold">献立を作成する</span>
-      </div>
-    <% end %>
+      class: "
+        group relative overflow-hidden
+        w-40 h-40 sm:w-44 sm:h-44
+        rounded-full
+        bg-base-100
+        shadow-md
+        hover:shadow-lg
+        transition
+        flex flex-col items-center justify-center
+        gap-2
+        hover:-translate-y-1
+      " do %>
 
-    <%= link_to "#",
-        class: "card bg-base-100 shadow hover:shadow-lg transition rounded-xl p-5" do %>
-      <div class="flex items-center gap-3">
-        <div class="badge badge-info p-3 text-white">🛒</div>
-        <span class="text-lg font-semibold">買い物リストを見る（工事中）</span>
-      </div>
-    <% end %>
+      <span class="ripple"></span>
 
+      <%= image_tag "meal_plan.png",
+            class: "w-20 h-20 object-contain transition group-hover:scale-110" %>
+
+      <span class="text-sm font-semibold tracking-wide">
+        献立をつくる
+      </span>
+
+    <% end %>
   </div>
 </div>

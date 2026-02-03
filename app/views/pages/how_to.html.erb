@@ -1,11 +1,7 @@
-<div class="max-w-4xl mx-auto px-6 py-20 space-y-20">
+<div class="max-w-4xl mx-auto px-3 sm:px-6 py-20 space-y-20">
 
   <div class="bg-[#faf0e6] p-5 rounded-3xl space-y-20">
-    <h1 class="text-4xl font-bold text-center tracking-wide">
-      About
-    </h1>
-
-
+   
     <!-- タイトル＋busy（横並び） -->
     <div class="grid gap-2 md:grid-cols-2 items-center">
         <%= image_tag "busy.jpg",
@@ -27,28 +23,28 @@
     </div>
 
     <!-- マイメニュー登録（文章 → 画像） -->
-    <div class="px-4 md:px-8">
-    <div class="bg-white rounded-3xl shadow-sm p-10
-            max-w-3xl mx-auto
-            grid gap-5 md:grid-cols-2 items-center">
+    <div class="px-2 sm:px-4 md:px-8">
+      <div class="bg-white rounded-3xl shadow-sm p-10
+                  max-w-3xl mx-auto
+                  grid gap-5 md:grid-cols-2 items-center">
 
-      <div class="space-y-3 md:ml-12">
-        <h2 class="text-2xl font-semibold">🍳 マイメニュー登録</h2>
+        <div class="space-y-3 md:ml-12">
+          <h2 class="text-2xl font-semibold">🍳 マイメニュー登録</h2>
 
-        <div class="space-y-4">
-          <div>
-            <h3 class="font-medium">・定番メニューから選択</h3>
-            <p class="text-gray-600 leading-relaxed">
-              　作りたいメニューをまとめて選び、<br>
-              　一括で登録。<br>
-            </p>
-          </div>
+          <div class="space-y-4">
+            <div>
+              <h3 class="font-medium">・定番メニューから選択</h3>
+              <p class="text-gray-600 leading-relaxed">
+                  作りたいメニューをまとめて選び、<br>
+                  一括で登録。<br>
+              </p>
+            </div>
 
-          <div>
-            <h3 class="font-medium">・手入力で登録</h3>
-            <p class="text-gray-600 leading-relaxed">
-              　定番にない料理も、自由に登録。<br>
-            </p>
+            <div>
+              <h3 class="font-medium">・手入力で登録</h3>
+              <p class="text-gray-600 leading-relaxed">
+                定番にない料理も、自由に登録。<br>
+              </p>
           </div>
         </div>
       </div>
@@ -57,67 +53,65 @@
           class: "w-56 mx-auto",
           alt: "スマホ操作" %>
 
-      </div>
     </div>
+  </div>
 
     <!-- 献立作成（画像 → 文章） -->
-<div class="px-4 md:px-8">
+  <div class="px-4 md:px-8">
     <div class="bg-white rounded-3xl shadow-sm p-10
             max-w-3xl mx-auto
             grid gap-5 md:grid-cols-2 items-center">
 
   <!-- 画像（左） -->
-  <%= image_tag "cooking.jpg",
-      class: "w-56 mx-auto",
-      alt: "料理" %>
+      <%= image_tag "cooking.jpg",
+          class: "w-56 mx-auto",
+          alt: "料理" %>
 
   <!-- 文章（右） -->
-  <div class="space-y-3">
-    <h2 class="text-2xl font-semibold">📅 献立の作成</h2>
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold">📅 献立の作成</h2>
 
-    <p class="text-gray-600 leading-relaxed">
-      最近作っていないメニューを優先して表示。
-    </p>
+          <p class="text-gray-600 leading-relaxed">
+            最近作っていないメニューを優先して表示。
+          </p>
 
-    <p class="text-gray-600 leading-relaxed">
-      献立にいれたいメニューを選びます。<br>
-      
-    </p>
-  </div>
-  </div>
-
-</div>
+          <p class="text-gray-600 leading-relaxed">
+            献立にいれたいメニューを選びます。<br>    
+          </p>
+        </div>
+      </div>
+    </div>
 
 
     <!-- チェック機能（文章 → 画像） -->
-     <div class="px-4 md:px-8">
-    <div class="bg-white rounded-3xl shadow-sm p-10
+    <div class="px-4 md:px-8">
+      <div class="bg-white rounded-3xl shadow-sm p-10
             max-w-3xl mx-auto
             grid gap-5 md:grid-cols-2 items-center">
-      <div class="space-y-3 md:ml-12">
-        <h2 class="text-2xl font-semibold">✅ 献立チェック機能</h2>
+        <div class="space-y-3 md:ml-12">
+          <h2 class="text-2xl font-semibold">✅ 献立チェック機能</h2>
 
-        <p class="text-gray-600 leading-relaxed">
-          作成した献立は、ホーム画面に常に表示されます。
-        </p>
+          <p class="text-gray-600 leading-relaxed">
+            作成した献立は、ホーム画面に常に表示されます。
+          </p>
 
-        <p class="text-gray-600 leading-relaxed">
-          作ったらチェックし、次回の提案に反映。
-        </p>
+          <p class="text-gray-600 leading-relaxed">
+            作ったらチェックし、次回の提案に反映。
+          </p>
+        </div>
+
+        <%= image_tag "family.png",
+            class: "w-56 mx-auto",
+            alt: "家族の食卓" %>
       </div>
-
-      <%= image_tag "family.png",
-          class: "w-56 mx-auto",
-          alt: "家族の食卓" %>
     </div>
-      </div>
 
 
     <div class="bg-[#faf0e6] rounded-3xl p-12 text-center space-y-6">
       <%= link_to(
           user_signed_in? ? "ホームへ" : "使ってみる",
           user_signed_in? ? root_path : new_user_session_path,
-          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#6b5a90] text-white hover:opacity-90 transition"
+          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#907abf] text-white hover:opacity-90 transition"
       ) %>
     </div>
 

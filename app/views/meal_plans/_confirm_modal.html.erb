@@ -35,12 +35,13 @@
           <% end %>
 
           <%= f.submit "登録する",
-                       class: "bg-green-500 text-white px-4 py-2 rounded mr-2" %>
+                       class: "px-4 py-2 rounded mr-2 text-white transition",
+                       style: "background-color: #6d8664; hover:background-color: #92AA8F;" %>
         <% end %>
 
         <button type="button"
                 onclick="this.closest('.modal-overlay').remove()"
-                class="bg-gray-300 px-4 py-2 rounded">
+                class="bg-white border border-gray-300 px-4 py-2 rounded text-gray-700 hover:bg-gray-50 transition">
           キャンセル
         </button>
       </div>

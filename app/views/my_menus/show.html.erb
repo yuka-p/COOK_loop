@@ -4,7 +4,7 @@
     <!-- タイトル -->
     <div class="mb-8">
       <div class="flex items-center gap-4 justify-center flex-wrap">
-        <span class="badge badge-primary badge-outline">
+        <span class="badge badge-outline border-[#907abf] text-[#907abf]">
           <%= I18n.t("enums.my_menu.genre.#{@my_menu.genre}") %>
         </span>
 
@@ -28,7 +28,9 @@
           <p class="font-semibold whitespace-nowrap pt-1">タグ</p>
           <div class="flex flex-wrap gap-2">
             <% @my_menu.tags.each do |tag| %>
-              <span class="badge badge-outline"><%= tag.name %></span>
+              <span class="badge badge-outline border-[#907abf] text-[#907abf]">
+                <%= tag.name %>
+              </span>
             <% end %>
           </div>
         </div>
@@ -37,7 +39,7 @@
       <% if @my_menu.ingredients.present? %>
         <div>
           <p class="font-semibold mb-2">材料</p>
-          <div class="bg-base-200 rounded-xl p-4 leading-relaxed whitespace-pre-line">
+          <div class="bg-base-200 rounded-xl p-3 leading-relaxed whitespace-pre-line">
             <%= simple_format(@my_menu.ingredients) %>
           </div>
         </div>
@@ -54,7 +56,9 @@
                     uri.to_s,
                     target: "_blank",
                     rel: "noopener",
-                    class: "btn btn-sm btn-outline btn-info" %>
+                    class: "btn btn-sm btn-outline border-[#907abf] text-[#907abf]
+                            hover:bg-[#907abf] hover:text-white
+                            transition-colors duration-200" %>
             <% else %>
               <span class="text-gray-500 break-all"><%= h(@my_menu.reference_url) %></span>
             <% end %>
@@ -67,7 +71,7 @@
       <% if @my_menu.note.present? %>
         <div>
           <p class="font-semibold mb-2">メモ</p>
-          <div class="bg-base-200 rounded-xl p-4 leading-relaxed whitespace-pre-line">
+          <div class="bg-base-200 rounded-xl p-3 leading-relaxed whitespace-pre-line">
             <%= simple_format(@my_menu.note) %>
           </div>
         </div>
@@ -76,9 +80,24 @@
     </div>
 
     <!-- ボタン -->
-    <div class="mt-10 flex justify-center gap-4">
-      <%= link_to "編集", edit_my_menu_path(@my_menu), class: "btn btn-primary px-8" %>
-      <%= link_to "一覧へ戻る", my_menus_path, class: "btn btn-outline px-8" %>
+    <div class="mt-10 flex justify-center gap-6">
+      <%= link_to "編集",
+            edit_my_menu_path(@my_menu),
+            class: "action-primary px-8" %>
+
+      <%= link_to "削除",
+                my_menu_path(@my_menu),
+                data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "本当に削除しますか？"
+                },
+                class: "btn btn-outline btn-error" %>
     </div>
   </div>
+</div>
+                
+<div class="mt-4 text-center">
+    <%= link_to my_menus_path, class: "nav-back-button" do %>
+      ← 戻る
+    <% end %>
 </div>

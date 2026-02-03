@@ -8,7 +8,7 @@ document.addEventListener("turbo:load", () => {
   const menuItems = Array.from(root.querySelectorAll(".menu-item"));
   const sortSelect = document.getElementById("sortSelect");
 
-  let activeGenre = "main";
+  let activeGenre = "all";
   const activeTags = new Set();
 
   /* ===== カウンター ===== */
@@ -22,14 +22,11 @@ document.addEventListener("turbo:load", () => {
 
   function updateCounters() {
     const counts = { main: 0, side: 0, soup: 0, staple: 0, other: 0 };
-
     checkboxes.forEach(cb => {
       if (!cb.checked) return;
-
       const genre = cb.closest(".menu-item")?.dataset.genre;
       if (genre) counts[genre]++;
     });
-
     Object.entries(counters).forEach(([key, el]) => {
       if (!el) return;
       const count = counts[key];
@@ -62,11 +59,13 @@ document.addEventListener("turbo:load", () => {
     btn.addEventListener("click", () => {
       const tagId = btn.dataset.tagId;
 
-      btn.classList.toggle("is-active");
-
-      activeTags.has(tagId)
-        ? activeTags.delete(tagId)
-        : activeTags.add(tagId);
+      if (activeTags.has(tagId)) {
+        activeTags.delete(tagId);
+        btn.classList.remove("is-active");
+      } else {
+        activeTags.add(tagId);
+        btn.classList.add("is-active");
+      }
 
       applyFilters();
     });
@@ -82,9 +81,9 @@ document.addEventListener("turbo:load", () => {
     const sorted = [...menuItems].sort((a, b) => {
       switch (value) {
         case "created_desc":
-          return b.dataset.created - a.dataset.created;
+          return Number(b.dataset.created) - Number(a.dataset.created);
         case "last_cooked_desc":
-          return a.dataset.lastCooked - b.dataset.lastCooked;
+          return Number(a.dataset.lastCooked) - Number(b.dataset.lastCooked);
         case "title_asc":
           return a.dataset.title.localeCompare(b.dataset.title, "ja");
         default:
@@ -103,24 +102,21 @@ document.addEventListener("turbo:load", () => {
       const genreOk =
         activeGenre === "all" || item.dataset.genre === activeGenre;
 
-      const tags = item.dataset.tags.split(",").filter(Boolean);
+      const tags = item.dataset.tags ? item.dataset.tags.split(",") : [];
       const tagsOk =
         activeTags.size === 0 ||
         [...activeTags].every(t => tags.includes(t));
 
-      item.style.display = genreOk && tagsOk ? "flex" : "none";
+      item.style.display = genreOk && tagsOk ? "block" : "none";
     });
   }
 
   /* ===== 初期状態 ===== */
-
-  // ジャンルボタン初期反映
   genreButtons.forEach(btn => {
-    btn.classList.toggle("btn-primary", btn.dataset.genre === "main");
-    btn.classList.toggle("btn-outline", btn.dataset.genre !== "main");
+    btn.classList.toggle("btn-primary", btn.dataset.genre === "all");
+    btn.classList.toggle("btn-outline", btn.dataset.genre !== "all");
   });
 
-  // 並び順 初期設定
   if (sortSelect) {
     sortSelect.value = "last_cooked_desc";
     sortItems();

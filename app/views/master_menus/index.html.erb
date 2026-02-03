@@ -2,12 +2,7 @@
 
   <%# --- 選択中 menu_ids を取得して配列化 --- %>
   <% selected_menu_ids = Array(params[:menu_ids]) %>
-
-  <!-- ページタイトル -->
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-bold">Our Favorites</h1>
-  </div>
-
+  
   <!-- フィルターエリア -->
   <div class="card bg-base-100 shadow p-4 inline-block max-w-2xl mx-auto">
     <div id="genreFilters" class="flex gap-2 flex-wrap">
@@ -21,7 +16,7 @@
                hover:bg-[#bebbf7]/60"
         data-genre="all"
         type="button">
-        All
+        すべて
       </button>
 
       <% ordered_genres = %w[main side soup staple] %>
@@ -43,13 +38,18 @@
                 data: { controller: "modal", turbo_frame: "_top" } do |f| %>
 
     <div class="bg-[#faf0e6] p-8 mt-6 rounded-2xl space-y-6">
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+      <div class="flex flex-wrap gap-4">
 
         <% @master_menus.each do |menu| %>
           <label
-            class="menu-card px-5 py-3 border border-base-300 rounded-xl bg-white text-sm
-                   shadow-sm transition hover:shadow-md hover:bg-base-200
-                   peer-checked:bg-blue-50 peer-checked:border-blue-400"
+            class="menu-card relative px-5 py-3 rounded-xl bg-white text-sm
+                   border border-base-300
+                   shadow-sm transition
+                   hover:shadow-md hover:bg-base-200
+                   active:scale-[0.97]
+                   peer-checked:bg-[#907abf]/10
+                   peer-checked:border-[#907abf]
+                   peer-checked:shadow-md"
             data-genre="<%= menu.genre %>">
 
             <input
@@ -58,10 +58,9 @@
               value="<%= menu.id %>"
               class="hidden peer" />
 
-            <span class="font-semibold peer-checked:text-blue-600">
+            <span class="font-semibold peer-checked:text-[#f6a56c]">
               <%= menu.title %>
             </span>
-
           </label>
         <% end %>
 
@@ -72,8 +71,8 @@
       <%= f.submit "OK",
             class: "action-primary" %>
 
-      <%= link_to home_path, class: "nav-back-button" do %>
-        ← ホーム
+      <%= link_to my_menus_path, class: "nav-back-button" do %>
+        ← 戻る
       <% end %>
     </div>
 

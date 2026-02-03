@@ -54,34 +54,42 @@
   <%= form_with url: confirm_meal_plans_path, method: :post, data: { turbo_frame: "modal" } do %>
 
     <!-- メニュー一覧 -->
-    <div class="bg-[#faf0e6] p-6 rounded-2xl">
+    <div class="bg-[#faf0e6] p-4 sm:p-8 rounded-2xl my-6 space-y-4 sm:space-y-6">
       <div id="menuList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-         <% @my_menus.each do |menu| %>
+        <% @my_menus.each do |menu| %>
           <label
-            class="menu-item block p-4 rounded-xl border border-base-300 bg-white shadow-sm
-                   hover:shadow-md transition cursor-pointer
-                   peer-checked:bg-primary/10 peer-checked:border-primary"
+            class="menu-item relative block max-w-xs w-full mx-auto cursor-pointer"
             data-genre="<%= menu.genre %>"
-            data-tags="<%= menu.tags.pluck(:id).join(',') %>"
-            data-created="<%= menu.created_at.to_i %>"
-            data-last-cooked="<%= menu.last_cooked_at ? menu.last_cooked_at.to_time.to_i : 0 %>"
-            data-title="<%= menu.title %>">
+            data-tags="<%= menu.tags.pluck(:id).join(',') %>">
+    
+            <!-- チェックボックス -->
+            <%= check_box_tag "my_menu_ids[]", menu.id, false,
+                  class: "peer hidden menu-checkbox" %>
 
-            <div class="flex items-center gap-3">
-              <%= check_box_tag "my_menu_ids[]", menu.id, false,
-                    class: "menu-checkbox peer checkbox checkbox-sm" %>
-
-              <span class="text-sm sm:text-base font-medium">
+            <!-- メニューカード -->
+            <div class="p-4 rounded-xl border border-base-300 bg-white shadow-sm
+                        hover:shadow-md transition
+                        peer-checked:bg-[#f6a56c]/20
+                        peer-checked:border-[#f6a56c]
+                        peer-checked:shadow-md">
+              <span class="text-sm sm:text-base font-medium peer-checked:text-[#f6a56c]">
                 <%= menu.title %>
               </span>
             </div>
-          </label>
 
+            <!-- 選択チェックマーク -->
+            <span class="absolute top-2 right-2 text-[#f6a56c] text-lg
+                         opacity-0 scale-75 transition
+                         peer-checked:opacity-100 peer-checked:scale-100">
+              ✓
+            </span>
+          </label>
         <% end %>
 
       </div>
     </div>
+
 
   <div class="pt-6 flex justify-center gap-4">
     <%= submit_tag "決定",

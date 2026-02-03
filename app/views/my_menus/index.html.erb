@@ -25,7 +25,7 @@
                      hover:bg-[#bebbf7]/60"
               data-genre="all"
               type="button">
-              全部
+              すべて
             </button>
 
             <% MyMenu.genres.keys.each do |genre| %>
@@ -81,10 +81,10 @@
 
   <!-- 一覧 -->
   <!-- 背景ブロック全体 -->
-<div class="bg-[#faf0e6] p-8 rounded-2xl my-6 space-y-6">
+<div class="bg-[#faf0e6] p-4 sm:p-8 rounded-2xl my-6 space-y-4 sm:space-y-6">
 
   <!-- ボタンエリア -->
-  <div class="flex flex-col sm:flex-row gap-4 justify-center">
+  <div class="flex flex-row gap-3 justify-center flex-wrap">
     <%= link_to "＋ 新規作成", new_my_menu_path,
           class: "action-primary" %>
     <%= link_to "定番メニューから選ぶ",
@@ -93,31 +93,35 @@
   </div>
 
   <!-- メニュー一覧グリッド -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <% @my_menus.each do |menu| %>
-      <div class="relative bg-base-100 border-6 rounded-xl px-2 py-1
-                  transition
-                  hover:shadow-md
-                  hover:-translate-y-[1px]
-                  <%= genre_border_class(menu) %>">
+  <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+  <% @my_menus.each do |menu| %>
+    <div class="relative bg-base-100 border-6 rounded-xl
+                px-3 py-2
+                transition
+                hover:shadow-md
+                hover:-translate-y-[1px]
+                active:scale-[0.98]
+                <%= genre_border_class(menu) %>">
 
-        <%= link_to my_menu_path(menu), class: "absolute inset-0 z-0" do %>
-        <% end %>
+      <%= link_to my_menu_path(menu), class: "block" do %>
+        <div class="flex items-center gap-3">
+          <p class="text-sm font-semibold truncate flex-1">
+            <%= menu.title %>
+          </p>
 
-        <div class="relative z-10 flex items-center gap-3">
-  <p class="text-sm font-semibold truncate flex-1">
-    <%= menu.title %>
-  </p>
+          <!-- 編集ボタン -->
+          <div class="shrink-0">
+            <%= link_to "✎", edit_my_menu_path(menu),
+                  class: "btn btn-ghost btn-xs hover:bg-base-200 transition",
+                  data: { turbo: false } %>
+          </div>
+        </div>
+      <% end %>
 
-  <div class="flex gap-0.5 shrink-0 ml-auto">
-    <%= link_to "✎", edit_my_menu_path(menu),
-          class: "btn btn-ghost btn-xs hover:bg-base-200 transition" %>
-  </div>
+    </div>
+  <% end %>
 </div>
 
-      </div>
-    <% end %>
-  </div>  
 </div>
 <div class="flex justify-center">
   <%= link_to home_path, class: "nav-back-button" do %>

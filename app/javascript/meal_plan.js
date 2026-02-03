@@ -62,8 +62,7 @@ document.addEventListener("turbo:load", () => {
     btn.addEventListener("click", () => {
       const tagId = btn.dataset.tagId;
 
-      btn.classList.toggle("badge-primary");
-      btn.classList.toggle("badge-outline");
+      btn.classList.toggle("is-active");
 
       activeTags.has(tagId)
         ? activeTags.delete(tagId)

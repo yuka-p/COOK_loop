@@ -22,3 +22,131 @@ body {
     background-size: cover;
   }
 }
+
+/* 汎用アクションボタン（メイン） */
+.action-primary {
+  appearance: none;
+  border: none;
+  border-radius: 0.25rem; /* 丸み */
+  padding: 0.65rem 1.4rem;
+
+  background-color: #907abf;
+  color: #ffffff;
+  font-weight: 500;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+/* hover：少し透明に */
+.action-primary:hover {
+  opacity: 0.7;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.16);
+  transform: translateY(-1px);
+}
+
+/* 押した瞬間 */
+.action-primary:active {
+  transform: scale(0.96);
+}
+
+/* フォーカス（キーボード操作） */
+.action-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(144, 122, 191, 0.35);
+}
+
+
+/* 丸いアクションカード（リンク） */
+.round-action-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: #fdfdfd;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.round-action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+/* 中の画像用 */
+.round-action-card img {
+  transition: transform 0.2s ease;
+}
+
+.round-action-card:hover img {
+  transform: scale(1.1);
+}
+
+/* 戻る・ホーム用ナビゲーションボタン */
+.nav-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0.5rem 1rem;
+
+  background-color: #ffffff;
+  color: var(--bc); /* text-base-content */
+
+  border: 1px solid var(--b3); /* base-300 */
+  border-radius: 0.25rem;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  transition: background-color 0.15s ease;
+}
+
+/* ホバー時：背景にうっすら色をのせるだけ */
+.nav-back-button:hover {
+  background-color: rgba(144, 122, 191, 0.15);
+}
+
+/* 押した瞬間（任意・ほぼ同じでOK） */
+.nav-back-button:active {
+  background-color: rgba(144, 122, 191, 0.2);
+}
+
+/* ジャンルフィルターのカウンター */
+.genre-filter-button span {
+  background-color: #ede9e4; /* くすみパープル */
+  color: #535352;
+  border-radius: 9999px;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.65rem;
+  line-height: 1.2;
+}
+
+/* ===== タグフィルター ===== */
+.tag-filter-button {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(144, 122, 191, 0.35); /* #907abf 薄め */
+  background: #fff;
+  color: #5a4d78;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* hover（未選択時） */
+.tag-filter-button:hover {
+  background: rgba(144, 122, 191, 0.12);
+}
+
+/* 選択中 */
+.tag-filter-button.is-active {
+  background: #907abf;
+  border-color: #907abf;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(144, 122, 191, 0.3);
+}

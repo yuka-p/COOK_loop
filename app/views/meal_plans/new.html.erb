@@ -1,7 +1,5 @@
 <div data-controller="meal-plans-new" class="max-w-3xl mx-auto mt-8 space-y-6">
 
-  <h1 class="text-3xl font-bold">献立作成</h1>
-
   <!-- フィルターエリア -->
   <div class="card bg-base-100 shadow px-8 py-4  max-w-2xl mx-auto">
     <!-- 中央寄せ用ラッパー -->
@@ -40,18 +38,16 @@
 
       <!-- 2段目：タグ -->
       <% if @tags.present? %>
-        <div>
           <div id="tagFilters" class="flex gap-2 flex-wrap">
             <% @tags.each do |tag| %>
               <button
                 type="button"
-                class="badge badge-outline hover:badge-primary cursor-pointer tag-filter-button"
+                class="tag-filter-button"
                 data-tag-id="<%= tag.id %>">
                 <%= tag.name %>
               </button>
             <% end %>
           </div>
-        </div>
       <% end %>
     </div>
   </div>
@@ -88,13 +84,13 @@
     </div>
 
   <div class="pt-6 flex justify-center gap-4">
-    <%= submit_tag "登録内容を確認",
-        class: "btn font-normal bg-[#907abf] text-white border-none hover:bg-[#907abf]" %>
+    <%= submit_tag "決定",
+        class: "action-primary" %>
 
-    <%= link_to home_path,
-        class: "btn bg-white text-base-content border border-base-300 hover:bg-base-200" do %>
-          ← ホーム
+    <%= link_to home_path, class: "nav-back-button" do %>
+      ← ホーム
     <% end %>
+
   </div>
   <% end %>
 

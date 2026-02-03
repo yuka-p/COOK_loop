@@ -5,7 +5,7 @@
 
   <!-- ページタイトル -->
   <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-bold">定番メニュー一覧</h1>
+    <h1 class="text-3xl font-bold">Our Favorites</h1>
   </div>
 
   <!-- フィルターエリア -->
@@ -21,7 +21,7 @@
                hover:bg-[#bebbf7]/60"
         data-genre="all"
         type="button">
-        全部
+        All
       </button>
 
       <% ordered_genres = %w[main side soup staple] %>
@@ -69,11 +69,10 @@
     </div>
 
     <div class="pt-6 flex justify-center gap-4">
-      <%= f.submit "登録内容を確認",
-            class: "btn font-normal bg-[#907abf] text-white border-none hover:bg-[#907abf]" %>
+      <%= f.submit "OK",
+            class: "action-primary" %>
 
-      <%= link_to home_path,
-            class: "btn bg-white text-base-content border border-base-300 hover:bg-base-200" do %>
+      <%= link_to home_path, class: "nav-back-button" do %>
         ← ホーム
       <% end %>
     </div>

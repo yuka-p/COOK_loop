@@ -14,9 +14,9 @@ class MyMenusController < ApplicationController
                 .by_genre(@genre)
                 .sorted(@sort)
 
-    if params[:tag_id].present?
-      @my_menus = @my_menus.joins(:my_menu_tags)
-                           .where(my_menu_tags: { tag_id: params[:tag_id] })
+    if params[:tag_ids].present?
+      tag_ids = params[:tag_ids].split(",")
+      @my_menus = @my_menus.joins(:tags).where(tags: { id: tag_ids }).distinct
     end
   end
 

@@ -97,7 +97,9 @@
 
   <div class="max-w-xl mx-auto mt-6 px-4">
     <div class="flex justify-center">
-      <%= link_to "←戻る", my_menus_path, class: "btn bg-white border border-base-300 hover:bg-base-200" %>
+        <%= link_to home_path, class: "nav-back-button" do %>
+          ← ホーム
+        <% end %>
     </div>
   </div>
 </div>

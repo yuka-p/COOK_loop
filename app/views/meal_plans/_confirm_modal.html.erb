@@ -1,7 +1,6 @@
 <%= turbo_frame_tag "modal" do %>
   <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white p-6 rounded shadow-lg w-96">
-      <h2 class="text-xl font-bold mb-4">登録内容確認</h2>
 
       <% grouped_menus =
            @selected_menus
@@ -24,7 +23,7 @@
         </div>
       <% end %>
 
-      <div class="text-right mt-4">
+      <div class="text-right mt-8 flex justify-end gap-2">
         <%= form_with model: @meal_plan,
               url: meal_plans_path,
               method: :post,
@@ -35,8 +34,8 @@
           <% end %>
 
           <%= f.submit "登録する",
-                       class: "px-4 py-2 rounded mr-2 text-white transition",
-                       style: "background-color: #6d8664; hover:background-color: #92AA8F;" %>
+                       class: "px-4 py-2 rounded text-white transition",
+                       style: "background-color: #907abf;" %>
         <% end %>
 
         <button type="button"

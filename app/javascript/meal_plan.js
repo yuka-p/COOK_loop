@@ -96,6 +96,11 @@ document.addEventListener("turbo:load", () => {
 
   sortSelect?.addEventListener("change", sortItems);
 
+  if (sortSelect) {
+    sortSelect.value = "last_cooked_desc";
+    sortItems();
+  }
+
   /* ===== フィルター ===== */
   function applyFilters() {
     menuItems.forEach(item => {

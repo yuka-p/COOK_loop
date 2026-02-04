@@ -48,9 +48,9 @@
           <%= f.select :sort,
             options_for_select(
               [
-                ["最終調理日（新しい順）", "last_cooked_desc"],
-                ["登録日（新しい順）", "created_desc"],
-                ["メニュー名（50音順）", "title_asc"],
+                ["新しい順", "created_desc"],
+                ["最近作っていない順", "last_cooked_desc"],
+                ["50音順", "title_asc"],
               ],
               params[:sort]
             ),
@@ -105,7 +105,7 @@
 
       <%= link_to my_menu_path(menu), class: "block" do %>
         <div class="flex items-center gap-3">
-          <p class="text-sm font-semibold truncate flex-1">
+          <p class="text-sm sm:text-base font-medium truncate flex-1">
             <%= menu.title %>
           </p>
 

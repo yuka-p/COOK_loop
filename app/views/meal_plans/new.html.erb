@@ -10,6 +10,16 @@
         <!-- 左：ジャンル -->
         <div class="flex-1">
           <div id="genreFilters" class="flex gap-2 flex-wrap">
+            <button
+              class="btn btn-sm genre-filter-button
+                     bg-[#bebbf7]/40
+                     text-gray-700
+                     border border-[#bebbf7]
+                     hover:bg-[#bebbf7]/60"
+              data-genre="all"
+              type="button">
+              すべて
+            </button>
             <% MyMenu.genres.keys.each do |genre| %>
               <button
                 class="btn btn-sm genre-filter-button <%= genre_button_class(genre) %>"
@@ -28,9 +38,8 @@
         <!-- 右：並び替え -->
         <div class="w-full md:w-56">
           <select id="sortSelect" class="select select-bordered w-full">
-            <option value="">---</option>
-            <option value="created_desc">登録日（新しい順）</option>
-            <option value="last_cooked_desc">直近で作っていない順</option>
+            <option value="last_cooked_desc">最近作っていない順</option>
+            <option value="created_desc">新しい順</option>
             <option value="title_asc">50音順</option>
           </select>
         </div>

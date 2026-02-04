@@ -4,16 +4,24 @@ class HomeController < ApplicationController
   def index
     @my_menus = current_user.my_menus
 
-    meal_plans = current_user.meal_plans
-      .where.not(date: nil)
-      .order(created_at: :desc)
+    # 今日の献立を取得 or 作成
+    @today_meal_plan = current_user.meal_plans.find_or_create_by(date: Date.current)
 
-    meal_items = MealItem
-      .joins(:meal_plan, :my_menu)
-      .includes(:my_menu)
-      .where(meal_plan: meal_plans)
-      .where("my_menus.last_cooked_at IS NULL OR my_menus.last_cooked_at < meal_plans.date")
+    # 今日の献立に紐づく MealItem をジャンルごとにグループ化
+    @meal_items = @today_meal_plan
+                    .meal_items
+                    .includes(:my_menu)
+                    .group_by { |item| item.my_menu.genre }
 
-    @meal_items = meal_items.group_by { |item| item.my_menu.genre }
+    # 今日の献立にまだ追加されていないマイメニューID
+    added_menu_ids = @today_meal_plan.meal_items.pluck(:my_menu_id)
+
+    # おすすめメニュー（追加されていない&直近で作っていないもの優先）
+    @recommended_menus =
+      current_user
+        .my_menus
+        .where.not(id: added_menu_ids)          # まだ献立に入っていないもの
+        .sorted("last_cooked_desc")            # last_cooked_at nil や古い順
+        .limit(3)
   end
 end

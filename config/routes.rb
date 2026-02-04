@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     collection do
       post :import_from_master
     end
+
+    member do
+      post :add_meal_item
+    end
   end
 
   resources :meal_items, only: [] do

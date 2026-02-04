@@ -93,6 +93,37 @@
 
   <% end %>
 
+  <!-- ▼ おすすめメニュー -->
+  <div class="max-w-md mx-auto mt-10">
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="text-sm font-semibold">🍽 今日のおすすめ</h3>
+
+      <%= link_to "更新",
+            meal_plans_path,
+            class: "btn btn-xs btn-outline" %>
+    </div>
+
+    <% if @recommended_menus.present? %>
+  <div class="space-y-3">
+    <% @recommended_menus.each do |menu| %>
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body py-3 px-4 flex-row items-center justify-between">
+          <span class="text-sm font-medium">
+            <%= menu.title %>
+          </span>
+
+          <%= button_to "＋",
+                add_meal_item_my_menu_path(menu),
+                method: :post,
+                class: "btn btn-sm btn-circle btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+  </div>
+
   <!-- ▼ メニューリンク -->
   <div class="flex justify-center gap-8 mt-10 relative">
 

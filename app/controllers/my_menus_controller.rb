@@ -87,6 +87,28 @@ class MyMenusController < ApplicationController
     redirect_to my_menus_path, notice: "マイメニューに登録しました"
   end
 
+  def add_meal_item
+  menu = current_user.my_menus.find(params[:id])
+
+  # 今日の献立を取得 or 作成
+  meal_plan =
+    current_user
+      .meal_plans
+      .find_or_create_by!(date: Date.current)
+
+  meal_plan.meal_items.create!(
+    my_menu: menu,
+    genre: menu.genre
+  )
+
+  # おすすめから外すため
+  menu.update!(last_cooked_at: Time.current)
+
+  redirect_to home_path,
+    notice: "#{menu.title} を献立に追加しました"
+end
+
+
   private
 
   def set_my_menu

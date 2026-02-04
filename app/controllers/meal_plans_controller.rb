@@ -2,6 +2,13 @@ class MealPlansController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @my_menus = current_user.my_menus
+
+    @meal_items =
+    current_user
+      .meal_items
+      .includes(:my_menu)
+      .group_by(&:genre)
   end
 
   def new

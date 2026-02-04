@@ -8,10 +8,10 @@ class HomeController < ApplicationController
     @today_meal_plan = current_user.meal_plans.find_or_create_by(date: Date.current)
 
     # 今日の献立に紐づく MealItem をジャンルごとにグループ化
-    @meal_items = @today_meal_plan
-                    .meal_items
-                    .includes(:my_menu)
-                    .group_by { |item| item.my_menu.genre }
+    @meal_items = current_user.meal_plans
+                              .includes(meal_items: :my_menu)
+                              .flat_map(&:meal_items)
+                              .group_by(&:genre)
 
     # 今日の献立にまだ追加されていないマイメニューID
     added_menu_ids = @today_meal_plan.meal_items.pluck(:my_menu_id)
@@ -20,8 +20,8 @@ class HomeController < ApplicationController
     @recommended_menus =
       current_user
         .my_menus
-        .where.not(id: added_menu_ids)          # まだ献立に入っていないもの
-        .sorted("last_cooked_desc")            # last_cooked_at nil や古い順
+        .where.not(id: added_menu_ids)
+        .order(Arel.sql("COALESCE(last_cooked_at, '1970-01-01') ASC, RANDOM()"))
         .limit(3)
   end
 end

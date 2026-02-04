@@ -1,15 +1,15 @@
 module MyMenusHelper
   def genre_border_class(menu)
     case menu.genre
-    when "staple" # 主食
+    when "staple"
       "border-[#fad9e2]"
-    when "main"   # 主菜
+    when "main"
       "border-[#ffcfa8]"
-    when "side"   # 副菜
+    when "side"
       "border-[#c9ded2]"
-    when "soup"   # 汁物
+    when "soup"
       "border-[#faf2c7]"
-    else         # その他
+    else
       "border-[#C9DFEC]"
     end
   end
@@ -41,6 +41,21 @@ def genre_heading_class(genre)
       "bg-[#f5e68e]/40 text-gray-700 border border-[#f5e68e] hover:bg-[#f5e68e]/60"
     else
       "bg-[#96c2d9]/40 text-gray-700 border border-[#96c2d9] hover:bg-[#96c2d9]/60"
+    end
+  end
+
+  def genre_card_border_color(menu)
+    case menu.genre
+    when "main"
+      "#f4b262"
+    when "side"
+      "#8cb596"
+    when "soup"
+      "#d6d185"
+    when "staple"
+      "#cf949e"
+    else
+      "#7aadad"
     end
   end
 end

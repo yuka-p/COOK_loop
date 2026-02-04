@@ -4,11 +4,10 @@ class MealPlansController < ApplicationController
   def index
     @my_menus = current_user.my_menus
 
-    @meal_items =
-    current_user
-      .meal_items
-      .includes(:my_menu)
-      .group_by(&:genre)
+    @meal_items = current_user.meal_plans
+                              .includes(meal_items: :my_menu)
+                              .flat_map(&:meal_items)
+                              .group_by(&:genre)
   end
 
   def new

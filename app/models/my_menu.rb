@@ -41,7 +41,7 @@ class MyMenu < ApplicationRecord
       order(Arel.sql("last_cooked_at IS NOT NULL, COALESCE(last_cooked_at, created_at) ASC"))
     when "title_asc"
     order(title: :asc)
-      else
+    else
       all
     end
   }

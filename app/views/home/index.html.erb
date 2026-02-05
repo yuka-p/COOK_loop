@@ -2,17 +2,15 @@
 
   <% if @my_menus.blank? %>
 
-  <!-- マイメニューがない場合 -->
   <div class="text-center mt-10 space-y-4">
     <p class="text-sm text-base-content/70">
-      まずは下の『マイメニュー』ボタンより、
+      まずは下の『マイメニュー』ボタンより、<br>
       よく作る料理を登録してみましょう 🍳
     </p>
   </div>
 
 <% elsif @meal_items.blank? %>
 
-  <!-- 献立がない場合 -->
   <div class="text-center mt-10 space-y-4">
     <p class="text-sm text-base-content/70">
       今日はどんな献立にしますか？ 📅
@@ -21,7 +19,6 @@
 
 <% else %>
 
-  <!-- トグルボタン -->
     <div class="flex justify-between mb-6 max-w-md mx-auto">
       <button type="button" id="toggle-meal-plan"
               class="btn btn-sm btn-outline ml-auto">
@@ -41,7 +38,6 @@
             <% next if items.blank? %>
             <div class="mb-8">
 
-                <!-- ジャンル見出し -->
               <h3 class="text-sm font-semibold mb-3
                         border-l-4
                         px-4 py-1.5 rounded-md tracking-wide
@@ -49,7 +45,6 @@
                 <%= MyMenu.genres_i18n[genre] %>
               </h3>
 
-              <!-- 献立リスト -->
                 <ul class="space-y-1">
                   <% items.each do |meal_item| %>
                     <li class="flex items-center gap-3 px-3 py-2 rounded-lg
@@ -60,7 +55,7 @@
                                         class: "checkbox" %>
 
                       <div class="flex-1 text-sm">
-                        <p class="font-semibold">
+                        <p class="text-base">
                           <%= meal_item.my_menu.title %>
                         </p>
                       </div>
@@ -70,7 +65,6 @@
               </div>
             <% end %>
 
-          <!-- ボタン -->
             <div class="flex justify-end gap-3 mt-6">
               <%= button_tag "作成完了",
                 type: :submit,
@@ -97,37 +91,31 @@
   <div class="max-w-md mx-auto mt-10">
     <div class="flex items-center mb-3">
 
+    <% if @recommended_menus.present? %>
       <%= link_to "↻",
             root_path,
             class: "btn btn-xs btn-outline ml-auto" %>
     </div>
+    
+      <div class="space-y-3">
+        <% @recommended_menus.each do |menu| %>
+          <div class="rounded-full shadow-sm mx-auto border-10"
+               style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>; width: 300px;">
+            <div class="flex items-center py-2 px-3">
+              <span class="flex-1 text-center text-base font-semibold">
+                <%= menu.title %>
+              </span>
 
-    <% if @recommended_menus.present? %>
-  <div class="space-y-3">
-    <% @recommended_menus.each do |menu| %>
-      <!-- カード：背景白、枠線ジャンル色 -->
-      <div class="rounded-full shadow-sm mx-auto border-10"
-           style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>; width: 300px;">
-        <div class="flex items-center py-2 px-3">
-          <!-- 文字は中央揃え -->
-          <span class="flex-1 text-center text-base font-semibold">
-            <%= menu.title %>
-          </span>
-
-          <!-- ボタンは右端 -->
-          <%= button_to "＋",
-                add_meal_item_my_menu_path(menu),
-                method: :post,
-                class: "btn btn-sm btn-circle ml-3 shadow-none",
-                style: "background-color:#7f6a62; border:none; color:white;" %>
-        </div>
+              <%= button_to "＋",
+                    add_meal_item_my_menu_path(menu),
+                    method: :post,
+                    class: "btn btn-sm btn-circle ml-3 shadow-none",
+                    style: "background-color:#9b877d; border:none; color:white;" %>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
-  </div>
-<% end %>
-
-
-
 
   </div>
 

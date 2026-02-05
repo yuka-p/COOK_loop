@@ -6,7 +6,11 @@ class MyMenusController < ApplicationController
     @my_menus = current_user.my_menus.order(created_at: :desc)
     @genre = params[:genre]
     @sort  = params[:sort] || "created_desc"
-    @tags = Tag.all
+   @tags = current_user.my_menus
+                       .joins(:tags)
+                       .select("tags.*")
+                       .distinct
+                       .order(:name)
 
     @my_menus =
     current_user.my_menus
@@ -90,7 +94,6 @@ class MyMenusController < ApplicationController
   def add_meal_item
   menu = current_user.my_menus.find(params[:id])
 
-  # 今日の献立を取得 or 作成
   meal_plan =
     current_user
       .meal_plans
@@ -101,7 +104,6 @@ class MyMenusController < ApplicationController
     genre: menu.genre
   )
 
-  # おすすめから外すため
   menu.update!(last_cooked_at: Time.current)
 
   redirect_to home_path,

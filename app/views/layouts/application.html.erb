@@ -54,8 +54,6 @@
                 class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 
               <li><%= link_to "使い方", how_to_path %></li>
-              <li><%= link_to "設定（工事中）", home_path %></li>
-
               <% if user_signed_in? %>
                 <li>
                   <%= button_to "ログアウト",

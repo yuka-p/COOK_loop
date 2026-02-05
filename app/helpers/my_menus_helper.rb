@@ -47,15 +47,15 @@ def genre_heading_class(genre)
   def genre_card_border_color(menu)
     case menu.genre
     when "main"
-      "#f4b262"
+      "#f2b973"
     when "side"
-      "#8cb596"
+      "#8cc79b"
     when "soup"
-      "#d6d185"
+      "#e3d780"
     when "staple"
-      "#cf949e"
+      "#e09ca7"
     else
-      "#7aadad"
+      "#82bfbf"
     end
   end
 end

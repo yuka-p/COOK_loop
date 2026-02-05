@@ -12,10 +12,21 @@ class MealPlansController < ApplicationController
 
   def new
     @meal_plan = MealPlan.new
+
+    added_menu_ids = current_user.meal_plans
+                                 .joins(:meal_items)
+                                 .pluck("meal_items.my_menu_id")
+
     @my_menus = current_user.my_menus
-                             .includes(:tags)
-                             .order(last_cooked_at: :desc) # ← 既存そのまま
-    @tags = Tag.order(:name)   # ← ★これを追加
+                            .where.not(id: added_menu_ids)
+                            .includes(:tags)
+                            .order(last_cooked_at: :desc)
+
+    @tags = current_user.my_menus
+                    .joins(:tags)
+                    .select("tags.*")
+                    .distinct
+                    .order(:name)
   end
 
   def confirm
@@ -44,7 +55,7 @@ class MealPlansController < ApplicationController
 
       @meal_plan.meal_items.create!(
         my_menu: menu,
-        genre: menu.genre   # ← ★これが全て
+        genre: menu.genre
       )
     end
 

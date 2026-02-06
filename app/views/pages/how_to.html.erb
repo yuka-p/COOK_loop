@@ -1,14 +1,14 @@
-<div class="max-w-4xl mx-auto px-3 sm:px-6 py-12 sm:py-20 space-y-14 sm:space-y-20">
+<div class="max-w-4xl mx-auto px-3 sm:px-6 py-12 sm:py-20 space-y-14 sm:space-y-20 page-fade">
 
   <div class="bg-[#faf0e6] p-4 sm:p-6 rounded-3xl space-y-14 sm:space-y-20">
    
     <!-- タイトル＋busy（横並び） -->
-    <div class="grid gap-2 md:grid-cols-2 items-center">
+    <div class="grid gap-2 md:grid-cols-2 items-center fade-section delay-1">
         <%= image_tag "busy.jpg",
-          class: "w-64 mx-auto drop-shadow-sm mt-15",
+          class: "w-64 mx-auto drop-shadow-sm mt-15 fade-child child-delay-1",
           alt: "忙しい毎日" %>
 
-      <div class="space-y-2 text-left md:-ml-12 md:text-left text-center">
+      <div class="space-y-2 text-left md:-ml-12 md:text-left text-center fade-child child-delay-2">
         <p class="text-gray-600 leading-relaxed">
           忙しい日々のなかで、毎日献立を考えるのは意外と大変。<br>
           でも家族のため、健康のために、<br class="hidden sm:block">
@@ -23,12 +23,12 @@
     </div>
 
     <!-- マイメニュー登録（文章 → 画像） -->
-    <<div class="px-1 sm:px-4 md:px-8">
+    <div class="px-1 sm:px-4 md:px-8">
       <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
                   max-w-3xl mx-auto
-                  grid gap-5 md:grid-cols-2 items-center">
+                  grid gap-5 md:grid-cols-2 items-center fade-section delay-2">
 
-        <div class="space-y-3 md:ml-12">
+        <div class="space-y-3 md:ml-12 fade-child child-delay-1">
           <h2 class="text-2xl font-semibold">🍳 マイメニュー登録</h2>
 
           <div class="space-y-4">
@@ -50,7 +50,7 @@
       </div>
 
       <%= image_tag "smartphone.jpg",
-          class: "w-56 mx-auto",
+          class: "w-56 mx-auto fade-child child-delay-2",
           alt: "スマホ操作" %>
 
     </div>
@@ -60,15 +60,15 @@
   <div class="px-4 md:px-8">
     <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
             max-w-3xl mx-auto
-            grid gap-5 md:grid-cols-2 items-center">
+            grid gap-5 md:grid-cols-2 items-center fade-section delay-3">
 
   <!-- 画像（左） -->
       <%= image_tag "cooking.jpg",
-          class: "w-56 mx-auto",
+          class: "w-56 mx-auto fade-child child-delay-1",
           alt: "料理" %>
 
   <!-- 文章（右） -->
-        <div class="space-y-3">
+        <div class="space-y-3 fade-child child-delay-2">
           <h2 class="text-2xl font-semibold">📅 献立の作成</h2>
 
           <p class="text-gray-600 leading-relaxed">
@@ -87,8 +87,8 @@
     <div class="px-4 md:px-8">
       <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
             max-w-3xl mx-auto
-            grid gap-5 md:grid-cols-2 items-center">
-        <div class="space-y-3 md:ml-12">
+            grid gap-5 md:grid-cols-2 items-center fade-section delay-4">
+        <div class="space-y-3 md:ml-12 fade-child child-delay-1">
           <h2 class="text-2xl font-semibold">✅ 献立チェック機能</h2>
 
           <p class="text-gray-600 leading-relaxed">
@@ -101,7 +101,7 @@
         </div>
 
         <%= image_tag "family.png",
-            class: "w-56 mx-auto",
+            class: "w-56 mx-auto fade-child child-delay-2",
             alt: "家族の食卓" %>
       </div>
     </div>
@@ -111,7 +111,8 @@
       <%= link_to(
           user_signed_in? ? "ホームへ" : "使ってみる",
           user_signed_in? ? root_path : new_user_session_path,
-          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#907abf] text-white hover:opacity-90 transition"
+          class: "inline-block mt-6 px-8 py-3 rounded-full bg-[#907abf] text-white hover:opacity-90 transition fade-child child-delay-1"
+
       ) %>
     </div>
 

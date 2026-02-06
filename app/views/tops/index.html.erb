@@ -6,27 +6,28 @@
               px-10 py-16 text-center">
 
     <!-- ロゴ（アイコン＋文字 横並び） -->
-    <div class="flex items-center justify-center gap-3 my-15 mb-12">
+    <div class="flex items-center justify-center gap-3 my-15 mb-12 hero-item hero-delay-1">
       <%= image_tag "icon_brown.png",
           alt: "COOK LOOP",
-          class: "h-12 w-12 object-contain opacity-90" %>
+          class: "h-12 w-12 object-contain opacity-90 logo-float" %>
 
       <h1
-        class="text-4xl tracking-wide text-[#87765e]"
+        class="text-3xl sm:text-4xl tracking-wide text-[#967f64]"
         style="font-family: 'Limelight', cursive;">
         COOK LOOP
       </h1>
+
     </div>
 
     <!-- キャッチコピー -->
-    <div class="my-15 mb-14">
+    <div class="my-15 mb-14 hero-item hero-delay-2">
       <p class="text-sm text-gray-700 leading-relaxed">
         毎日のごはんを、ちょっと楽に。
       </p>
     </div>
 
     <!-- ボタン -->
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 hero-item hero-delay-3">
       <%= link_to "Log in",
           new_user_session_path,
           class: "btn w-full bg-[#6b5a90] text-white hover:bg-[#5a4a7a] border-none" %>

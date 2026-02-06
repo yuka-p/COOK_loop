@@ -1,5 +1,5 @@
 <% if resource.errors.any? %>
-  <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-2 px-4 py-3 rounded shadow-lg">
+  <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-2 px-4 py-3 rounded shadow-lg page-fade">
     <ul class="text-sm space-y-1">
       <% resource.errors.full_messages.each do |message| %>
         <li>・<%= message %></li>

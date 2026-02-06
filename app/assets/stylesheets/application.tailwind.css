@@ -154,3 +154,188 @@ body {
 .genre-filter-button {
   box-shadow: 0 1px 2px rgba(0,0,0,0.08) !important;
 }
+
+/* =========================
+   ふわっと表示（カード用）
+========================= */
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   達成ポップ（チェック時）
+========================= */
+.check-pop:active {
+  transform: scale(1.2);
+  transition: 0.15s;
+}
+
+/* =========================
+   ボタンぷにっと
+========================= */
+.btn-pop:active {
+  transform: scale(0.95);
+}
+
+
+/* =========================
+   ページ全体フェードイン
+========================= */
+.page-fade {
+  animation: pageFade 0.6s ease-out;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   セクションゆっくりフェード
+========================= */
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: sectionFade 1.2s ease-out forwards;
+}
+
+/* セクション遅延（ブロック用） */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.8s; }
+.delay-3 { animation-delay: 1.4s; }
+.delay-4 { animation-delay: 2.0s; }
+.delay-5 { animation-delay: 2.6s; }
+
+/* 中身用（画像・文章） */
+.fade-child {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: childFade 1.2s ease-out forwards;
+}
+
+.child-delay-1 { animation-delay: 0.4s; }
+.child-delay-2 { animation-delay: 0.8s; }
+
+@keyframes sectionFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes childFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   ホーム画面フェード
+========================= */
+
+.home-section {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: homeFade 1s ease-out forwards;
+}
+
+.home-delay-1 { animation-delay: 0.2s; }
+.home-delay-2 { animation-delay: 0.7s; }
+.home-delay-3 { animation-delay: 1.2s; }
+
+@keyframes homeFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 中のカードを少し遅れて */
+.home-child {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: homeChildFade 0.9s ease-out forwards;
+}
+
+.child-1 { animation-delay: 0.4s; }
+.child-2 { animation-delay: 0.7s; }
+.child-3 { animation-delay: 1.0s; }
+
+@keyframes homeChildFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   ページ順番フェードイン（ゆっくり）
+========================= */
+
+.page-section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: pageFade 1s ease-out forwards;
+}
+
+/* 表示タイミング */
+.page-delay-1 { animation-delay: 0.2s; }
+.page-delay-2 { animation-delay: 0.8s; }
+.page-delay-3 { animation-delay: 1.4s; }
+.page-delay-4 { animation-delay: 2.0s; }
+
+@keyframes pageFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   トップ登場アニメ
+========================= */
+
+.hero-item {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: heroFade 1s ease forwards;
+}
+
+.hero-delay-1 { animation-delay: 0.3s; }
+.hero-delay-2 { animation-delay: 0.9s; }
+.hero-delay-3 { animation-delay: 1.5s; }
+
+@keyframes heroFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatLogo {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.logo-float {
+  animation: floatLogo 4s ease-in-out infinite;
+}

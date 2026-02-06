@@ -1,7 +1,8 @@
 <div class="max-w-3xl mx-auto mt-8">
 
 <!-- フィルターエリア -->
-<div class="card bg-base-100 shadow px-8 py-4  max-w-2xl mx-auto">
+<div class="card bg-base-100 shadow px-8 py-4 max-w-2xl mx-auto page-section page-delay-1">
+
   <%= form_with url: my_menus_path, method: :get, local: true, id: "filterForm" do |f| %>
 
     <!-- ジャンル（hiddenで送信） -->
@@ -80,10 +81,8 @@
 </div>
 
   <!-- 一覧 -->
-  <!-- 背景ブロック全体 -->
-<div class="bg-[#faf0e6] p-4 sm:p-8 rounded-2xl my-6 space-y-4 sm:space-y-6">
+<div class="bg-[#faf0e6] p-4 sm:p-8 rounded-2xl my-6 space-y-4 sm:space-y-6 page-section page-delay-2">
 
-  <!-- ボタンエリア -->
   <div class="flex flex-row gap-3 justify-center flex-wrap">
     <%= link_to "＋ 新規作成", new_my_menu_path,
           class: "action-primary" %>
@@ -92,8 +91,8 @@
           class: "btn btn-outline" %>
   </div>
 
-  <!-- メニュー一覧グリッド -->
-  <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+  <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 page-section page-delay-3">
+
   <% @my_menus.each do |menu| %>
     <div class="relative bg-base-100 border-6 rounded-xl
                 px-3 py-2
@@ -123,7 +122,8 @@
 </div>
 
 </div>
-<div class="flex justify-center">
+
+<div class="flex justify-center page-section page-delay-4">
   <%= link_to home_path, class: "nav-back-button" do %>
     ← ホーム
   <% end %>

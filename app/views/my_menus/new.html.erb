@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto mt-10">
+<div class="max-w-xl mx-auto mt-10 page-fade">
   <% if @my_menu.errors.any? %>
     <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
       <div class="text-sm space-y-1">
@@ -10,8 +10,6 @@
   <% end %>
 
   <div class="bg-[#faf0e6] rounded-2xl shadow-md p-6 sm:p-8 mt-8">
-
-    <h1 class="text-3xl font-bold mb-6">マイメニューを追加</h1>
 
     <%= form_with model: @my_menu, url: my_menus_path, class: "space-y-6" do |f| %>
 

@@ -71,3 +71,5 @@ MVP
 ## 画面遷移図
 [![Image from Gyazo](https://i.gyazo.com/df8232119db0b93f389a14ca7a4d21f6.png)](https://gyazo.com/df8232119db0b93f389a14ca7a4d21f6)
 
+## ER図
+[![Image from Gyazo](https://i.gyazo.com/ab3f4f062b3d10e5db01f73d9fbbcca7.png)](https://gyazo.com/ab3f4f062b3d10e5db01f73d9fbbcca7)

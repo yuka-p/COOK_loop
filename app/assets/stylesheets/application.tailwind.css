@@ -394,3 +394,8 @@ body {
   transform: translateY(-50%);
   width: 50px;
 }
+
+/* 利用規約・プライバシー専用フォント */
+.legal-page {
+  font-family: 'Zen Maru Gothic', sans-serif;
+}

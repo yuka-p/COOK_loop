@@ -56,11 +56,18 @@ MVP
 
 本リリース
 - レシピ検索サイトで選んだレシピを取り込んで登録
-- AIによる作成した献立の栄養分析→次にむけてアドバイス
 - 考えた献立を家族にシェア
+- メニュー名の検索ボックス
+- 献立全選択ボタン
+- 問い合わせページ
+- ユーザー設定ページ
 
 ## 使用する技術スタック
 - 使用するフレームワーク:Ruby on Rails
 - データベース:PostgreSQL
 - デプロイ:Render
 - フロントエンド：Tailwind CSS
+
+## 画面遷移図
+[![Image from Gyazo](https://i.gyazo.com/df8232119db0b93f389a14ca7a4d21f6.png)](https://gyazo.com/df8232119db0b93f389a14ca7a4d21f6)
+

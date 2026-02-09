@@ -89,61 +89,86 @@
 
   <!-- ▼ おすすめメニュー -->
   <div class="max-w-md mx-auto mt-10 home-section home-delay-2">
-    <div class="flex items-center mb-3">
 
     <% if @recommended_menus.present? %>
-      <%= link_to "↻",
-            root_path,
-            class: "btn btn-xs btn-outline ml-auto" %>
-    </div>
-    
-      <div class="space-y-3 home-child child-1">
-        <% @recommended_menus.each do |menu| %>
-          <div class="rounded-full shadow-sm mx-auto border-10 home-child child-2"
-               style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>; width: 300px;">
-            <div class="flex items-center py-2 px-3">
-              <span class="flex-1 text-center text-base font-semibold">
-                <%= menu.title %>
-              </span>
 
-              <%= button_to "＋",
-                    add_meal_item_my_menu_path(menu),
-                    method: :post,
-                    class: "btn btn-sm btn-circle ml-3 shadow-none",
-                    style: "background-color:#9b877d; border:none; color:white;" %>
-            </div>
-          </div>
-        <% end %>
+    <!-- 見出し＋更新 -->
+    <div class="relative mb-6">
+
+    <!-- 右上の更新ボタン -->
+      <%= link_to root_path,
+          class: "refresh-btn absolute right-0 top-1/2 -translate-y-1/2 z-10 inline-block
+                  transition hover:scale-110 active:scale-95" do %>
+        <%= image_tag "refresh.png", class: "w-14 h-10" %>
+      <% end %>
+
+      <!-- 中央タイトル -->
+      <div class="recommended-title">
+        <p>RECOMMENDED MENU</p>
       </div>
-    <% end %>
-
+    </div>
   </div>
+
+    <!-- メニュー一覧 -->
+    <div class="space-y-3 home-child child-1">
+      <% @recommended_menus.each do |menu| %>
+
+        <div class="rounded-full shadow-sm mx-auto border-10 home-child child-2"
+             style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>; width: 300px;">
+
+          <div class="flex items-center py-2 px-3">
+
+            <span class="flex-1 text-center text-base font-semibold">
+              <%= menu.title %>
+            </span>
+
+            <%= button_to "＋",
+                  add_meal_item_my_menu_path(menu),
+                  method: :post,
+                  class: "btn btn-sm btn-circle ml-3 shadow-none
+                          transition duration-200
+                          hover:opacity-70 hover:-translate-y-[1px]
+                          active:scale-95",
+                  style: "background-color:#ad9d8a; border:none; color:white;" %>
+
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+  <% end %>
+</div>
+
 
   <!-- ▼ メニューリンク -->
   <div class="flex justify-center gap-8 mt-10 relative home-section home-delay-3">
+    
+    <div class="home-child child-1">
+      <%= link_to my_menus_path,
+        class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
 
-    <%= link_to my_menus_path,
-      class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2 home-child child-1" do %>
+        <%= image_tag "my_menu.png", class: "w-20 h-20 object-contain" %>
 
-      <%= image_tag "my_menu.png", class: "w-20 h-20 object-contain" %>
+        <span class="text-sm font-semibold tracking-wide">
+          マイメニュー
+        </span>
 
-      <span class="text-sm font-semibold tracking-wide">
-        マイメニュー
-      </span>
-
-    <% end %>
+      <% end %>
+    </div>
 
 
-    <%= link_to new_meal_plan_path,
-      class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2 home-child child-2" do %>
+    <div class="home-child child-2">
+      <%= link_to new_meal_plan_path,
+        class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
 
-      <%= image_tag "meal_plan.png", class: "w-20 h-20 object-contain" %>
+        <%= image_tag "meal_plan.png", class: "w-20 h-20 object-contain" %>
 
-      <span class="text-sm font-semibold tracking-wide">
-        献立をつくる
-      </span>
+        <span class="text-sm font-semibold tracking-wide">
+          献立をつくる
+        </span>
 
-    <% end %>
-
+      <% end %>
+    </div>
   </div>
 </div>

@@ -86,6 +86,7 @@ body {
   transform: scale(1.1);
 }
 
+
 /* 戻る・ホーム用ナビゲーションボタン */
 .nav-back-button {
   display: inline-flex;
@@ -338,4 +339,58 @@ body {
 
 .logo-float {
   animation: floatLogo 4s ease-in-out infinite;
+}
+
+/* ヘッダー用ゆらゆら（弱め） */
+@keyframes floatHeaderLogo {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); } /* 小さくするのがコツ */
+}
+
+.header-logo-float {
+  animation: floatHeaderLogo 5s ease-in-out infinite;
+}
+
+
+/* 見出し中央ライン */
+.recommended-title {
+  position: relative;
+  text-align: center;
+}
+
+.recommended-title p {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: #907f6f;
+  opacity: 0.8;
+  padding: 0 18px;
+  position: relative;
+  font-weight: 600;
+}
+
+/* ラインを文字の左右から出す */
+.recommended-title p::before,
+.recommended-title p::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 10px;
+  background: #97b1b7;
+}
+
+/* 左ライン */
+.recommended-title p::before {
+  right: 100%;
+  margin-right:0px;
+  transform: translateY(-50%);
+  width: 80px;
+}
+
+/* 右ライン */
+.recommended-title p::after {
+  left: 100%;
+  margin-left: 0px;
+  transform: translateY(-50%);
+  width: 50px;
 }

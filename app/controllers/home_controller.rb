@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     @meal_items = current_user.meal_plans
                               .includes(meal_items: :my_menu)
                               .flat_map(&:meal_items)
-                              .reject(&:cooked) 
+                              .reject(&:cooked)
                               .group_by(&:genre)
 
     added_menu_ids = @today_meal_plan.meal_items.pluck(:my_menu_id)

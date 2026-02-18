@@ -1,5 +1,5 @@
 class ContactMailer < ApplicationMailer
-  default to: "xxx@gmail.com"
+  default to: "cook.loop.app@gmail.com"
 
   def send_mail(contact)
     @contact = contact

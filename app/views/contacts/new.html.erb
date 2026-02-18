@@ -1,29 +1,60 @@
 <% content_for :title, "お問い合わせ" %>
 
-<div class="max-w-xl mx-auto mt-10">
-  <h1 class="text-2xl font-bold mb-6 text-center">お問い合わせ</h1>
+<div class="max-w-md mx-auto mt-6 px-3 sm:px-0 page-fade">
 
+  <!-- タイトル -->
+  <div class="text-center mt-6 mb-8">
+    <h1 class="text-xl font-semibold tracking-wide mb-2">
+      CONTACT
+    </h1>
+    <p class="text-sm text-base-content/70">
+      ご意見・ご要望などお気軽にお送りください ✉️
+    </p>
+  </div>
+
+  <!-- 送信完了メッセージ -->
   <% if notice %>
-    <div class="bg-green-100 p-3 rounded mb-4"><%= notice %></div>
+    <div class="bg-green-100 text-green-800 text-sm p-3 rounded-xl mb-6 text-center">
+      <%= notice %>
+    </div>
   <% end %>
 
-  <%= form_with model: @contact, url: contact_path do |f| %>
+  <!-- フォームカード -->
+  <div class="card bg-base-100 shadow-md rounded-2xl">
+    <div class="card-body px-4 py-6 sm:px-6">
 
-    <div class="mb-4">
-      <%= f.label :name, "お名前" %>
-      <%= f.text_field :name, class:"w-full border p-2 rounded" %>
+      <%= form_with model: @contact, url: contact_path do |f| %>
+
+        <!-- 名前 -->
+        <div class="mb-5">
+          <%= f.label :name, "お名前", class:"text-sm font-semibold" %>
+          <%= f.text_field :name,
+                class:"input input-bordered w-full mt-1" %>
+        </div>
+
+        <!-- メール -->
+        <div class="mb-5">
+          <%= f.label :email, "メールアドレス", class:"text-sm font-semibold" %>
+          <%= f.email_field :email,
+                class:"input input-bordered w-full mt-1" %>
+        </div>
+
+        <!-- 内容 -->
+        <div class="mb-6">
+          <%= f.label :message, "お問い合わせ内容", class:"text-sm font-semibold" %>
+          <%= f.text_area :message, rows:6,
+                class:"textarea textarea-bordered w-full mt-1" %>
+        </div>
+
+        <!-- 送信ボタン -->
+        <div class="text-center">
+          <%= f.submit "送信する",
+              class:"action-primary btn-pop px-8" %>
+        </div>
+
+      <% end %>
+
     </div>
+  </div>
 
-    <div class="mb-4">
-      <%= f.label :email, "メールアドレス" %>
-      <%= f.email_field :email, class:"w-full border p-2 rounded" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :message, "お問い合わせ内容" %>
-      <%= f.text_area :message, rows:5, class:"w-full border p-2 rounded" %>
-    </div>
-
-    <%= f.submit "送信する", class:"bg-orange-400 text-white px-4 py-2 rounded" %>
-  <% end %>
 </div>

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   root "tops#index"
 
   get "home", to: "home#index"
+  get  "contact", to: "contacts#new"
+  post "contact", to: "contacts#create"
 
   resources :meal_plans do
     collection do

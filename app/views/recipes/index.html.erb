@@ -1,0 +1,11 @@
+<h1>レシピ一覧</h1>
+
+<ul>
+  <% @recipes.each do |category| %>
+    <% category["recipes"].each do |recipe| %>
+      <li>
+        <%= recipe["recipeTitle"] %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

@@ -1,31 +1,33 @@
-require 'faraday'
-require 'json'
+require "faraday"
+require "json"
 
 class RakutenRecipeApiService
-  BASE_URL = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426'
+  BASE_URL = "https://openapi.rakuten.co.jp/recipems/api/Recipe/CategoryList/20170426"
 
   def initialize
-    @app_id = ENV['RAKUTEN_RECIPE_APP_ID']
-    @access_key = ENV['RAKUTEN_ACCESS_KEY']
+    @application_id = ENV["RAKUTEN_API_KEY"]
+    @api_key = ENV["RAKUTEN_ACCESS_KEY"]
   end
 
-  def fetch_category_ranking(category_id = "0")
-  conn = Faraday.new(url: BASE_URL) do |faraday|
-    faraday.headers['x-api-key'] = @access_key
-    faraday.headers['x-rakuten-application-id'] = @app_id
-    faraday.headers['Content-Type'] = 'application/json'
-    
-    faraday.request :url_encoded
-    faraday.response :logger, Rails.logger
-    faraday.adapter Faraday.default_adapter
-  end
+  def fetch_category_list
+    conn = Faraday.new(url: BASE_URL) do |faraday|
+      faraday.headers["x-api-key"] = @api_key
+      faraday.headers["Content-Type"] = "application/json"
 
-  begin
-    response = conn.get do |req|
-      req.params['categoryId'] = category_id
+      faraday.request :url_encoded
+      faraday.response :logger, Rails.logger
+      faraday.adapter Faraday.default_adapter
     end
 
-    handle_response(response)
+    begin
+      response = conn.get do |req|
+        req.params["format"] = "json"
+        req.params["applicationId"] = @application_id
+        req.params["accessKey"] = @api_key
+      end
+
+      handle_response(response)
+
     rescue Faraday::Error => e
       Rails.logger.error "通信エラー: #{e.message}"
       { error: "楽天レシピとの通信中にエラーが発生しました。" }

@@ -1,11 +1,77 @@
-<h1>レシピ一覧</h1>
+<div class="max-w-md mx-auto mt-6 px-3 sm:px-0 page-fade">
+  
+  <div class="recommended-title mb-6 text-center">
+    <p>RECIPE SEARCH</p>
+  </div>
 
-<ul>
-  <% @recipes.each do |category| %>
-    <% category["recipes"].each do |recipe| %>
-      <li>
-        <%= recipe["recipeTitle"] %>
-      </li>
-    <% end %>
+  <%# 検索フォーム %>
+  <%= form_with url: recipes_path, method: :get, local: true, class: "mb-8" do |f| %>
+    <div class="flex gap-2 bg-base-100 p-2 rounded-full shadow-sm border border-base-200">
+      <%= f.text_field :keyword, value: params[:keyword], 
+            class: "input input-ghost w-full focus:outline-none px-4", 
+            placeholder: "食材名（例：にんじん）" %>
+      <%# font-light を追加して細字に、tracking-wider で少し字間を広げて上品に %>
+      <%= f.submit "検索", class: "btn btn-circle border-none text-white font-light tracking-wider", 
+            style: "background-color:#ad9d8a; font-size: 13px;" %>
+    </div>
   <% end %>
-</ul>
+
+  <%# レシピ一覧エリア %>
+  <div class="bg-[#faf0e6] p-4 rounded-2xl space-y-4 page-section page-delay-2">
+    
+    <% if @recipes.present? %>
+      <div class="space-y-3">
+        <% @recipes.each do |recipe| %>
+          <div class="relative bg-base-100 rounded-xl px-3 py-3 shadow-sm border-l-8 transition hover:shadow-md active:scale-[0.98]"
+               style="border-color: #ad9d8a33;">
+            
+            <div class="flex items-center gap-4">
+              <div class="shrink-0">
+                <%# 画像からも飛べるようにリンクで囲むのが一般的です %>
+                <%= link_to recipe['recipeUrl'], target: "_blank" do %>
+                  <img src="<%= recipe['foodImageUrl'] %>" 
+                       alt="<%= recipe['recipeTitle'] %>" 
+                       class="w-16 h-16 object-cover rounded-lg shadow-inner border border-base-200">
+                <% end %>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <%# タイトルをリンクに変更 %>
+                <%= link_to recipe['recipeUrl'], target: "_blank", class: "block group" do %>
+                  <p class="text-sm font-medium text-base-content truncate group-hover:text-base-content/60 transition">
+                    <%= recipe['recipeTitle'] %>
+                    <span class="text-[10px] text-base-content/30 ml-1">↗</span>
+                  </p>
+                <% end %>
+
+                <p class="text-[10px] text-base-content/50 line-clamp-1 mb-2">
+                  <%= recipe['recipeDescription'] %>
+                </p>
+                
+                <div class="flex items-center justify-end">
+                  <%# 取り込みボタン %>
+                  <%= button_to "+ 取り込む", "#", 
+                        class: "btn btn-xs rounded-full border-none text-white px-3 font-bold",
+                        style: "background-color:#ad9d8a; font-size: 10px;" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-10 space-y-4">
+        <p class="text-sm text-base-content/70">
+          今日は何を作りましょう？<br>
+          気になる食材で検索してみてください 🔍
+        </p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex justify-center mt-10 pb-10 page-section page-delay-3">
+    <%= link_to home_path, class: "nav-back-button" do %>
+      ← ホーム
+    <% end %>
+  </div>
+</div>

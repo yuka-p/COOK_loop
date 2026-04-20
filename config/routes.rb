@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "recipes/index"
   get "terms",   to: "pages#terms"
   get "privacy", to: "pages#privacy"
   get "how_to", to: "pages#how_to"
@@ -11,6 +12,8 @@ Rails.application.routes.draw do
   get "home", to: "home#index"
   get  "contact", to: "contacts#new"
   post "contact", to: "contacts#create"
+
+  resources :recipes, only: [:index]
 
   resources :meal_plans do
     collection do

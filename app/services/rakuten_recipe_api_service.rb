@@ -41,23 +41,23 @@ def find_category_id_by_query(query)
 
   # 大・中・小の全カテゴリを一つのフラットな配列にまとめる
   # これにより、どの階層に「たまねぎ」があっても見逃さなくなります
-  all_categories = (list["result"]["large"] || []) + 
-                    (list["result"]["medium"] || []) + 
+  all_categories = (list["result"]["large"] || []) +
+                    (list["result"]["medium"] || []) +
                     (list["result"]["small"] || [])
 
   # 名前が一致するものを探す（完全一致に近いものを優先）
-  found = all_categories.find { |c| c["categoryName"] == query } || 
+  found = all_categories.find { |c| c["categoryName"] == query } ||
           all_categories.find { |c| c["categoryName"].include?(query) }
 
   if found
     id = found["categoryId"].to_s
-    
+
     # 【ここが重要】中・小カテゴリで親IDが必要な場合の補正
     # categoryUrlの末尾の数字が正しいランキング用IDになっていることが多いです
     if found["parentCategoryId"].present? && !id.include?("-")
       id = "#{found['parentCategoryId']}-#{id}"
     end
-    
+
     Rails.logger.info "★★★ カテゴリ特定成功: #{found['categoryName']} (ID: #{id}) ★★★"
     id
   else

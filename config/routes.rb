@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get  "contact", to: "contacts#new"
   post "contact", to: "contacts#create"
 
-  resources :recipes, only: [:index]
+  resources :recipes, only: [ :index ]
 
   resources :meal_plans do
     collection do

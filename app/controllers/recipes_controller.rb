@@ -1,11 +1,11 @@
 class RecipesController < ApplicationController
   def index
     service = RakutenRecipeApiService.new
-    
+
     if params[:keyword].present?
       # 1. 入力されたワードからカテゴリIDを探す
       category_id = service.find_category_id_by_query(params[:keyword])
-      
+
       if category_id
         # 2. IDが見つかれば、そのランキングを取得
         @recipes = service.fetch_ranking(category_id)

@@ -52,5 +52,5 @@ ja:
   devise:
     mailer:
       reset_password_instructions:
-        subject: "【CookLoop】パスワード再設定のご案内"
+        subject: "【COOK loop】パスワード再設定のご案内"
 

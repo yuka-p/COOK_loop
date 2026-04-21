@@ -6,11 +6,11 @@ class MyMenusController < ApplicationController
     @my_menus = current_user.my_menus.order(created_at: :desc)
     @genre = params[:genre]
     @sort  = params[:sort] || "created_desc"
-   @tags = current_user.my_menus
-                       .joins(:tags)
-                       .select("tags.*")
-                       .distinct
-                       .order(:name)
+    @tags = current_user.my_menus
+                        .joins(:tags)
+                        .select("tags.*")
+                        .distinct
+                        .order(:name)
 
     @my_menus =
     current_user.my_menus
@@ -32,13 +32,39 @@ class MyMenusController < ApplicationController
     @my_menu = MyMenu.new
   end
 
+  def import_new
+    @my_menu = MyMenu.new(
+      title: params[:title],
+      reference_url: params[:reference_url],
+      ingredients: params[:ingredients],
+      note: params[:note]
+    )
+  end
+
   def create
     @my_menu = current_user.my_menus.build(my_menu_params)
 
     if @my_menu.save
-      redirect_to my_menus_path, notice: "メニューを登録しました"
+      if params[:add_to_meal_plan] == "1"
+        meal_plan = current_user.meal_plans.find_or_create_by!(date: Date.current)
+        meal_plan.meal_items.create!(
+          my_menu: @my_menu,
+          genre: @my_menu.genre
+        )
+        @my_menu.update!(last_cooked_at: Time.current)
+        notice_message = "マイメニューに登録し、本日の献立に追加しました！"
+      else
+        notice_message = "メニューを登録しました"
+      end
+      # ------------------------------------
+
+      redirect_to my_menus_path, notice: notice_message
     else
-      render :new, status: :unprocessable_entity
+      if params[:from_import] == "true"
+        render :import_new, status: :unprocessable_entity
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
@@ -69,7 +95,6 @@ class MyMenusController < ApplicationController
 
     menus = MasterMenu.where(id: menu_ids)
 
-    # 確認モーダル用の partial を返す
     if params[:confirm] != "true"
       render turbo_stream: turbo_stream.replace(
         "modal",
@@ -92,24 +117,23 @@ class MyMenusController < ApplicationController
   end
 
   def add_meal_item
-  menu = current_user.my_menus.find(params[:id])
+    menu = current_user.my_menus.find(params[:id])
 
-  meal_plan =
-    current_user
-      .meal_plans
-      .find_or_create_by!(date: Date.current)
+    meal_plan =
+      current_user
+        .meal_plans
+        .find_or_create_by!(date: Date.current)
 
-  meal_plan.meal_items.create!(
-    my_menu: menu,
-    genre: menu.genre
-  )
+    meal_plan.meal_items.create!(
+      my_menu: menu,
+      genre: menu.genre
+    )
 
-  menu.update!(last_cooked_at: Time.current)
+    menu.update!(last_cooked_at: Time.current)
 
-  redirect_to home_path,
-    notice: "#{menu.title} を献立に追加しました"
-end
-
+    redirect_to home_path,
+      notice: "#{menu.title} を献立に追加しました"
+  end
 
   private
 

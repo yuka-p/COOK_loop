@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :master_menus
   resources :my_menus do
     collection do
+      get :import_new
       post :import_from_master
     end
 

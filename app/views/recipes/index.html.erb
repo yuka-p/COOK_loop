@@ -10,7 +10,6 @@
       <%= f.text_field :keyword, value: params[:keyword], 
             class: "input input-ghost w-full focus:outline-none px-4", 
             placeholder: "食材名（例：にんじん）" %>
-      <%# font-light を追加して細字に、tracking-wider で少し字間を広げて上品に %>
       <%= f.submit "検索", class: "btn btn-circle border-none text-white font-light tracking-wider", 
             style: "background-color:#ad9d8a; font-size: 13px;" %>
     </div>
@@ -27,7 +26,6 @@
             
             <div class="flex items-center gap-4">
               <div class="shrink-0">
-                <%# 画像からも飛べるようにリンクで囲むのが一般的です %>
                 <%= link_to recipe['recipeUrl'], target: "_blank" do %>
                   <img src="<%= recipe['foodImageUrl'] %>" 
                        alt="<%= recipe['recipeTitle'] %>" 
@@ -36,7 +34,6 @@
               </div>
 
               <div class="flex-1 min-w-0">
-                <%# タイトルをリンクに変更 %>
                 <%= link_to recipe['recipeUrl'], target: "_blank", class: "block group" do %>
                   <p class="text-sm font-medium text-base-content truncate group-hover:text-base-content/60 transition">
                     <%= recipe['recipeTitle'] %>
@@ -49,10 +46,17 @@
                 </p>
                 
                 <div class="flex items-center justify-end">
-                  <%# 取り込みボタン %>
-                  <%= button_to "+ 取り込む", "#", 
-                        class: "btn btn-xs rounded-full border-none text-white px-3 font-bold",
-                        style: "background-color:#ad9d8a; font-size: 10px;" %>
+                  <% cleaned_title = recipe['recipeTitle'].gsub(/【.*?】/, '').strip
+                    display_title = cleaned_title.truncate(20, omission: '') %>
+                  <%= link_to import_new_my_menus_path(
+                        title: recipe['recipeTitle'], 
+                        reference_url: recipe['recipeUrl'],
+                        ingredients: recipe['recipeMaterial']&.join("\n")
+                      ), 
+                      class: "btn btn-xs rounded-full border-none text-white px-3 font-bold flex items-center justify-center",
+                      style: "background-color:#ad9d8a; font-size: 10px;" do %>
+                    + 取り込む
+                  <% end %>
                 </div>
               </div>
             </div>

@@ -49,6 +49,13 @@ def find_category_id_by_query(query)
   found = all_categories.find { |c| c["categoryName"] == query } ||
           all_categories.find { |c| c["categoryName"].include?(query) }
 
+  if found.nil?
+    # 簡易的な変換マップ（必要に応じて増やせます）
+    search_map = { "たまねぎ" => "玉ねぎ", "茄子" => "なす" }
+    alternative = search_map[query]
+    found = all_categories.find { |c| c["categoryName"].include?(alternative) } if alternative
+  end
+  
   if found
     id = found["categoryId"].to_s
 

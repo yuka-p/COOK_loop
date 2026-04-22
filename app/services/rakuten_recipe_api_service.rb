@@ -2,7 +2,7 @@ require "faraday"
 require "json"
 
 class RakutenRecipeApiService
-  BASE_URL = "https://openapi.rakuten.co.jp/recipems/api/Recipe/CategoryList/20170426"
+  CATEGORY_URL = "https://openapi.rakuten.co.jp/recipems/api/Recipe/CategoryList/20170426"
   RANKING_URL = "https://openapi.rakuten.co.jp/recipems/api/Recipe/CategoryRanking/20170426"
 
   def initialize
@@ -10,98 +10,105 @@ class RakutenRecipeApiService
     @api_key = ENV["RAKUTEN_ACCESS_KEY"]
   end
 
+  # カテゴリ一覧（キャッシュ）
   def fetch_category_list
-    conn = Faraday.new(url: BASE_URL) do |faraday|
-      faraday.headers["x-api-key"] = @api_key
-      faraday.headers["Content-Type"] = "application/json"
-
-      faraday.request :url_encoded
-      faraday.response :logger, Rails.logger
-      faraday.adapter Faraday.default_adapter
-    end
-
-    begin
-      response = conn.get do |req|
+    Rails.cache.fetch("rakuten_category_list", expires_in: 24.hours) do
+      response = connection(CATEGORY_URL).get do |req|
         req.params["format"] = "json"
         req.params["applicationId"] = @application_id
         req.params["accessKey"] = @api_key
       end
-
       handle_response(response)
-
-    rescue Faraday::Error => e
-      Rails.logger.error "通信エラー: #{e.message}"
-      { error: "楽天レシピとの通信中にエラーが発生しました。" }
     end
   end
 
-def find_category_id_by_query(query)
-  list = fetch_category_list
-  return nil if list.nil? || list["result"].nil?
+  # カテゴリ検索
+  def find_category_id_by_query(query)
+    list = fetch_category_list
+    return nil if list.nil? || list["result"].nil?
 
-  # 大・中・小の全カテゴリを一つのフラットな配列にまとめる
-  all_categories = (list["result"]["large"] || []) +
-                    (list["result"]["medium"] || []) +
-                    (list["result"]["small"] || [])
+    all_categories = (list["result"]["large"] || []) +
+                     (list["result"]["medium"] || []) +
+                     (list["result"]["small"] || [])
 
-  # 名前が一致するものを探す（完全一致に近いものを優先）
-  found = all_categories.find { |c| c["categoryName"] == query } ||
-          all_categories.find { |c| c["categoryName"].include?(query) }
+    found = all_categories.find { |c| c["categoryName"] == query } ||
+            all_categories.find { |c| c["categoryName"].include?(query) }
 
-  if found.nil?
-    # 簡易的な変換マップ
-    search_map = { "たまねぎ" => "玉ねぎ", "茄子" => "なす" }
-    alternative = search_map[query]
-    found = all_categories.find { |c| c["categoryName"].include?(alternative) } if alternative
-  end
+    if found.nil?
+      search_map = { "たまねぎ" => "玉ねぎ", "茄子" => "なす" }
+      alternative = search_map[query]
+      found = all_categories.find { |c| c["categoryName"].include?(alternative) } if alternative
+    end
 
-  if found
-    id = found["categoryId"].to_s
-    if found["parentCategoryId"].present? && !id.include?("-")
-      id = "#{found['parentCategoryId']}-#{id}"
+    return nil unless found
+
+    id_array = [
+      found["largeCategoryId"],
+      found["mediumCategoryId"],
+      found["smallCategoryId"]
+    ].map(&:to_s).reject(&:empty?)
+
+    if id_array.empty?
+      id = found["categoryId"].to_s
+      id = "#{found['parentCategoryId']}-#{id}" if found["parentCategoryId"].present? && !id.include?("-")
+    else
+      id = id_array.uniq.join("-")
     end
 
     Rails.logger.info "★★★ カテゴリ特定成功: #{found['categoryName']} (ID: #{id}) ★★★"
     id
-  else
-    Rails.logger.info "★★★ カテゴリが見つかりませんでした: #{query} ★★★"
-    nil
-  end
-end
-
-def fetch_ranking(category_id = nil)
-  conn = Faraday.new(url: RANKING_URL) do |f|
-    f.headers["x-api-key"] = @api_key
-    f.headers["Content-Type"] = "application/json"
-    f.adapter Faraday.default_adapter
   end
 
-  response = conn.get do |req|
-    req.params["applicationId"] = @application_id
-    req.params["accessKey"] = @api_key
-    req.params["format"] = "json"
-    req.params["categoryId"] = category_id if category_id
-  end
+  # ランキング取得
+  def fetch_ranking(category_id = nil)
+    retries = 0
 
-  if response.success?
-    body = JSON.parse(response.body)
-    body["result"] || []
-  else
-    Rails.logger.error "ランキング取得失敗: #{response.status} #{response.body}"
-    []
+    begin
+      response = connection(RANKING_URL).get do |req|
+        req.params["applicationId"] = @application_id
+        req.params["accessKey"] = @api_key
+        req.params["format"] = "json"
+        req.params["categoryId"] = category_id if category_id
+      end
+
+      if response.status == 429 && retries < 3
+        retries += 1
+        Rails.logger.warn "429発生 → 1秒待機してリトライ #{retries}回目"
+        sleep 1
+        raise Faraday::RetriableResponse, "Rate limit exceeded"
+      end
+
+      if response.success?
+        body = JSON.parse(response.body)
+        body["result"] || []
+      else
+        Rails.logger.error "ランキング取得失敗: #{response.status} #{response.body}"
+        []
+      end
+
+    rescue Faraday::RetriableResponse, Faraday::Error => e
+      if retries < 3
+        retry
+      else
+        Rails.logger.error "通信失敗 (リトライ上限): #{e.message}"
+        []
+      end
+    end
   end
-end
 
   private
 
-  def handle_response(response)
-    if response.success?
-      JSON.parse(response.body)
-    else
-      Rails.logger.error "APIリクエスト失敗: ステータス #{response.status}, 本文: #{response.body}"
-      { error: "楽天レシピからの応答エラー (ステータス: #{response.status})" }
+  def connection(url)
+    Faraday.new(url: url) do |f|
+      f.headers["x-api-key"] = @api_key
+      f.headers["Content-Type"] = "application/json"
+      f.adapter Faraday.default_adapter
     end
+  end
+
+  def handle_response(response)
+    response.success? ? JSON.parse(response.body) : nil
   rescue JSON::ParserError
-    { error: "JSON形式の解析に失敗しました。" }
+    nil
   end
 end

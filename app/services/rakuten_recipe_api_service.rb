@@ -54,7 +54,7 @@ def find_category_id_by_query(query)
     alternative = search_map[query]
     found = all_categories.find { |c| c["categoryName"].include?(alternative) } if alternative
   end
-  
+
   if found
     id = found["categoryId"].to_s
     if found["parentCategoryId"].present? && !id.include?("-")

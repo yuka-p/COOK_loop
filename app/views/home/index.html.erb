@@ -147,9 +147,7 @@
     <div class="home-child child-1">
       <%= link_to my_menus_path,
         class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
-
         <%= image_tag "my_menu.png", class: "w-20 h-20 object-contain" %>
-
         <span class="text-sm font-semibold tracking-wide">
           マイメニュー
         </span>
@@ -161,13 +159,19 @@
     <div class="home-child child-2">
       <%= link_to new_meal_plan_path,
         class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
-
         <%= image_tag "meal_plan.png", class: "w-20 h-20 object-contain" %>
-
         <span class="text-sm font-semibold tracking-wide">
           献立をつくる
         </span>
 
+      <% end %>
+    </div>
+
+    <div class="home-child child-3">
+      <%= link_to recipes_path, class: "round-action-card w-36 h-36 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
+        <%= image_tag "search_recipe.png", class: "w-16 h-16 sm:w-20 sm:h-20 object-contain" %>
+        <span class="text-sm font-semibold tracking-wide">
+          レシピをさがす</span>
       <% end %>
     </div>
   </div>

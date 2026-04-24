@@ -16,7 +16,7 @@
   <% end %>
 
   <%# レシピ一覧エリア %>
-  <div class="bg-[#faf0e6] p-4 rounded-2xl space-y-4 page-section page-delay-2">
+  <div class="bg-[#faf0e6] p-4 rounded-2xl space-y-4 page-section page-delay-2 max-h-[600px] overflow-y-auto">
     
     <%# タイトル・案内文の動的切り替え %>
     <div class="px-2 mb-2">
@@ -24,9 +24,6 @@
         <h2 class="text-sm font-bold text-base-content/80 flex items-center gap-1">
           🔍 「<%= params[:keyword] %>」の検索結果
         </h2>
-        <p class="text-[10px] text-base-content/50 mt-1">
-          ※ 楽天レシピの仕様により、一部表示されない食材やレシピがあります。
-        </p>
       <% else %>
         <h2 class="text-sm font-bold text-[#ad9d8a] flex items-center gap-1">
           👑 人気のレシピランキング
@@ -39,7 +36,7 @@
 
     <% if @recipes.present? %>
       <div class="space-y-3">
-        <% @recipes.each_with_index do |recipe, index| %>
+        <% @recipes.first(7).each_with_index do |recipe, index| %>
           <div class="relative bg-base-100 rounded-xl px-3 py-3 shadow-sm border-l-8 transition hover:shadow-md active:scale-[0.98]"
                style="border-color: #ad9d8a33;">
             

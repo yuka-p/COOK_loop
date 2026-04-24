@@ -86,7 +86,7 @@ class RakutenRecipeApiService
         []
       end
 
-    rescue Faraday::RetriableResponse, Faraday::Error => e
+    rescue Faraday::Error => e
       if retries < 3
         retry
       else

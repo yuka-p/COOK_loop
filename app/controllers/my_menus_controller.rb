@@ -34,10 +34,10 @@ class MyMenusController < ApplicationController
 
   def import_new
     @my_menu = MyMenu.new(
-      title: params[:title],
+      title: sanitize_text(params[:title]).truncate(20, omission: ""),
       reference_url: params[:reference_url],
-      ingredients: params[:ingredients],
-      note: params[:note]
+      ingredients: sanitize_text(params[:ingredients]),
+      note: sanitize_text(params[:note])
     )
   end
 
@@ -151,6 +151,19 @@ class MyMenusController < ApplicationController
       :tag_names,
       :reference_url,
       :last_cooked_at
-    )
+    ).tap do |p|
+      p[:title] = sanitize_text(p[:title]).truncate(20, omission: "") if p[:title]
+      p[:ingredients] = sanitize_text(p[:ingredients]) if p[:ingredients]
+      p[:note] = sanitize_text(p[:note]) if p[:note]
+    end
+  end
+
+  def sanitize_text(text)
+    return "" if text.blank?
+
+    text
+      .gsub(/[★☆♪♡♥！!]+/, "")
+      .gsub(/\s+/, " ")
+      .strip
   end
 end

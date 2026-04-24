@@ -75,7 +75,7 @@ class RakutenRecipeApiService
         retries += 1
         Rails.logger.warn "429発生 → 1秒待機してリトライ #{retries}回目"
         sleep 1
-        raise Faraday::RetriableResponse, "Rate limit exceeded"
+        raise "Rate limit exceeded"
       end
 
       if response.success?

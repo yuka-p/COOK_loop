@@ -6,7 +6,7 @@ class MyMenu < ApplicationRecord
   has_many :my_menu_tags, dependent: :destroy
   has_many :tags, through: :my_menu_tags
 
-  validates :title, presence: true, length: { maximum: 20 }
+  validates :title, presence: true, length: { maximum: 18 }
   validates :genre, presence: true
 
   enum :genre, { main: 1, side: 2, soup: 3, staple: 4, other: 5 }

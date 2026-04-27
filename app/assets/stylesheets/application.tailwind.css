@@ -4,12 +4,11 @@
 body {
   font-family: 'Kiwi Maru', serif;
 
-  background-image: url("background.png"); /* ←画像名に合わせて変更 */
+  background-image: url("background.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
 
-  /* PCでは全体を収める */
   background-size: contain;
 
   min-height: 100vh;
@@ -18,51 +17,73 @@ body {
 /* スマホ用 */
 @media (max-width: 768px) {
   body {
-    /* 中央を切り取ったように表示 */
     background-size: cover;
   }
 }
 
-/* 汎用アクションボタン（メイン） */
 .action-primary {
   appearance: none;
   border: none;
-  border-radius: 0.25rem; /* 丸み */
+  border-radius: 0.5rem;
   padding: 0.65rem 1.4rem;
-
   background-color: #907abf;
   color: #ffffff;
   font-weight: 500;
-
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
   cursor: pointer;
-
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease,
     opacity 0.15s ease;
 }
 
-/* hover：少し透明に */
+.action-outline {
+  appearance: none;
+  background-color: #ffffff; /* 白背景でカードとの違いを明確に */
+  border: 2px solid #8f85a3;  /* しっかりとした紫の枠線 */
+  color: #4a4a4a;            /* 文字は落ち着いたチャコールグレー */
+  
+  /* .action-primary と完全にサイズを合わせる */
+  border-radius: 0.5rem; 
+  padding: 0.65rem 1.4rem;
+  
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+}
+
+/* hover：枠線と同じ色で文字を光らせ、背景を少しだけ紫に */
+.action-outline:hover {
+  background-color: #fcfaff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(144, 122, 191, 0.15);
+}
+
+/* 押した瞬間 */
+.action-outline:active {
+  transform: scale(0.96);
+}
+
 .action-primary:hover {
   opacity: 0.7;
   box-shadow: 0 6px 16px rgba(0,0,0,0.16);
   transform: translateY(-1px);
 }
 
-/* 押した瞬間 */
 .action-primary:active {
   transform: scale(0.96);
 }
 
-/* フォーカス（キーボード操作） */
 .action-primary:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(144, 122, 191, 0.35);
 }
 
-
-/* 丸いアクションカード（リンク） */
 .round-action-card {
   position: relative;
   overflow: hidden;
@@ -77,7 +98,6 @@ body {
   box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
 
-/* 中の画像用 */
 .round-action-card img {
   transition: transform 0.2s ease;
 }
@@ -86,8 +106,6 @@ body {
   transform: scale(1.1);
 }
 
-
-/* 戻る・ホーム用ナビゲーションボタン */
 .nav-back-button {
   display: inline-flex;
   align-items: center;
@@ -96,9 +114,9 @@ body {
   padding: 0.5rem 1rem;
 
   background-color: #ffffff;
-  color: var(--bc); /* text-base-content */
+  color: var(--bc);
 
-  border: 1px solid var(--b3); /* base-300 */
+  border: 1px solid var(--b3);
   border-radius: 0.25rem;
 
   font-size: 0.875rem;
@@ -107,19 +125,16 @@ body {
   transition: background-color 0.15s ease;
 }
 
-/* ホバー時：背景にうっすら色をのせるだけ */
 .nav-back-button:hover {
   background-color: rgba(144, 122, 191, 0.15);
 }
 
-/* 押した瞬間（任意・ほぼ同じでOK） */
 .nav-back-button:active {
   background-color: rgba(144, 122, 191, 0.2);
 }
 
-/* ジャンルフィルターのカウンター */
 .genre-filter-button span {
-  background-color: #ede9e4; /* くすみパープル */
+  background-color: #ede9e4;
   color: #535352;
   border-radius: 9999px;
   padding: 0.1rem 0.45rem;
@@ -127,24 +142,21 @@ body {
   line-height: 1.2;
 }
 
-/* ===== タグフィルター ===== */
 .tag-filter-button {
   padding: 0.35rem 0.65rem;
   font-size: 0.75rem;
   border-radius: 0.25rem;
-  border: 1px solid rgba(144, 122, 191, 0.35); /* #907abf 薄め */
+  border: 1px solid rgba(144, 122, 191, 0.35);
   background: #fff;
   color: #5a4d78;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-/* hover（未選択時） */
 .tag-filter-button:hover {
   background: rgba(144, 122, 191, 0.12);
 }
 
-/* 選択中 */
 .tag-filter-button.is-active {
   background: #907abf;
   border-color: #907abf;

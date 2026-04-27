@@ -92,6 +92,40 @@
           class: "btn btn-outline" %>
   </div>
 
+  <%= form_with url: my_menus_path,
+        method: :get,
+        local: true,
+        id: "filterForm",
+        class: "mb-8" do |f| %>
+
+    <div class="max-w-md mx-auto px-4">
+      <div class="relative mb-3">
+      
+        <%= f.text_field :keyword,
+              value: params[:keyword],
+              placeholder: "メニュー名や材料で検索",
+              class: "input w-full rounded-full border border-gray-200 bg-white focus:bg-white focus:border-[#98b3a0] focus:outline-none transition-all pl-6 pr-28 py-6 text-gray-600 shadow-sm",
+              style: "font-size: 16px;" %>
+
+        <%= f.submit "検索",
+              class: "absolute right-1.5 top-1/2 -translate-y-1/2 
+                      btn rounded-full border-none text-white px-6 h-[calc(100%-12px)] min-h-0 z-10",
+              style: "background-color: #98b3a0; font-size: 14px;" %>
+            
+      </div>
+
+      <div class="flex justify-end items-center px-2">
+        <label class="cursor-pointer label p-0 gap-2">
+          <%= f.check_box :include_ingredients, 
+                { checked: params[:include_ingredients] == "1", 
+                  class: "checkbox checkbox-sm rounded-md border-gray-300", 
+                  style: "--chkbg: #98b3a0; --chkb: #98b3a0;" }, "1", "0" %>
+          <span class="label-text text-gray-500" style="font-size: 12px;">材料も含める</span>
+        </label>
+      </div>
+    </div>
+  <% end %>
+
   <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 page-section page-delay-3">
 
   <% @my_menus.each do |menu| %>

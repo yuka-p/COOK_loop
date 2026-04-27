@@ -3,26 +3,42 @@ class MyMenusController < ApplicationController
   before_action :set_my_menu, only: [ :show, :destroy ]
 
   def index
-    @my_menus = current_user.my_menus.order(created_at: :desc)
-    @genre = params[:genre]
-    @sort  = params[:sort] || "created_desc"
-    @tags = current_user.my_menus
-                        .joins(:tags)
-                        .select("tags.*")
-                        .distinct
-                        .order(:name)
+  @genre = params[:genre]
+  @sort  = params[:sort] || "created_desc"
 
-    @my_menus =
-    current_user.my_menus
-                .includes(:tags)
-                .by_genre(@genre)
-                .sorted(@sort)
+  @tags = current_user.my_menus
+                      .joins(:tags)
+                      .select("tags.*")
+                      .distinct
+                      .order(:name)
 
-    if params[:tag_ids].present?
-      tag_ids = params[:tag_ids].split(",")
-      @my_menus = @my_menus.joins(:tags).where(tags: { id: tag_ids }).distinct
+  # includesは元のtagsだけでOKです
+  @my_menus = current_user.my_menus.includes(:tags)
+
+  if params[:keyword].present?
+    keyword = "%#{params[:keyword]}%"
+    
+    if params[:include_ingredients] == "1"
+      # 同じテーブル内の「title」または「ingredients」カラムを検索
+      @my_menus = @my_menus.where("title LIKE ? OR ingredients LIKE ?", keyword, keyword)
+    else
+      # 従来通りタイトルのみ
+      @my_menus = @my_menus.where("title LIKE ?", keyword)
     end
   end
+
+  # ...以下、ジャンル絞り込みやソートの処理...
+  if @genre.present? && @genre != "all"
+    @my_menus = @my_menus.by_genre(@genre)
+  end
+
+  if params[:tag_ids].present?
+    tag_ids = params[:tag_ids].split(",")
+    @my_menus = @my_menus.joins(:tags).where(tags: { id: tag_ids }).distinct
+  end
+
+  @my_menus = @my_menus.sorted(@sort)
+end
 
   def show
     @my_menu = MyMenu.find(params[:id])

@@ -49,7 +49,7 @@ def genre_heading_class(genre)
     when "main"
       "#f2b973"
     when "side"
-      "#8cc79b"
+      "#a7c9b0"
     when "soup"
       "#e3d780"
     when "staple"

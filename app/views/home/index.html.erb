@@ -89,35 +89,26 @@
 
   <!-- ▼ おすすめメニュー -->
   <div class="max-w-md mx-auto mt-10 home-section home-delay-2">
-
     <% if @recommended_menus.present? %>
-
-    <!-- 見出し＋更新 -->
     <div class="relative mb-6">
 
-    <!-- 右上の更新ボタン -->
       <%= link_to root_path,
           class: "refresh-btn absolute right-0 top-1/2 -translate-y-1/2 z-10 inline-block
                   transition hover:scale-110 active:scale-95" do %>
         <%= image_tag "refresh.png", class: "w-14 h-10" %>
       <% end %>
 
-      <!-- 中央タイトル -->
       <div class="recommended-title">
         <p>RECOMMENDED MENU</p>
       </div>
     </div>
   </div>
 
-    <!-- メニュー一覧 -->
     <div class="space-y-3 home-child child-1">
       <% @recommended_menus.each do |menu| %>
-
         <div class="rounded-full shadow-sm mx-auto border-10 home-child child-2"
              style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>; width: 300px;">
-
           <div class="flex items-center py-2 px-3">
-
             <span class="flex-1 text-center text-base font-semibold">
               <%= menu.title %>
             </span>
@@ -125,7 +116,7 @@
             <%= button_to "＋",
                   add_meal_item_my_menu_path(menu),
                   method: :post,
-                  class: "btn btn-sm btn-circle ml-3 shadow-none
+                  class: "btn btn-sm btn-circle ml-3 shadow-none text-xl
                           transition duration-200
                           hover:opacity-70 hover:-translate-y-[1px]
                           active:scale-95",

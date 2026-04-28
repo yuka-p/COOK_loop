@@ -17,7 +17,7 @@ class MyMenusController < ApplicationController
 
   if params[:keyword].present?
     keyword = "%#{params[:keyword]}%"
-    
+
     if params[:include_ingredients] == "1"
       # 同じテーブル内の「title」または「ingredients」カラムを検索
       @my_menus = @my_menus.where("title LIKE ? OR ingredients LIKE ?", keyword, keyword)
@@ -50,7 +50,7 @@ end
 
   def import_new
     @my_menu = MyMenu.new(
-      title: sanitize_text(params[:title]).truncate(20, omission: ""),
+      title: sanitize_text(params[:title]).truncate(17, omission: ""),
       reference_url: params[:reference_url],
       ingredients: sanitize_text(params[:ingredients]),
       note: sanitize_text(params[:note])

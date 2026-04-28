@@ -10,7 +10,6 @@ class RakutenRecipeApiService
     @api_key = ENV["RAKUTEN_ACCESS_KEY"]
   end
 
-  # カテゴリ一覧（キャッシュ）
   def fetch_category_list
     Rails.cache.fetch("rakuten_category_list", expires_in: 24.hours) do
       response = connection(CATEGORY_URL).get do |req|
@@ -22,7 +21,6 @@ class RakutenRecipeApiService
     end
   end
 
-  # カテゴリ検索
   def find_category_id_by_query(query)
     list = fetch_category_list
     return nil if list.nil? || list["result"].nil?
@@ -59,7 +57,6 @@ class RakutenRecipeApiService
     id
   end
 
-  # ランキング取得
   def fetch_ranking(category_id = nil)
     retries = 0
 

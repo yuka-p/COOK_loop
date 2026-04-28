@@ -1,22 +1,17 @@
 <% content_for :title, "マイメニュー一覧" %>
 <div class="max-w-3xl mx-auto mt-8">
 
-<!-- フィルターエリア -->
 <div class="card bg-base-100 shadow px-8 py-4 max-w-2xl mx-auto page-section page-delay-1">
 
   <%= form_with url: my_menus_path, method: :get, local: true, id: "filterForm" do |f| %>
 
-    <!-- ジャンル（hiddenで送信） -->
     <%= hidden_field_tag :genre, params[:genre] || "all", id: "genreInput" %>
     <%= hidden_field_tag :tag_ids, params[:tag_ids], id: "tagIdsInput" %>
 
-    <!-- 中央寄せ用ラッパー -->
     <div class="max-w-4xl mx-auto space-y-4">
 
-      <!-- 1段目：ジャンル + 並び替え -->
       <div class="flex flex-col md:flex-row md:items-center gap-4">
 
-        <!-- 左：ジャンルボタン -->
         <div class="flex-1">
           <div id="genreFilters" class="flex gap-2 flex-wrap">
             <button
@@ -45,7 +40,6 @@
           </div>
         </div>
 
-        <!-- 右：並び替え（幅固定で中央寄りに） -->
         <div class="w-full md:w-56">
           <%= f.select :sort,
             options_for_select(
@@ -63,7 +57,6 @@
         </div>
       </div>
 
-      <!-- 2段目：タグ（ジャンルの下・左寄せ） -->
       <% if @tags.present? %>
         <div id="tagFilters" class="flex gap-2 flex-wrap">
           <% @tags.each do |tag| %>
@@ -84,16 +77,13 @@
 <div class="bg-[#faf0e6] p-4 sm:p-8 rounded-2xl my-6 space-y-4 sm:space-y-6 page-section page-delay-2">
   <div class="flex flex-row gap-6 justify-center flex-wrap mb-10 mt-6">
   
-  <%# 1. 新規作成（不動のメイン） %>
   <%= link_to "＋ 新規作成", new_my_menu_path,
         class: "action-primary" %>
 
-  <%# 2. 定番メニュー（モダン・サブ） %>
   <%= link_to "定番メニューから選ぶ",
         master_menus_path(select: true),
         class: "action-outline" %>
 
-  <%# 3. レシピを探す（モダン・サブ） %>
   <%= link_to "レシピを探す",
         recipes_path,
         class: "action-outline" %>
@@ -136,7 +126,6 @@
 
   <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-5 page-section page-delay-3">
   <% @my_menus.each do |menu| %>
-    <%# 既存のヘルパーメソッドから 'border-6' だけを除去して適用します %>
     <div class="relative bg-white rounded-r-xl rounded-l-md p-4
                 transition-all duration-300 
                 hover:shadow-md hover:-translate-y-0.5
@@ -145,14 +134,12 @@
                 <%= genre_border_class(menu).gsub('border-6', '') %>">
 
       <div class="flex justify-between items-start gap-2">
-        <%# タイトル部分 %>
         <%= link_to my_menu_path(menu), class: "flex-1 block" do %>
           <p class="text-[15px] sm:text-[16px] font-medium text-gray-800 leading-snug">
             <%= menu.title %>
           </p>
         <% end %>
 
-        <%# 編集ボタン：位置を微調整してタイトルの高さに合わせました %>
         <div class="shrink-0 -mr-2 -mt-2">
           <%= link_to edit_my_menu_path(menu),
                 class: "p-2 text-gray-300 hover:text-gray-500 transition-colors",

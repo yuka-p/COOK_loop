@@ -58,4 +58,14 @@ def genre_heading_class(genre)
       "#82bfbf"
     end
   end
+
+  def genre_underline_class(menu)
+  case menu.genre
+  when "staple" then "decoration-[#fabdc3]/30"
+  when "main"   then "decoration-[#ffab66]/30"
+  when "side"   then "decoration-[#8fd1a9]/30"
+  when "soup"   then "decoration-[#f5e68e]/30"
+  else "decoration-[#96c2d9]/30"
+  end
+end
 end

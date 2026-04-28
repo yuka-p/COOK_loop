@@ -10,6 +10,10 @@ Rails.application.configure do
 
   config.force_ssl = true
 
+  config.hosts << "cook-loop.com"
+  config.hosts << "www.cook-loop.com"
+  config.hosts << "cook-loop.onrender.com"
+
   # --- アセット / ストレージ ---------------------------------------
 
   config.assets.compile = false

@@ -131,8 +131,6 @@
   <% end %>
 </div>
 
-
-  <!-- ▼ メニューリンク -->
   <div class="flex justify-center gap-8 mt-10 relative home-section home-delay-3">
     
     <div class="home-child child-1">
@@ -165,5 +163,24 @@
           レシピをさがす</span>
       <% end %>
     </div>
+  </div>
+  <div class="flex justify-center items-center gap-6 mt-12 mb-8 home-section home-delay-3">
+    <%= link_to "https://twitter.com/share?url=#{CGI.escape('https://cook-loop.com/')}&text=#{CGI.escape('COOK loop 毎日の献立をもっと楽に。')}", 
+        target: '_blank', rel: 'noopener noreferrer', 
+        class: "group flex flex-col items-center gap-2 transition-transform hover:scale-110" do %>
+      <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center border border-gray-100 group-hover:shadow-md transition-shadow">
+        <%= image_tag 'x-logo.png', alt: 'Xでシェア', class: "w-5 h-5 object-contain" %>
+      </div>
+      <span class="text-[10px] text-gray-500 font-medium tracking-wider">SHARE</span>
+    <% end %>
+
+    <%= link_to "https://social-plugins.line.me/lineit/share?url=#{CGI.escape('https://cook-loop.com/')}", 
+        target: '_blank', rel: 'noopener noreferrer', 
+        class: "group flex flex-col items-center gap-2 transition-transform hover:scale-110" do %>
+      <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center border border-gray-100 group-hover:shadow-md transition-shadow">
+        <%= image_tag 'line-logo.png', alt: 'LINEで送る', class: "w-6 h-6 object-contain" %>
+      </div>
+      <span class="text-[10px] text-gray-500 font-medium tracking-wider">LINE</span>
+    <% end %>
   </div>
 </div>

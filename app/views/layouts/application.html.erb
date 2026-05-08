@@ -8,38 +8,29 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-
     <meta property="og:title" content="COOK loop" />
     <meta property="og:description" content="献立サポートアプリ" />
     <meta property="og:url" content="https://cook-loop.com/" />
     <meta property="og:image" content="<%= asset_url('ogp.png') %>" />
     <meta property="og:type" content="website" />
-
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-
   <body class="min-h-screen">
-
     <% if user_signed_in? %>
       <!-- Header -->
       <header class="bg-[#ad9d8a] shadow-md">
         <div class="flex items-center justify-between px-4 h-16">
-
           <div>
             <%= link_to root_path, class: "flex items-center gap-2" do %>
               <%= image_tag "icon.png",
                 alt: "COOK loop",
                 class: "h-10 w-10 object-contain header-logo-float" %>
-
               <span
                 class="text-white text-3xl tracking-normal"
                 style="font-family: 'Limelight', cursive;">
@@ -47,7 +38,6 @@
               </span>
             <% end %>
           </div>
-
           <!-- ハンバーガーメニュー（右） -->
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle text-white hover:bg-white/20">
@@ -57,10 +47,8 @@
                       d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
             </label>
-
             <ul tabindex="0"
                 class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-
               <li><%= link_to "使い方", how_to_path %></li>
               <% if user_signed_in? %>
                 <li>
@@ -75,44 +63,36 @@
               <% end %>
             </ul>
           </div>
-
         </div>
       </header>
     <% end %>
-
     <!-- Flash messages -->
     <% if notice.present? %>
       <div class="bg-[#5a906a] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
         <%= notice %>
       </div>
     <% end %>
-
     <% if alert.present? %>
       <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
         <%= alert %>
       </div>
     <% end %>
-
     <!-- Main content -->
     <main class="p-4">
       <%= yield %>
     </main>
     <footer class="mt-16 border-t border-base-200 bg-[#ad9d8a]">
       <div class="max-w-5xl mx-auto px-4 py-6 text-center text-xs text-white space-y-3">
-
         <div class="flex justify-center gap-6">
           <%= link_to "利用規約", terms_path, class: "hover:underline" %>
           <%= link_to "プライバシーポリシー", privacy_path, class: "hover:underline" %>
           <%= link_to "お問い合わせ", contact_path, class: "hover:underline" %>
         </div>
-
         <div class="opacity-70">
           © 2026 COOK LOOP. All rights reserved.
         </div>
-
       </div>
     </footer>
-
-  <%= turbo_frame_tag "modal", target: "_top" %>
+    <%= turbo_frame_tag "modal", target: "_top" %>
   </body>
 </html>

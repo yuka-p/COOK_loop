@@ -1,10 +1,7 @@
 <div class="max-w-md mx-auto mt-6 px-3 sm:px-0 page-fade">
-  
   <div class="recommended-title mb-6 text-center">
     <p>RECIPE SEARCH</p>
   </div>
-
-  <%# 検索フォーム %>
   <%= form_with url: recipes_path, method: :get, local: true, class: "mb-8" do |f| %>
     <div class="flex gap-2 bg-base-100 p-2 rounded-full shadow-sm border border-base-200">
       <%= f.text_field :keyword, value: params[:keyword], 
@@ -14,11 +11,7 @@
             style: "background-color:#ad9d8a; font-size: 13px;" %>
     </div>
   <% end %>
-
-  <%# レシピ一覧エリア %>
   <div class="bg-[#faf0e6] p-4 rounded-2xl space-y-4 page-section page-delay-2 max-h-[600px] overflow-y-auto">
-    
-    <%# タイトル・案内文の動的切り替え %>
     <div class="px-2 mb-2">
       <% if params[:keyword].present? %>
         <h2 class="text-sm font-bold text-base-content/80 flex items-center gap-1">
@@ -33,20 +26,16 @@
         </p>
       <% end %>
     </div>
-
     <% if @recipes.present? %>
       <div class="space-y-3">
         <% @recipes.first(7).each_with_index do |recipe, index| %>
           <div class="relative bg-base-100 rounded-xl px-3 py-3 shadow-sm border-l-8 transition hover:shadow-md active:scale-[0.98]"
                style="border-color: #ad9d8a33;">
-            
-            <%# ランキングバッジ（検索時以外に表示） %>
             <% unless params[:keyword].present? %>
               <div class="absolute -top-2 -left-2 w-6 h-6 bg-[#ad9d8a] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                 <%= index + 1 %>
               </div>
             <% end %>
-
             <div class="flex items-center gap-4">
               <div class="shrink-0">
                 <%= link_to recipe['recipeUrl'], target: "_blank" do %>
@@ -55,7 +44,6 @@
                        class="w-16 h-16 object-cover rounded-lg shadow-inner border border-base-200">
                 <% end %>
               </div>
-
               <div class="flex-1 min-w-0">
                 <%= link_to recipe['recipeUrl'], target: "_blank", class: "block group" do %>
                   <p class="text-sm font-medium text-base-content truncate group-hover:text-base-content/60 transition">
@@ -63,11 +51,9 @@
                     <span class="text-[10px] text-base-content/30 ml-1">↗</span>
                   </p>
                 <% end %>
-
                 <p class="text-[10px] text-base-content/50 line-clamp-1 mb-2">
                   <%= recipe['recipeDescription'] %>
                 </p>
-                
                 <div class="flex items-center justify-end">
                   <%= link_to import_new_my_menus_path(
                         title: recipe['recipeTitle'], 
@@ -85,7 +71,6 @@
         <% end %>
       </div>
     <% else %>
-      <%# 該当なしの場合 %>
       <div class="text-center py-10 space-y-4">
         <p class="text-sm text-base-content/70 italic">
           ごめんなさい！<br>
@@ -97,7 +82,6 @@
       </div>
     <% end %>
   </div>
-
   <div class="flex justify-center mt-10 pb-10 page-section page-delay-3">
     <%= link_to home_path, class: "nav-back-button" do %>
       ← ホーム

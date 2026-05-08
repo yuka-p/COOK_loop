@@ -1,16 +1,9 @@
 <% content_for :title, "定番メニュー一覧" %>
 <div class="max-w-3xl mx-auto mt-8">
-
-  <%# --- 選択中 menu_ids を取得して配列化 --- %>
   <% selected_menu_ids = Array(params[:menu_ids]) %>
-  
-  <!-- フィルターエリア -->
   <div class="card bg-base-100 shadow p-4 max-w-md mx-auto
             page-section page-delay-1">
-
     <div id="genreFilters" class="flex gap-2 flex-wrap justify-center">
-
-      <!-- 全部ボタン -->
       <button
         class="btn genre-filter-button
                bg-[#bebbf7]/40
@@ -21,9 +14,7 @@
         type="button">
         すべて
       </button>
-
       <% ordered_genres = %w[main side soup staple] %>
-
       <% ordered_genres.each do |genre| %>
         <button
           class="btn genre-filter-button <%= genre_button_class(genre) %>"
@@ -32,20 +23,15 @@
           <%= MasterMenu.genres_i18n[genre] %>
         </button>
       <% end %>
-
     </div>
   </div>
-
   <%= form_with url: import_from_master_my_menus_path,
                 method: :post,
                 data: { controller: "modal", turbo_frame: "_top" } do |f| %>
-
     <div class="bg-[#faf0e6] p-8 mt-6 rounded-2xl space-y-6
             page-section page-delay-2">
-
       <div class="flex flex-wrap gap-4
             page-section page-delay-3">
-
         <% @master_menus.each do |menu| %>
           <label
             class="menu-card relative px-5 py-3 rounded-xl bg-white text-sm
@@ -57,7 +43,6 @@
                    peer-checked:border-[#907abf]
                    peer-checked:shadow-md"
             data-genre="<%= menu.genre %>">
-
             <input
               type="checkbox"
               name="menu_ids[]"
@@ -67,25 +52,18 @@
             <span class="text-sm sm:text-base font-medium peer-checked:text-[#f6a56c]">
               <%= menu.title %>
             </span>
-          </label>
-        <% end %>
-
+            </label>
+          <% end %>
+        </div>
       </div>
-    </div>
-
-    <div class="pt-6 flex justify-center gap-4
+      <div class="pt-6 flex justify-center gap-4
             page-section page-delay-4">
-
-      <%= f.submit "登録する",
+        <%= f.submit "登録する",
             class: "action-primary" %>
-
-      <%= link_to my_menus_path, class: "nav-back-button" do %>
-        ← 戻る
-      <% end %>
-    </div>
-
-  <% end %>
-
-  <%= turbo_frame_tag "modal" %>
-
-</div>
+        <%= link_to my_menus_path, class: "nav-back-button" do %>
+          ← 戻る
+        <% end %>
+      </div>
+    <% end %>
+    <%= turbo_frame_tag "modal" %>
+  </div>

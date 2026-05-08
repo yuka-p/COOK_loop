@@ -17,8 +17,8 @@ class HomeController < ApplicationController
     base_scope = current_user.my_menus.where.not(id: added_menu_ids)
 
     candidate_menus = base_scope
-                        .order(Arel.sql("COALESCE(last_cooked_at, '1970-01-01') ASC"))
-                       .limit(10)
+      .order(Arel.sql("COALESCE(last_cooked_at, '1970-01-01') ASC"))
+      .limit(10)
 
     @recommended_menus = candidate_menus.sample(3)
   end

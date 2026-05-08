@@ -1,89 +1,72 @@
 <% content_for :title, "使い方" %>
 <div class="max-w-4xl mx-auto px-3 sm:px-6 py-12 sm:py-20 space-y-14 sm:space-y-20 page-fade">
-
   <div class="bg-[#faf0e6] p-4 sm:p-6 rounded-3xl space-y-14 sm:space-y-20">
-   
     <!-- タイトル＋busy（横並び） -->
     <div class="grid gap-2 md:grid-cols-2 items-center fade-section delay-1">
-        <%= image_tag "busy.jpg",
+      <%= image_tag "busy.jpg",
           class: "w-64 mx-auto drop-shadow-sm mt-15 fade-child child-delay-1",
           alt: "忙しい毎日" %>
-
       <div class="space-y-2 text-left md:-ml-12 md:text-left text-center fade-child child-delay-2">
         <p class="text-gray-600 leading-relaxed">
           忙しい日々のなかで、毎日献立を考えるのは意外と大変。<br>
           でも家族のため、健康のために、<br class="hidden sm:block">
           できるだけ無理なく手作りを続けたい。
         </p>
-
         <p class="text-gray-600 leading-relaxed">
           普段からよく作っているメニューを効率よく回すことで、<br class="hidden sm:block">
           献立と調理の負担を軽くするためのアプリです。
         </p>
       </div>
     </div>
-
     <!-- マイメニュー登録（文章 → 画像） -->
     <div class="px-1 sm:px-4 md:px-8">
       <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
                   max-w-3xl mx-auto
                   grid gap-5 md:grid-cols-2 items-center fade-section delay-2">
-
         <div class="space-y-3 md:ml-12 fade-child child-delay-1">
           <h2 class="text-2xl font-semibold">🍳 マイメニュー登録</h2>
-
           <div class="space-y-4">
             <div>
               <h3 class="font-medium">・定番メニューから選択</h3>
               <p class="text-gray-600 leading-relaxed">
-                  作りたいメニューをまとめて選び、<br>
-                  一括で登録。<br>
+                作りたいメニューをまとめて選び、<br>
+                一括で登録。<br>
               </p>
             </div>
-
             <div>
               <h3 class="font-medium">・手入力で登録</h3>
               <p class="text-gray-600 leading-relaxed">
                 定番にない料理も、自由に登録。<br>
               </p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <%= image_tag "smartphone.jpg",
+        <%= image_tag "smartphone.jpg",
           class: "w-56 mx-auto fade-child child-delay-2",
           alt: "スマホ操作" %>
-
+      </div>
     </div>
-  </div>
-
     <!-- 献立作成（画像 → 文章） -->
-  <div class="px-4 md:px-8">
-    <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
+    <div class="px-4 md:px-8">
+      <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
             max-w-3xl mx-auto
             grid gap-5 md:grid-cols-2 items-center fade-section delay-3">
-
-  <!-- 画像（左） -->
-      <%= image_tag "cooking.jpg",
+        <!-- 画像（左） -->
+        <%= image_tag "cooking.jpg",
           class: "w-56 mx-auto fade-child child-delay-1",
           alt: "料理" %>
-
-  <!-- 文章（右） -->
+        <!-- 文章（右） -->
         <div class="space-y-3 fade-child child-delay-2">
           <h2 class="text-2xl font-semibold">📅 献立の作成</h2>
-
           <p class="text-gray-600 leading-relaxed">
             最近作っていないメニューを優先して表示。
           </p>
-
           <p class="text-gray-600 leading-relaxed">
-            献立にいれたいメニューを選びます。<br>    
+            献立にいれたいメニューを選びます。<br>
           </p>
         </div>
       </div>
     </div>
-
-
     <!-- チェック機能（文章 → 画像） -->
     <div class="px-4 md:px-8">
       <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10
@@ -91,23 +74,18 @@
             grid gap-5 md:grid-cols-2 items-center fade-section delay-4">
         <div class="space-y-3 md:ml-12 fade-child child-delay-1">
           <h2 class="text-2xl font-semibold">✅ 献立チェック機能</h2>
-
           <p class="text-gray-600 leading-relaxed">
             作成した献立は、ホーム画面に常に表示されます。
           </p>
-
           <p class="text-gray-600 leading-relaxed">
             作ったらチェックし、次回の提案に反映。
           </p>
         </div>
-
         <%= image_tag "family.png",
             class: "w-56 mx-auto fade-child child-delay-2",
             alt: "家族の食卓" %>
       </div>
     </div>
-
-
     <div class="bg-[#faf0e6] rounded-3xl p-12 text-center space-y-6">
       <%= link_to(
           user_signed_in? ? "ホームへ" : "使ってみる",
@@ -116,6 +94,5 @@
 
       ) %>
     </div>
-
   </div>
 </div>

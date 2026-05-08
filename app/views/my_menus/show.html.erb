@@ -1,29 +1,22 @@
 <% content_for :title, "マイメニュー詳細" %>
 <div class="max-w-2xl mx-auto mt-10 px-4 page-fade">
   <div class="bg-base-100 rounded-3xl shadow-xl p-6 sm:p-8">
-
-    <!-- タイトル -->
     <div class="mb-8">
       <div class="flex items-center gap-4 justify-center flex-wrap">
         <span class="badge badge-outline border-[#907abf] text-[#907abf]">
           <%= I18n.t("enums.my_menu.genre.#{@my_menu.genre}") %>
         </span>
-
         <h1 class="text-3xl font-bold tracking-wide">
           <%= @my_menu.title %>
         </h1>
       </div>
-
       <% if @my_menu.last_cooked_at.present? %>
         <p class="text-xs text-gray-500 text-center mt-2">
           最終調理日：<%= @my_menu.last_cooked_at.strftime("%Y/%m/%d") %>
         </p>
       <% end %>
     </div>
-
-    <!-- 本文 -->
     <div class="space-y-6 text-sm">
-
       <% if @my_menu.tags.any? %>
         <div class="flex gap-4 items-start">
           <p class="font-semibold whitespace-nowrap pt-1">タグ</p>
@@ -36,7 +29,6 @@
           </div>
         </div>
       <% end %>
-
       <% if @my_menu.ingredients.present? %>
         <div>
           <p class="font-semibold mb-2">材料</p>
@@ -45,11 +37,9 @@
           </div>
         </div>
       <% end %>
-
       <% if @my_menu.reference_url.present? %>
         <div class="flex gap-4 items-center">
           <p class="font-semibold whitespace-nowrap">参考URL</p>
-
           <% begin %>
             <% uri = URI.parse(@my_menu.reference_url) %>
             <% if uri.scheme.in?(%w[http https]) %>
@@ -63,12 +53,11 @@
             <% else %>
               <span class="text-gray-500 break-all"><%= h(@my_menu.reference_url) %></span>
             <% end %>
-          <% rescue URI::InvalidURIError %>
+            <% rescue URI::InvalidURIError %>
             <span class="text-gray-500 break-all"><%= h(@my_menu.reference_url) %></span>
           <% end %>
         </div>
       <% end %>
-
       <% if @my_menu.note.present? %>
         <div>
           <p class="font-semibold mb-2">メモ</p>
@@ -77,15 +66,11 @@
           </div>
         </div>
       <% end %>
-
     </div>
-
-    <!-- ボタン -->
     <div class="mt-10 flex justify-center gap-6">
       <%= link_to "編集",
             edit_my_menu_path(@my_menu),
             class: "action-primary px-8" %>
-
       <%= link_to "削除",
                 my_menu_path(@my_menu),
                 data: {
@@ -96,9 +81,8 @@
     </div>
   </div>
 </div>
-                
 <div class="mt-4 text-center">
-    <%= link_to my_menus_path, class: "nav-back-button" do %>
-      ← 戻る
-    <% end %>
+  <%= link_to my_menus_path, class: "nav-back-button" do %>
+    ← 戻る
+  <% end %>
 </div>

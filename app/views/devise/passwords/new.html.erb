@@ -3,17 +3,14 @@
     <h2 class="text-2xl font-bold text-center mb-4">
       パスワードをお忘れですか？
     </h2>
-
     <p class="text-sm text-center mb-6 text-gray-500">
       登録しているメールアドレスを入力してください。<br>
       パスワード再設定用のメールをお送りします。
     </p>
-
     <%= form_for(resource,
           as: resource_name,
           url: password_path(resource_name),
           html: { method: :post }) do |f| %>
-
       <div class="form-control mb-4">
         <%= f.label :email, "メールアドレス", class: "label" %>
         <%= f.email_field :email,
@@ -21,13 +18,11 @@
               autocomplete: "email",
               class: "input input-bordered w-full" %>
       </div>
-
       <div class="form-control mt-6">
         <%= f.submit "パスワード再設定メールを送信",
               class: "btn btn-primary w-full" %>
       </div>
     <% end %>
-
     <p class="mt-4 text-center text-sm">
       <%= link_to "ログイン画面に戻る",
             new_user_session_path,

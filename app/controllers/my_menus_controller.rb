@@ -12,22 +12,21 @@ class MyMenusController < ApplicationController
                       .distinct
                       .order(:name)
 
-  # includesは元のtagsだけでOKです
+
   @my_menus = current_user.my_menus.includes(:tags)
 
   if params[:keyword].present?
     keyword = "%#{params[:keyword]}%"
 
     if params[:include_ingredients] == "1"
-      # 同じテーブル内の「title」または「ingredients」カラムを検索
+
       @my_menus = @my_menus.where("title LIKE ? OR ingredients LIKE ?", keyword, keyword)
     else
-      # 従来通りタイトルのみ
+
       @my_menus = @my_menus.where("title LIKE ?", keyword)
     end
   end
 
-  # ...以下、ジャンル絞り込みやソートの処理...
   if @genre.present? && @genre != "all"
     @my_menus = @my_menus.by_genre(@genre)
   end
@@ -72,7 +71,6 @@ end
       else
         notice_message = "メニューを登録しました"
       end
-      # ------------------------------------
 
       redirect_to my_menus_path, notice: notice_message
     else
@@ -120,7 +118,6 @@ end
       return
     end
 
-    # 登録処理
     menus.each do |menu|
       current_user.my_menus.create(
         title: menu.title,

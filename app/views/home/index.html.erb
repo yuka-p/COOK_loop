@@ -12,38 +12,39 @@
         今日はどんな献立にしますか？ 📅
       </p>
     </div>
-  <% else %>
-    <div class="flex justify-between mb-6 max-w-md mx-auto">
+<% else %>
+    <div class="flex justify-between mb-4 sm:mb-6 max-w-md mx-auto">
       <button type="button" id="toggle-meal-plan"
-              class="btn btn-sm btn-outline ml-auto">
+              class="btn btn-xs sm:btn-sm btn-outline ml-auto">
         献立を非表示
       </button>
     </div>
     <div id="meal-plan-area" class="w-full home-section home-delay-1">
       <%= form_with url: bulk_update_meal_items_path, method: :patch, local: true do %>
         <div class="card bg-base-100 shadow-md rounded-2xl home-child child-1">
-          <div class="card-body px-3 py-4 sm:px-5 sm:py-6">
+          <!-- スマホでは内側の余白を少し詰め、文字を読みやすく調整 -->
+          <div class="card-body px-4 py-5 sm:px-5 sm:py-6">
             <% @meal_items
                .sort_by { |genre, _| MyMenu.genres[genre] }
                .each do |genre, items| %>
               <% next if items.blank? %>
-              <div class="mb-8">
-                <h3 class="text-sm font-semibold mb-3
+              <div class="mb-6 sm:mb-8">
+                <h3 class="text-xs sm:text-sm font-semibold mb-3
                         border-l-4
-                        px-4 py-1.5 rounded-md tracking-wide
+                        px-3 py-1 sm:px-4 sm:py-1.5 rounded-md tracking-wide
                         <%= genre_heading_class(genre) %>">
                   <%= MyMenu.genres_i18n[genre] %>
                 </h3>
                 <ul class="space-y-1">
                   <% items.each do |meal_item| %>
-                    <li class="flex items-center gap-3 px-3 py-2 rounded-lg
+                    <li class="flex items-center gap-2 sm:gap-3 px-2 py-1.5 sm:px-3 sm:py-2 rounded-lg
                                hover:bg-base-200 transition">
                       <%= check_box_tag "meal_item_ids[]",
-                                        meal_item.id,
-                                        false,
-                                        class: "checkbox check-pop" %>
-                      <div class="flex-1 text-sm">
-                        <p class="text-base">
+                                         meal_item.id,
+                                         false,
+                                         class: "checkbox checkbox-sm sm:checkbox-md check-pop" %>
+                      <div class="flex-1">
+                        <p class="text-sm sm:text-base">
                           <%= meal_item.my_menu.title %>
                         </p>
                       </div>
@@ -52,18 +53,16 @@
                 </ul>
               </div>
             <% end %>
-            <div class="flex justify-end gap-3 mt-6">
+            <div class="flex justify-end gap-2 sm:gap-3 mt-4 sm:mt-6">
               <%= button_tag "作成完了",
                 type: :submit,
-                name: "commit_action",
-                value: "mark_as_cooked",
-                class: "action-primary btn-pop"
+                class: "action-primary btn-sm sm:btn-md btn-pop"
               %>
-              <%= button_tag "リストから削除",
+              <%= button_tag "削除",
                     type: :submit,
                     name: "commit_action",
                     value: "remove_from_plan",
-                    class: "btn btn-outline btn-error" %>
+                    class: "btn btn-sm sm:btn-md btn-outline btn-error" %>
             </div>
           </div>
         </div>
@@ -71,65 +70,67 @@
     </div>
   <% end %>
   <!-- ▼ おすすめメニュー -->
-  <div class="max-w-md mx-auto mt-10 home-section home-delay-2">
+  <div class="max-w-md mx-auto mt-8 sm:mt-10 home-section home-delay-2">
     <% if @recommended_menus.present? %>
-      <div class="relative mb-6">
+      <div class="relative mb-4 sm:mb-6">
         <%= link_to root_path,
           class: "refresh-btn absolute right-0 top-1/2 -translate-y-1/2 z-10 inline-block
                   transition hover:scale-110 active:scale-95" do %>
-          <%= image_tag "refresh.png", class: "w-14 h-10" %>
+          <%= image_tag "refresh.png", class: "w-10 h-8 sm:w-14 sm:h-10" %>
         <% end %>
-        <div class="recommended-title">
+        <div class="recommended-title text-xs sm:text-sm">
           <p>RECOMMENDED MENU</p>
         </div>
       </div>
     </div>
     <div class="space-y-3 home-child child-1">
       <% @recommended_menus.each do |menu| %>
-        <div class="rounded-full shadow-sm mx-auto border-10 home-child child-2"
-             style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>; width: 300px;">
-          <div class="flex items-center py-2 px-3">
-            <span class="flex-1 text-center text-base font-semibold">
+        <div class="rounded-full shadow-sm mx-auto border-4 sm:border-8 home-child child-2
+                    w-full max-w-[260px] sm:max-w-[300px]"
+             style="background-color:#fffaf0; border-color:<%= genre_card_border_color(menu) %>;">
+          <div class="flex items-center py-1.5 px-4 sm:py-2 sm:px-3">
+            <span class="flex-1 text-center text-sm sm:text-base font-semibold truncate">
               <%= menu.title %>
             </span>
             <%= button_to "＋",
                   add_meal_item_my_menu_path(menu),
                   method: :post,
-                  class: "btn btn-sm btn-circle ml-3 shadow-none text-xl
-                          transition duration-200
-                          hover:opacity-70 hover:-translate-y-[1px]
-                          active:scale-95",
-                  style: "background-color:#ad9d8a; border:none; color:white;" %>
+                  class: "btn btn-xs sm:btn-sm btn-circle ml-2 shadow-none text-lg",
+                          style: "background-color:#ad9d8a; border:none; color:white;" %>
           </div>
         </div>
       <% end %>
     </div>
   <% end %>
 </div>
-<div class="flex justify-center gap-8 mt-10 relative home-section home-delay-3">
+<div class="flex justify-center gap-3 sm:gap-8 mt-10 relative home-section home-delay-3">
   <div class="home-child child-1">
     <%= link_to my_menus_path,
-        class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
-      <%= image_tag "my_menu.png", class: "w-20 h-20 object-contain" %>
-      <span class="text-sm font-semibold tracking-wide">
+        class: "round-action-card w-32 h-32 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
+      <%= image_tag "my_menu.png", class: "w-14 h-14 sm:w-20 sm:h-20 object-contain" %>
+      <span class="text-[12px] sm:text-sm font-semibold tracking-wide">
         マイメニュー
       </span>
     <% end %>
   </div>
+
   <div class="home-child child-2">
     <%= link_to new_meal_plan_path,
-        class: "round-action-card w-40 h-40 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
-      <%= image_tag "meal_plan.png", class: "w-20 h-20 object-contain" %>
-      <span class="text-sm font-semibold tracking-wide">
+        class: "round-action-card w-32 h-32 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
+      <%= image_tag "meal_plan.png", class: "w-14 h-14 sm:w-20 sm:h-20 object-contain" %>
+      <span class="text-[12px] sm:text-sm font-semibold tracking-wide">
         献立をつくる
       </span>
     <% end %>
   </div>
+
   <div class="home-child child-3">
-    <%= link_to recipes_path, class: "round-action-card w-36 h-36 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
-      <%= image_tag "search_recipe.png", class: "w-16 h-16 sm:w-20 sm:h-20 object-contain" %>
-      <span class="text-sm font-semibold tracking-wide">
-        レシピをさがす</span>
+    <%= link_to recipes_path, 
+        class: "round-action-card w-32 h-32 sm:w-44 sm:h-44 flex flex-col items-center justify-center gap-2" do %>
+      <%= image_tag "search_recipe.png", class: "w-14 h-14 sm:w-20 sm:h-20 object-contain" %>
+      <span class="text-[12px] sm:text-sm font-semibold tracking-wide">
+        レシピをさがす
+      </span>
     <% end %>
   </div>
 </div>

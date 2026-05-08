@@ -22,7 +22,6 @@
     <div id="meal-plan-area" class="w-full home-section home-delay-1">
       <%= form_with url: bulk_update_meal_items_path, method: :patch, local: true do %>
         <div class="card bg-base-100 shadow-md rounded-2xl home-child child-1">
-          <!-- スマホでは内側の余白を少し詰め、文字を読みやすく調整 -->
           <div class="card-body px-4 py-5 sm:px-5 sm:py-6">
             <% @meal_items
                .sort_by { |genre, _| MyMenu.genres[genre] }

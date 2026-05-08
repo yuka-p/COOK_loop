@@ -12,7 +12,7 @@ class HomeController < ApplicationController
                               .reject(&:cooked)
                               .group_by(&:genre)
 
-    added_menu_ids = @today_meal_plan.meal_items.pluck(:my_menu_id)
+    added_menu_ids = @meal_items.values.flatten.map(&:my_menu_id).uniq
 
     base_scope = current_user.my_menus.where.not(id: added_menu_ids)
 

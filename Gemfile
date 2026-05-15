@@ -17,7 +17,6 @@ gem "jbuilder"
 # --- 認証・便利機能 ---
 gem "devise"
 gem "devise-i18n"
-gem "acts_as_list"
 
 # --- API連携（楽天レシピAPI用） ---
 gem "faraday"

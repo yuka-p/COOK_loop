@@ -1,3 +1,4 @@
+# encoding: utf-8
 class MealItemsController < ApplicationController
   before_action :authenticate_user!
 
@@ -25,12 +26,10 @@ class MealItemsController < ApplicationController
       end
 
       redirect_to home_path, notice: "選択したメニューを作成完了にしました"
-
     when "remove_from_plan"
       meal_items.destroy_all
 
       redirect_to home_path, notice: "選択したメニューを献立から削除しました"
-
     else
       redirect_to home_path, alert: "不正な操作です"
     end

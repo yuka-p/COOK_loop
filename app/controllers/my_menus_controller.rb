@@ -1,43 +1,41 @@
+# encoding: utf-8
 class MyMenusController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_my_menu, only: [ :show, :destroy ]
+  before_action :set_my_menu, only: [:show, :edit, :update, :destroy]
 
   def index
-  @genre = params[:genre]
-  @sort  = params[:sort] || "created_desc"
+    @genre = params[:genre]
+    @sort = params[:sort] || "created_desc"
 
-  @tags = current_user.my_menus
-                      .joins(:tags)
-                      .select("tags.*")
-                      .distinct
-                      .order(:name)
+    @tags = current_user.my_menus
+                        .joins(:tags)
+                        .select("tags.*")
+                        .distinct
+                        .order(:name)
 
+    @my_menus = current_user.my_menus.includes(:tags)
 
-  @my_menus = current_user.my_menus.includes(:tags)
+    if params[:keyword].present?
+      keyword = "%#{params[:keyword]}%"
 
-  if params[:keyword].present?
-    keyword = "%#{params[:keyword]}%"
-
-    if params[:include_ingredients] == "1"
-
-      @my_menus = @my_menus.where("title LIKE ? OR ingredients LIKE ?", keyword, keyword)
-    else
-
-      @my_menus = @my_menus.where("title LIKE ?", keyword)
+      if params[:include_ingredients] == "1"
+        @my_menus = @my_menus.where("title LIKE ? OR ingredients LIKE ?", keyword, keyword)
+      else
+        @my_menus = @my_menus.where("title LIKE ?", keyword)
+      end
     end
-  end
 
-  if @genre.present? && @genre != "all"
-    @my_menus = @my_menus.by_genre(@genre)
-  end
+    if @genre.present? && @genre != "all"
+      @my_menus = @my_menus.by_genre(@genre)
+    end
 
-  if params[:tag_ids].present?
-    tag_ids = params[:tag_ids].split(",")
-    @my_menus = @my_menus.joins(:tags).where(tags: { id: tag_ids }).distinct
-  end
+    if params[:tag_ids].present?
+      tag_ids = params[:tag_ids].split(",")
+      @my_menus = @my_menus.joins(:tags).where(tags: { id: tag_ids }).distinct
+    end
 
-  @my_menus = @my_menus.sorted(@sort)
-end
+    @my_menus = @my_menus.sorted(@sort)
+  end
 
   def show
     @my_menu = MyMenu.find(params[:id])
@@ -52,7 +50,7 @@ end
       title: sanitize_text(params[:title]).truncate(17, omission: ""),
       reference_url: params[:reference_url],
       ingredients: sanitize_text(params[:ingredients]),
-      note: sanitize_text(params[:note])
+      note: sanitize_text(params[:note]),
     )
   end
 
@@ -64,7 +62,7 @@ end
         meal_plan = current_user.meal_plans.find_or_create_by!(date: Date.current)
         meal_plan.meal_items.create!(
           my_menu: @my_menu,
-          genre: @my_menu.genre
+          genre: @my_menu.genre,
         )
         @my_menu.update!(last_cooked_at: Time.current)
         notice_message = "マイメニューに登録し、本日の献立に追加しました！"
@@ -113,7 +111,7 @@ end
       render turbo_stream: turbo_stream.replace(
         "modal",
         partial: "my_menus/modal_confirm",
-        locals: { menus: menus }
+        locals: { menus: menus },
       )
       return
     end
@@ -122,7 +120,7 @@ end
       current_user.my_menus.create(
         title: menu.title,
         genre: menu.genre,
-        master_menu_id: menu.id
+        master_menu_id: menu.id,
       )
     end
 
@@ -139,7 +137,7 @@ end
 
     meal_plan.meal_items.create!(
       my_menu: menu,
-      genre: menu.genre
+      genre: menu.genre,
     )
 
     menu.update!(last_cooked_at: Time.current)

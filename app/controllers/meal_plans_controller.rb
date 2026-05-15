@@ -1,3 +1,4 @@
+# encoding: utf-8
 class MealPlansController < ApplicationController
   before_action :authenticate_user!
 
@@ -23,10 +24,10 @@ class MealPlansController < ApplicationController
                             .order(last_cooked_at: :desc)
 
     @tags = current_user.my_menus
-                    .joins(:tags)
-                    .select("tags.*")
-                    .distinct
-                    .order(:name)
+      .joins(:tags)
+      .select("tags.*")
+      .distinct
+      .order(:name)
   end
 
   def confirm
@@ -37,7 +38,7 @@ class MealPlansController < ApplicationController
 
     render turbo_stream: turbo_stream.replace(
       "modal",
-      partial: "meal_plans/confirm_modal"
+      partial: "meal_plans/confirm_modal",
     )
   end
 
@@ -55,17 +56,10 @@ class MealPlansController < ApplicationController
 
       @meal_plan.meal_items.create!(
         my_menu: menu,
-        genre: menu.genre
+        genre: menu.genre,
       )
     end
 
     redirect_to @meal_plan, notice: "献立を作成しました"
-  end
-
-
-  private
-
-  def meal_plan_params
-    params.require(:meal_plan).permit(:date)
   end
 end

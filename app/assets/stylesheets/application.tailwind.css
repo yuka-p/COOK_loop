@@ -29,7 +29,7 @@ body {
   background-color: #907abf;
   color: #ffffff;
   font-weight: 500;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   transition:
     transform 0.15s ease,
@@ -39,14 +39,13 @@ body {
 
 .action-outline {
   appearance: none;
-  background-color: #ffffff; /* 白背景でカードとの違いを明確に */
-  border: 2px solid #8f85a3;  /* しっかりとした紫の枠線 */
-  color: #4a4a4a;            /* 文字は落ち着いたチャコールグレー */
-  
-  /* .action-primary と完全にサイズを合わせる */
-  border-radius: 0.5rem; 
+  background-color: #ffffff;
+  border: 2px solid #8f85a3;
+  color: #4a4a4a;
+
+  border-radius: 0.5rem;
   padding: 0.65rem 1.4rem;
-  
+
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
@@ -57,21 +56,19 @@ body {
   transition: all 0.2s ease;
 }
 
-/* hover：枠線と同じ色で文字を光らせ、背景を少しだけ紫に */
 .action-outline:hover {
   background-color: #fcfaff;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(144, 122, 191, 0.15);
 }
 
-/* 押した瞬間 */
 .action-outline:active {
   transform: scale(0.96);
 }
 
 .action-primary:hover {
   opacity: 0.7;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.16);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
   transform: translateY(-1px);
 }
 
@@ -89,13 +86,13 @@ body {
   overflow: hidden;
   border-radius: 9999px;
   background: #fdfdfd;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .round-action-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
 .round-action-card img {
@@ -165,7 +162,7 @@ body {
 }
 
 .genre-filter-button {
-  box-shadow: 0 1px 2px rgba(0,0,0,0.08) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* =========================
@@ -180,6 +177,7 @@ body {
     opacity: 0;
     transform: translateY(8px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -214,6 +212,7 @@ body {
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -231,21 +230,39 @@ body {
 }
 
 /* セクション遅延（ブロック用） */
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.8s; }
-.delay-3 { animation-delay: 1.4s; }
-.delay-4 { animation-delay: 2.0s; }
-.delay-5 { animation-delay: 2.6s; }
+.delay-1 {
+  animation-delay: 0.2s;
+}
 
-/* 中身用（画像・文章） */
+.delay-2 {
+  animation-delay: 0.8s;
+}
+
+.delay-3 {
+  animation-delay: 1.4s;
+}
+
+.delay-4 {
+  animation-delay: 2.0s;
+}
+
+.delay-5 {
+  animation-delay: 2.6s;
+}
+
 .fade-child {
   opacity: 0;
   transform: translateY(25px);
   animation: childFade 1.2s ease-out forwards;
 }
 
-.child-delay-1 { animation-delay: 0.4s; }
-.child-delay-2 { animation-delay: 0.8s; }
+.child-delay-1 {
+  animation-delay: 0.4s;
+}
+
+.child-delay-2 {
+  animation-delay: 0.8s;
+}
 
 @keyframes sectionFade {
   to {
@@ -271,9 +288,17 @@ body {
   animation: homeFade 1s ease-out forwards;
 }
 
-.home-delay-1 { animation-delay: 0.2s; }
-.home-delay-2 { animation-delay: 0.7s; }
-.home-delay-3 { animation-delay: 1.2s; }
+.home-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.home-delay-2 {
+  animation-delay: 0.7s;
+}
+
+.home-delay-3 {
+  animation-delay: 1.2s;
+}
 
 @keyframes homeFade {
   to {
@@ -282,16 +307,23 @@ body {
   }
 }
 
-/* 中のカードを少し遅れて */
 .home-child {
   opacity: 0;
   transform: translateY(20px);
   animation: homeChildFade 0.9s ease-out forwards;
 }
 
-.child-1 { animation-delay: 0.4s; }
-.child-2 { animation-delay: 0.7s; }
-.child-3 { animation-delay: 1.0s; }
+.child-1 {
+  animation-delay: 0.4s;
+}
+
+.child-2 {
+  animation-delay: 0.7s;
+}
+
+.child-3 {
+  animation-delay: 1.0s;
+}
 
 @keyframes homeChildFade {
   to {
@@ -310,11 +342,21 @@ body {
   animation: pageFade 1s ease-out forwards;
 }
 
-/* 表示タイミング */
-.page-delay-1 { animation-delay: 0.2s; }
-.page-delay-2 { animation-delay: 0.8s; }
-.page-delay-3 { animation-delay: 1.4s; }
-.page-delay-4 { animation-delay: 2.0s; }
+.page-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.page-delay-2 {
+  animation-delay: 0.8s;
+}
+
+.page-delay-3 {
+  animation-delay: 1.4s;
+}
+
+.page-delay-4 {
+  animation-delay: 2.0s;
+}
 
 @keyframes pageFade {
   to {
@@ -333,9 +375,17 @@ body {
   animation: heroFade 1s ease forwards;
 }
 
-.hero-delay-1 { animation-delay: 0.3s; }
-.hero-delay-2 { animation-delay: 0.9s; }
-.hero-delay-3 { animation-delay: 1.5s; }
+.hero-delay-1 {
+  animation-delay: 0.3s;
+}
+
+.hero-delay-2 {
+  animation-delay: 0.9s;
+}
+
+.hero-delay-3 {
+  animation-delay: 1.5s;
+}
 
 @keyframes heroFade {
   to {
@@ -345,18 +395,31 @@ body {
 }
 
 @keyframes floatLogo {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .logo-float {
   animation: floatLogo 4s ease-in-out infinite;
 }
 
-/* ヘッダー用ゆらゆら（弱め） */
 @keyframes floatHeaderLogo {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); } /* 小さくするのがコツ */
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 .header-logo-float {
@@ -381,7 +444,6 @@ body {
   font-weight: 600;
 }
 
-/* ラインを文字の左右から出す */
 .recommended-title p::before,
 .recommended-title p::after {
   content: "";
@@ -391,15 +453,13 @@ body {
   background: #97b1b7;
 }
 
-/* 左ライン */
 .recommended-title p::before {
   right: 100%;
-  margin-right:0px;
+  margin-right: 0px;
   transform: translateY(-50%);
   width: 80px;
 }
 
-/* 右ライン */
 .recommended-title p::after {
   left: 100%;
   margin-left: 0px;
@@ -407,8 +467,6 @@ body {
   width: 50px;
 }
 
-/* 利用規約・プライバシー専用フォント */
 .legal-page {
   font-family: 'Zen Maru Gothic', sans-serif;
 }
-

@@ -36,7 +36,7 @@ document.addEventListener("turbo:load", () => {
   });
 
   /* ===== タグ（トグル） ===== */
-   tagButtons.forEach(btn => {
+  tagButtons.forEach(btn => {
     if (activeTags.has(btn.dataset.tagId)) {
       btn.classList.add("is-active");
     }

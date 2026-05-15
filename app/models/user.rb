@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :my_menus, dependent: :destroy
-  has_many :meal_plans
+  has_many :meal_plans, dependent: :destroy
 end

@@ -1,7 +1,8 @@
 # encoding: utf-8
+
 class MyMenusController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_my_menu, only: [:show, :edit, :update, :destroy]
+  before_action :set_my_menu, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @genre = params[:genre]

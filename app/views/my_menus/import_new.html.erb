@@ -70,8 +70,9 @@
       </div>
       <div class="form-control mb-6 px-1">
         <label class="label cursor-pointer justify-start gap-3">
-          <%= check_box_tag :add_to_meal_plan, "1", true, 
-                    class: "checkbox checkbox-sm rounded border-[#907abf] checked:bg-[#907abf] checked:border-[#907abf] text-white" %>
+          <%= hidden_field_tag :add_to_meal_plan, "0" %>
+          <%= check_box_tag :add_to_meal_plan, "1", params[:add_to_meal_plan] != "0", 
+          class: "checkbox checkbox-sm rounded border-[#907abf] checked:bg-[#907abf] checked:border-[#907abf] text-white" %>
           <span class="label-text font-normal" style="color: #8a7d6a;">
             そのまま献立リストにも追加する
           </span>

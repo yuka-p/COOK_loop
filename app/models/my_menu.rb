@@ -25,7 +25,7 @@ class MyMenu < ApplicationRecord
 
   # ▼ select 用（[[主菜, main], ...]）
   def self.genre_options
-    genres_i18n.map { |key, label| [label, key] }
+    genres_i18n.map { |key, label| [ label, key ] }
   end
 
   # ▼ ジャンル絞り込み

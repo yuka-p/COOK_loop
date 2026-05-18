@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class MyMenu < ApplicationRecord
   belongs_to :user
   belongs_to :master_menu, optional: true
@@ -23,28 +25,28 @@ class MyMenu < ApplicationRecord
 
   # ▼ select 用（[[主菜, main], ...]）
   def self.genre_options
-    genres_i18n.map { |key, label| [ label, key ] }
+    genres_i18n.map { |key, label| [label, key] }
   end
 
   # ▼ ジャンル絞り込み
   scope :by_genre, ->(genre) {
-    genres.key?(genre) ? where(genre: genre) : all
-  }
+          genres.key?(genre) ? where(genre: genre) : all
+        }
 
   # ▼ 並び替え
   scope :sorted, ->(sort) {
-    case sort
-    when "created_desc"
-      order(created_at: :desc)
-    when "last_cooked_desc"
-      # 直近で作っていない順
-      order(Arel.sql("last_cooked_at IS NOT NULL, COALESCE(last_cooked_at, created_at) ASC"))
-    when "title_asc"
-    order(title: :asc)
-    else
-      all
-    end
-  }
+          case sort
+          when "created_desc"
+            order(created_at: :desc)
+          when "last_cooked_desc"
+            # 直近で作っていない順
+            order(Arel.sql("last_cooked_at IS NOT NULL, COALESCE(last_cooked_at, created_at) ASC"))
+          when "title_asc"
+            order(title: :asc)
+          else
+            all
+          end
+        }
 
   # 複数タグを文字列で受け取る
   attr_accessor :tag_names
@@ -58,7 +60,6 @@ class MyMenu < ApplicationRecord
 
     names = tag_names.split(/[,、\s]+/).map(&:strip).reject(&:blank?)
 
-    # find_or_create_by で重複を避けつつタグを紐付け
     self.tags = names.map { |name| Tag.find_or_create_by(name:) }
   end
 end

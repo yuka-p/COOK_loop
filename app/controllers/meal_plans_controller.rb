@@ -17,6 +17,7 @@ class MealPlansController < ApplicationController
 
     added_menu_ids = current_user.meal_plans
                                  .joins(:meal_items)
+                                 .distinct
                                  .pluck("meal_items.my_menu_id")
 
     @my_menus = current_user.my_menus
@@ -33,6 +34,11 @@ class MealPlansController < ApplicationController
 
   def confirm
     menu_ids = params[:my_menu_ids]
+
+    if menu_ids.blank?
+      redirect_to meal_plans_path, alert: "メニューを選択してください"
+      return
+    end
 
     @selected_menus = current_user.my_menus.where(id: menu_ids)
     @meal_plan = current_user.meal_plans.new

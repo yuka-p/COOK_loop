@@ -1,4 +1,6 @@
 class MasterMenusController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     registered_ids = current_user.my_menus.where.not(master_menu_id: nil).pluck(:master_menu_id)
 

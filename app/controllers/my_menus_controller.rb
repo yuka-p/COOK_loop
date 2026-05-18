@@ -38,9 +38,7 @@ class MyMenusController < ApplicationController
     @my_menus = @my_menus.sorted(@sort)
   end
 
-  def show
-    @my_menu = MyMenu.find(params[:id])
-  end
+  def show; end
 
   def new
     @my_menu = MyMenu.new
@@ -81,12 +79,9 @@ class MyMenusController < ApplicationController
     end
   end
 
-  def edit
-    @my_menu = MyMenu.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @my_menu = MyMenu.find(params[:id])
     if @my_menu.update(my_menu_params)
       redirect_to @my_menu, notice: "マイメニューを更新しました"
     else
@@ -164,7 +159,7 @@ class MyMenusController < ApplicationController
       :reference_url,
       :last_cooked_at
     ).tap do |p|
-      p[:title] = sanitize_text(p[:title]).truncate(20, omission: "") if p[:title]
+      p[:title] = sanitize_text(p[:title]).truncate(17, omission: "") if p[:title]
       p[:ingredients] = sanitize_text(p[:ingredients]) if p[:ingredients]
       p[:note] = sanitize_text(p[:note]) if p[:note]
     end

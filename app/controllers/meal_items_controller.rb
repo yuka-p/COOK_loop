@@ -18,7 +18,6 @@ class MealItemsController < ApplicationController
     when "mark_as_cooked"
       ActiveRecord::Base.transaction do
         now = Time.current
-        today = Date.current
 
         meal_items.update_all(cooked: true, cooked_at: now)
 

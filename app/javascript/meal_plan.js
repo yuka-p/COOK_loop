@@ -6,7 +6,7 @@ document.addEventListener("turbo:load", () => {
   const genreButtons = root.querySelectorAll(".genre-filter-button");
   const tagButtons = root.querySelectorAll(".tag-filter-button");
   const menuItems = Array.from(root.querySelectorAll(".menu-item"));
-  const sortSelect = document.getElementById("sortSelect");
+  const sortSelects = document.querySelectorAll(".js-sort-select");
 
   let activeGenre = "all";
   const activeTags = new Set();
@@ -72,11 +72,11 @@ document.addEventListener("turbo:load", () => {
   });
 
   /* ===== 並び替え ===== */
-  function sortItems() {
-    if (!sortSelect) return;
+  function sortItems(selectedValue) { // 引数で選択された値を受け取るように変更
+    if (sortSelects.length === 0) return;
 
     const list = menuItems[0]?.parentNode;
-    const value = sortSelect.value;
+    const value = selectedValue || sortSelects[0].value; // 値の決定
 
     const sorted = [...menuItems].sort((a, b) => {
       switch (value) {
@@ -94,12 +94,15 @@ document.addEventListener("turbo:load", () => {
     sorted.forEach(el => list.appendChild(el));
   }
 
-  sortSelect?.addEventListener("change", sortItems);
-
-  if (sortSelect) {
-    sortSelect.value = "last_cooked_desc";
-    sortItems();
-  }
+  // すべての並び替えセレクトボックスにイベントを設定し、値を同期させる
+  sortSelects.forEach(select => {
+    select.addEventListener("change", (e) => {
+      const value = e.target.value;
+      // PC用・スマホ用両方のセレクトボックスの表示の値を合わせる
+      sortSelects.forEach(s => s.value = value);
+      sortItems(value);
+    });
+  });
 
   /* ===== フィルター ===== */
   function applyFilters() {
@@ -122,9 +125,9 @@ document.addEventListener("turbo:load", () => {
     btn.classList.toggle("btn-outline", btn.dataset.genre !== "all");
   });
 
-  if (sortSelect) {
-    sortSelect.value = "last_cooked_desc";
-    sortItems();
+  if (sortSelects.length > 0) {
+    sortSelects.forEach(s => s.value = "last_cooked_desc");
+    sortItems("last_cooked_desc");
   }
 
   applyFilters();

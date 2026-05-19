@@ -1,0 +1,10 @@
+<% if notice.present? %>
+  <div class="bg-[#5a906a] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
+    <%= notice %>
+  </div>
+<% end %>
+<% if alert.present? %>
+  <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
+    <%= alert %>
+  </div>
+<% end %>

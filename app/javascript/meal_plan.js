@@ -72,11 +72,11 @@ document.addEventListener("turbo:load", () => {
   });
 
   /* ===== 並び替え ===== */
-  function sortItems(selectedValue) { // 引数で選択された値を受け取るように変更
+  function sortItems(selectedValue) {
     if (sortSelects.length === 0) return;
 
     const list = menuItems[0]?.parentNode;
-    const value = selectedValue || sortSelects[0].value; // 値の決定
+    const value = selectedValue || sortSelects[0].value;
 
     const sorted = [...menuItems].sort((a, b) => {
       switch (value) {
@@ -94,11 +94,9 @@ document.addEventListener("turbo:load", () => {
     sorted.forEach(el => list.appendChild(el));
   }
 
-  // すべての並び替えセレクトボックスにイベントを設定し、値を同期させる
   sortSelects.forEach(select => {
     select.addEventListener("change", (e) => {
       const value = e.target.value;
-      // PC用・スマホ用両方のセレクトボックスの表示の値を合わせる
       sortSelects.forEach(s => s.value = value);
       sortItems(value);
     });

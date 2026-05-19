@@ -67,16 +67,9 @@
       </header>
     <% end %>
     <!-- Flash messages -->
-    <% if notice.present? %>
-      <div class="bg-[#5a906a] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
-        <%= notice %>
-      </div>
-    <% end %>
-    <% if alert.present? %>
-      <div class="bg-[#905a65] text-white max-w-xl mx-auto mt-4 px-4 py-3 rounded shadow-lg">
-        <%= alert %>
-      </div>
-    <% end %>
+    <div id="flash">
+      <%= render "shared/flash" %>
+    </div>
     <!-- Main content -->
     <main class="p-4">
       <%= yield %>
@@ -89,7 +82,7 @@
           <%= link_to "お問い合わせ", contact_path, class: "hover:underline" %>
         </div>
         <div class="opacity-70">
-          © 2026 COOK LOOP. All rights reserved.
+          © 2026 COOK loop. All rights reserved.
         </div>
       </div>
     </footer>

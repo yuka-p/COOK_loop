@@ -23,7 +23,7 @@ class MealPlansController < ApplicationController
     @my_menus = current_user.my_menus
                             .where.not(id: added_menu_ids)
                             .includes(:tags)
-                            .order(last_cooked_at: :desc)
+                            .order(Arel.sql("last_cooked_at IS NOT NULL, last_cooked_at ASC"))
 
     @tags = current_user.my_menus
       .joins(:tags)
@@ -36,7 +36,11 @@ class MealPlansController < ApplicationController
     menu_ids = params[:my_menu_ids]
 
     if menu_ids.blank?
-      redirect_to meal_plans_path, alert: "メニューを選択してください"
+      # 1. 画面遷移しないので flash.now を使う
+      flash.now[:alert] = "メニューを選択してください"
+
+      # 2. Turbo Streamで id="flash" の部分だけをピンポイントで書き換える
+      render turbo_stream: turbo_stream.replace("flash", partial: "shared/flash")
       return
     end
 
